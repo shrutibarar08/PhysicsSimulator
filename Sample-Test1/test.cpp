@@ -1,0 +1,39 @@
+#include "pch.h"
+#include "../Simulation Lab 1/Sphere.h"
+#include "../Simulation Lab 1/Vector3.h"
+
+TEST(SphereSphereCollision, NoIntersectionCentreAtOrigin) {
+    Sphere sphereA(Vector3(0, 0, 0), 1);
+    Sphere sphereB(Vector3(5, 0, 0), 1);
+    EXPECT_FALSE(sphereA.CollideWith(sphereB)) << "Spheres at (0,0,0) and (5,0,0) with radius 1 should not collide.";
+}
+
+TEST(SphereSphereCollision, NoIntersectionOffsetCentre) {
+    Sphere sphereA(Vector3(3, 3, 3), 2);
+    Sphere sphereB(Vector3(10, 10, 10), 2);
+    EXPECT_FALSE(sphereA.CollideWith(sphereB)) << "Spheres at (3,3,3) and (10,10,10) with radius 2 should not collide.";
+}
+
+TEST(SphereSphereCollision, OverlappingCentreAtOrigin) {
+    Sphere sphereA(Vector3(0, 0, 0), 2);
+    Sphere sphereB(Vector3(2, 0, 0), 2);
+    EXPECT_TRUE(sphereA.CollideWith(sphereB)) << "Spheres at (0,0,0) and (2,0,0) with radius 2 should overlap.";
+}
+
+TEST(SphereSphereCollision, OverlappingOffsetCentre) {
+    Sphere sphereA(Vector3(5, 5, 5), 3);
+    Sphere sphereB(Vector3(8, 5, 5), 3);
+    EXPECT_TRUE(sphereA.CollideWith(sphereB)) << "Spheres at (5,5,5) and (8,5,5) with radius 3 should overlap.";
+}
+
+TEST(SphereSphereCollision, FullyContainedCentreAtOrigin) {
+    Sphere sphereA(Vector3(0, 0, 0), 5);
+    Sphere sphereB(Vector3(1, 0, 0), 1);
+    EXPECT_TRUE(sphereA.CollideWith(sphereB)) << "A larger sphere fully containing a smaller one should collide.";
+}
+
+TEST(SphereSphereCollision, FullyContainedOffsetCentre) {
+    Sphere sphereA(Vector3(6, 6, 6), 5);
+    Sphere sphereB(Vector3(7, 6, 6), 2);
+    EXPECT_TRUE(sphereA.CollideWith(sphereB)) << "A larger sphere fully containing a smaller one should collide.";
+}
