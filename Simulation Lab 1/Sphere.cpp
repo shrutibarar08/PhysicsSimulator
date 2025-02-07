@@ -5,15 +5,16 @@
 Sphere::Sphere(const Vector3& center, float radius) : center(center), radius(radius) {}
 
 // Check collision with another sphere
-bool Sphere::CollideWith(const Sphere& other) const {
+bool Sphere::CollideWith(const Sphere& other) const{
     // Calculate the squared distance between centers
-    float distanceSquared = (center - other.center).LengthSquared();
+    //float distanceSquared = (center - other.center).LengthSquared();
 
     // Calculate the squared sum of radii
-    float radiiSum = radius + other.radius;
-    float radiiSumSquared = radiiSum * radiiSum;
+    float distanceSquared = (other.center - center).lengthSquared();
+    float radiusSum = radius + other.radius;
 
     // Check if the squared distance is less than or equal to squared radii sum
-    return distanceSquared <= radiiSumSquared;
+    //return distanceSquared <= radiiSumSquared;
+    return distanceSquared <= (radiusSum * radiusSum);
 }
 

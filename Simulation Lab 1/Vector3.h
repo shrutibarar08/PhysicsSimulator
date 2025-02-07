@@ -4,12 +4,19 @@ class Vector3 {
         float x, y, z;
 
         // Constructor
-        Vector3(float x = 0, float y = 0, float z = 0);
+        Vector3();
+        Vector3(float x, float y, float z);
+        float lengthSquared() const;
 
         // Vector subtraction
         Vector3 operator-(const Vector3& other) const;
+        Vector3 operator+(const Vector3& other) const;
+        Vector3 operator*(float scalar) const;
+        float dot(const Vector3& other) const;
+        float length() const;
+        Vector3 normalize() const;
 
-        // Calculate length squared
-        float LengthSquared() const;
+        // Print
+        void print() const;
 };
 
