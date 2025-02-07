@@ -38,43 +38,92 @@
 //    Sphere sphereB(Vector3(7, 6, 6), 2);
 //    EXPECT_TRUE(sphereA.CollideWith(sphereB)) << "A larger sphere fully containing a smaller one should collide.";
 //}
-TEST(PointLineDistance, ClosestPoint) {
-    Line line(Vector3(0, 0, 0), Vector3(1, 1, 1));
-    Vector3 point(2, 3, 4);
+//........................................................................
+//TEST(PointLineDistance, ClosestPoint) {
+//    Line line(Vector3(0, 0, 0), Vector3(1, 1, 1));
+//    Vector3 point(2, 3, 4);
+//
+//    float expectedDistance = std::sqrt(2);
+//    float actualDistance = line.closestDistance(point);
+//
+//    std::cout << "Test: ClosestPoint\n";
+//    std::cout << "Expected: " << expectedDistance << ", Actual: " << actualDistance << "\n";
+//
+//    EXPECT_NEAR(line.closestDistance(point), expectedDistance, 0.01);
+//}
+//
+//TEST(PointLineDistance, PointOnLine) {
+//    Line line(Vector3(0, 0, 0), Vector3(1, 2, 3));
+//    Vector3 point(3, 6, 9);
+//
+//    float expectedDistance = 0.0f;
+//    float actualDistance = line.closestDistance(point);
+//
+//    std::cout << "Test: PointOnLine\n";
+//    std::cout << "Expected: " << expectedDistance << ", Actual: " << actualDistance << "\n";
+//
+//    EXPECT_NEAR(line.closestDistance(point), 0.0f, 0.01);
+//}
+//
+//TEST(PointLineDistance, VerticalCase) {
+//    Line line(Vector3(2, 0, 0), Vector3(0, 1, 0));
+//    Vector3 point(4, 5, 3);
+//
+//    float expectedDistance = 3.61;
+//    float actualDistance = line.closestDistance(point);
+//    std::cout << "Test: VerticalCase\n";
+//    std::cout << "Expected: " << expectedDistance << ", Actual: " << actualDistance << "\n";
+//    EXPECT_NEAR(line.closestDistance(point), expectedDistance, 0.01);
+//}
+//........................................................................
 
-    float expectedDistance = std::sqrt(2);
-    float actualDistance = line.closestDistance(point);
+TEST(SphereLineIntersection, NoIntersection) {
+    Line line(Vector3(5, 5, 5), Vector3(1, 0, 0));
+    Sphere sphere(Vector3(0, 0, 0), 3);
+    bool expected = false;
+    bool actual = sphere.intersects(line);
 
-    std::cout << "Test: ClosestPoint\n";
-    std::cout << "Expected: " << expectedDistance << ", Actual: " << actualDistance << "\n";
-
-    EXPECT_NEAR(line.closestDistance(point), expectedDistance, 0.01);
+    std::cout << "Test: NoIntersection\n";
+    std::cout << "Expected: " << (expected ? "true" : "false")
+        << ", Actual: " << (actual ? "true" : "false") << "\n";
+    EXPECT_FALSE(sphere.intersects(line));
 }
 
-TEST(PointLineDistance, PointOnLine) {
-    Line line(Vector3(0, 0, 0), Vector3(1, 2, 3));
-    Vector3 point(3, 6, 9);
+TEST(SphereLineIntersection, PassesThroughSphere) {
+    Line line(Vector3(10, 0, 0), Vector3(-1, 0, 0));
+    Sphere sphere(Vector3(10, 0, 0), 5);
+    bool expected = true;
+    bool actual = sphere.intersects(line);
 
-    float expectedDistance = 0.0f;
-    float actualDistance = line.closestDistance(point);
-
-    std::cout << "Test: PointOnLine\n";
-    std::cout << "Expected: " << expectedDistance << ", Actual: " << actualDistance << "\n";
-
-    EXPECT_NEAR(line.closestDistance(point), 0.0f, 0.01);
+    std::cout << "Test: PassesThroughSphere\n";
+    std::cout << "Expected: " << (expected ? "true" : "false")
+        << ", Actual: " << (actual ? "true" : "false") << "\n";
+    EXPECT_TRUE(sphere.intersects(line));
 }
 
-TEST(PointLineDistance, VerticalCase) {
-    Line line(Vector3(2, 0, 0), Vector3(0, 1, 0));
-    Vector3 point(4, 5, 3);
+TEST(SphereLineIntersection, LineStartsInsideSphere) {
+    Line line(Vector3(3, 2, 2), Vector3(1, 0, 0));
+    Sphere sphere(Vector3(2, 2, 2), 5);
+    bool expected = true;
+    bool actual = sphere.intersects(line);
 
-    float expectedDistance = 3.61;
-    float actualDistance = line.closestDistance(point);
-    std::cout << "Test: VerticalCase\n";
-    std::cout << "Expected: " << expectedDistance << ", Actual: " << actualDistance << "\n";
-    EXPECT_NEAR(line.closestDistance(point), expectedDistance, 0.01);
+    std::cout << "Test: LineStartsInsideSphere\n";
+    std::cout << "Expected: " << (expected ? "true" : "false")
+        << ", Actual: " << (actual ? "true" : "false") << "\n";
+    EXPECT_TRUE(sphere.intersects(line));
 }
 
+TEST(SphereLineIntersection, LinePassesThroughCenter) {
+    Line line(Vector3(-5, 0, 0), Vector3(1, 0, 0));
+    Sphere sphere(Vector3(0, 0, 0), 3);
+    bool expected = true;
+    bool actual = sphere.intersects(line);
+
+    std::cout << "Test: LinePassesThroughCenter\n";
+    std::cout << "Expected: " << (expected ? "true" : "false")
+        << ", Actual: " << (actual ? "true" : "false") << "\n";
+    EXPECT_TRUE(sphere.intersects(line));
+}
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

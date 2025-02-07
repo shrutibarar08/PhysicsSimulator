@@ -34,6 +34,7 @@ float Vector3::dot(const Vector3& other) const {
     return x * other.x + y * other.y + z * other.z;
 }
 
+
 // Length (magnitude)
 float Vector3::length() const {
     return std::sqrt(x * x + y * y + z * z);
