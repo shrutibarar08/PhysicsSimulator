@@ -42,13 +42,24 @@ TEST(PointLineDistance, ClosestPoint) {
     Line line(Vector3(0, 0, 0), Vector3(1, 1, 1));
     Vector3 point(2, 3, 4);
 
-    float expectedDistance = std::sqrt(2); // ≈ 1.41
+    float expectedDistance = std::sqrt(2);
+    float actualDistance = line.closestDistance(point);
+
+    std::cout << "Test: ClosestPoint\n";
+    std::cout << "Expected: " << expectedDistance << ", Actual: " << actualDistance << "\n";
+
     EXPECT_NEAR(line.closestDistance(point), expectedDistance, 0.01);
 }
 
 TEST(PointLineDistance, PointOnLine) {
     Line line(Vector3(0, 0, 0), Vector3(1, 2, 3));
     Vector3 point(3, 6, 9);
+
+    float expectedDistance = 0.0f;
+    float actualDistance = line.closestDistance(point);
+
+    std::cout << "Test: PointOnLine\n";
+    std::cout << "Expected: " << expectedDistance << ", Actual: " << actualDistance << "\n";
 
     EXPECT_NEAR(line.closestDistance(point), 0.0f, 0.01);
 }
@@ -58,6 +69,9 @@ TEST(PointLineDistance, VerticalCase) {
     Vector3 point(4, 5, 3);
 
     float expectedDistance = 3.61;
+    float actualDistance = line.closestDistance(point);
+    std::cout << "Test: VerticalCase\n";
+    std::cout << "Expected: " << expectedDistance << ", Actual: " << actualDistance << "\n";
     EXPECT_NEAR(line.closestDistance(point), expectedDistance, 0.01);
 }
 
