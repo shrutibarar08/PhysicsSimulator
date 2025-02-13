@@ -3,6 +3,7 @@
 #include "../Simulation Lab 1/Vector3.h"
 #include "../Simulation Lab 1/Line.h"
 #include "../Simulation Lab 1/Plane.h"
+#include <gtest/gtest.h>
 
 //TEST(SphereSphereCollision, NoIntersectionCentreAtOrigin) {
 //    Sphere sphereA(Vector3(0, 0, 0), 1);
@@ -130,43 +131,104 @@
 //    return RUN_ALL_TESTS();
 //}
 //........................................................................
-TEST(PointPlaneDistance, PointAbovePlane) {
+//TEST(PointPlaneDistance, PointAbovePlane) {
+//    Plane plane(Vector3(0, 0, 0), Vector3(0, 0, 1));
+//    Vector3 point(2, 3, 5);
+//
+//    float expected = 5.0;
+//    float actual = plane.closestDistance(point);
+//
+//    std::cout << "Test: PointAbovePlane\n";
+//    std::cout << "Expected: " << expected << ", Actual: " << actual << "\n";
+//
+//    EXPECT_NEAR(actual, expected, 0.01);
+//}
+//
+//TEST(PointPlaneDistance, PointBelowPlane) {
+//    Plane plane(Vector3(0, 0, 0), Vector3(0, 0, 1));
+//    Vector3 point(2, 3, -4);
+//
+//    float expected = 4.0;
+//    float actual = plane.closestDistance(point);
+//
+//    std::cout << "Test: PointBelowPlane\n";
+//    std::cout << "Expected: " << expected << ", Actual: " << actual << "\n";
+//
+//    EXPECT_NEAR(actual, expected, 0.01);
+//}
+//
+//TEST(PointPlaneDistance, PointOnPlane) {
+//    Plane plane(Vector3(1, 1, 1), Vector3(1, 1, 1).normalize());
+//    Vector3 point(0, 2, 1);
+//
+//    float expected = 0.0;
+//    float actual = plane.closestDistance(point);
+//
+//    std::cout << "Test: PointOnPlane\n";
+//    std::cout << "Expected: " << expected << ", Actual: " << actual << "\n";
+//
+//    EXPECT_NEAR(actual, expected, 0.01);
+//}
+//
+//int main(int argc, char** argv) {
+//    ::testing::InitGoogleTest(&argc, argv);
+//    return RUN_ALL_TESTS();
+//}
+//........................................................................
+TEST(SpherePlaneCollision, SphereAbovePlane_NoCollision) {
     Plane plane(Vector3(0, 0, 0), Vector3(0, 0, 1));
-    Vector3 point(2, 3, 5);
+    Sphere sphere(Vector3(0, 0, 5), 3);
 
-    float expected = 5.0;
-    float actual = plane.closestDistance(point);
+    bool expected = false;
+    bool actual = sphere.planeIntersects(plane);
 
-    std::cout << "Test: PointAbovePlane\n";
-    std::cout << "Expected: " << expected << ", Actual: " << actual << "\n";
+    std::cout << "Test: SphereAbovePlane_NoCollision\n";
+    std::cout << "Expected: " << (expected ? "true" : "false")
+        << ", Actual: " << (actual ? "true" : "false") << "\n";
 
-    EXPECT_NEAR(actual, expected, 0.01);
+    EXPECT_EQ(actual, expected);
 }
 
-TEST(PointPlaneDistance, PointBelowPlane) {
+TEST(SpherePlaneCollision, SphereTouchesPlane) {
     Plane plane(Vector3(0, 0, 0), Vector3(0, 0, 1));
-    Vector3 point(2, 3, -4);
+    Sphere sphere(Vector3(0, 0, 3), 3);
 
-    float expected = 4.0;
-    float actual = plane.closestDistance(point);
+    bool expected = true;
+    bool actual = sphere.planeIntersects(plane);
 
-    std::cout << "Test: PointBelowPlane\n";
-    std::cout << "Expected: " << expected << ", Actual: " << actual << "\n";
+    std::cout << "Test: SphereTouchesPlane\n";
+    std::cout << "Expected: " << (expected ? "true" : "false")
+        << ", Actual: " << (actual ? "true" : "false") << "\n";
 
-    EXPECT_NEAR(actual, expected, 0.01);
+    EXPECT_EQ(actual, expected);
 }
 
-TEST(PointPlaneDistance, PointOnPlane) {
-    Plane plane(Vector3(1, 1, 1), Vector3(1, 1, 1).normalize());
-    Vector3 point(0, 2, 1);
+TEST(SpherePlaneCollision, SphereIntersectsPlane) {
+    Plane plane(Vector3(0, 0, 0), Vector3(0, 0, 1));
+    Sphere sphere(Vector3(0, 0, 2), 3);
 
-    float expected = 0.0;
-    float actual = plane.closestDistance(point);
+    bool expected = true;
+    bool actual = sphere.planeIntersects(plane);
 
-    std::cout << "Test: PointOnPlane\n";
-    std::cout << "Expected: " << expected << ", Actual: " << actual << "\n";
+    std::cout << "Test: SphereIntersectsPlane\n";
+    std::cout << "Expected: " << (expected ? "true" : "false")
+        << ", Actual: " << (actual ? "true" : "false") << "\n";
 
-    EXPECT_NEAR(actual, expected, 0.01);
+    EXPECT_EQ(actual, expected);
+}
+
+TEST(SpherePlaneCollision, SphereLiesOnPlane) {
+    Plane plane(Vector3(0, 0, 0), Vector3(0, 0, 1));
+    Sphere sphere(Vector3(0, 0, 0), 3);
+
+    bool expected = true;
+    bool actual = sphere.planeIntersects(plane);
+
+    std::cout << "Test: SphereLiesOnPlane\n";
+    std::cout << "Expected: " << (expected ? "true" : "false")
+        << ", Actual: " << (actual ? "true" : "false") << "\n";
+
+    EXPECT_EQ(actual, expected);
 }
 
 int main(int argc, char** argv) {

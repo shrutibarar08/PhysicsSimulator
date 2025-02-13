@@ -4,10 +4,16 @@
 // Constructor
 Sphere::Sphere(const Vector3& center, float radius) : center(center), radius(radius) {}
 
-bool Sphere::intersects(const Line& line) const
+bool Sphere::planeIntersects(const Plane& plane) const
 {
-    float distance = line.closestDistance(center);
-    return distance <= radius;;
+    float distance = plane.closestDistance(center);
+    return distance <= radius;
+}
+
+bool Sphere::planeIntersects(const Plane& plane) const
+{
+    float distance = plane.closestDistance(center); 
+    return distance <= radius;
 }
 
 // Check collision with another sphere

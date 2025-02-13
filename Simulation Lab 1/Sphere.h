@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector3.h"
 #include "Line.h"
+#include "Plane.h"
 
 class Sphere {
 public:
@@ -14,7 +15,8 @@ public:
     //bool CollideWith(const Sphere& other) const;
 
 	//to check if a line intersects with the sphere
-    bool intersects(const Line& line) const;
+    //bool intersects(const Line& line) const;
+    bool planeIntersects(const Plane& plane) const;
 };
 
 
