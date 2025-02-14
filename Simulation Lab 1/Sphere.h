@@ -12,7 +12,7 @@ public:
     Sphere(const Vector3& center, float radius);
 
     // Method to check collision with another sphere
-    //bool CollideWith(const Sphere& other) const;
+    bool CollideWith(const Sphere& other) const;
 
 	//to check if a line intersects with the sphere
     //bool intersects(const Line& line) const;

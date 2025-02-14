@@ -16,7 +16,3 @@ bool Plane::planeintersects(const Sphere& sphere) const {
     float distance = closestDistance(sphere.center);
     return distance <= sphere.radius;
 }
-
-
-
-
