@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <memory>
 #include <string>
+#include <optional>
 
 class WindowSystem {
 public:
@@ -9,7 +10,7 @@ public:
     static WindowSystem* Get();
     HWND GetHandleWindow() const;
     HINSTANCE GetInstance() const;
-    bool ProcessMessage();
+    static std::optional<int> ProcessMessage();
     std::string GetWindowName() const;
 
     ~WindowSystem();
@@ -19,7 +20,10 @@ private:
     
 
     void InitClassWindow();
-    static LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
+    static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) noexcept;
+    static LRESULT CALLBACK HandleMsgThunk(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) noexcept;
+    LRESULT HandleMsg(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) noexcept;
 
     static std::unique_ptr<WindowSystem> instance; 
 

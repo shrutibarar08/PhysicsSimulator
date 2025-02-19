@@ -39,13 +39,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int) {
     renderAPI.InitViewport(800, 600);
 
     MSG msg = {};
-    while (msg.message != WM_QUIT) {
-        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+    while (true) {
+        if (WindowsSy)
+        {
+	        
         }
+        
         else {
-            float clearColor[4] = { 0.2f, 0.4f, 0.6f, 1.0f }; // Dark blue
+            float clearColor[4] = { 1.0, 0.7529, 0.7961 }; // Dark blue
             renderAPI.PreDraw(clearColor);
             renderAPI.Draw();
             renderAPI.PostDraw();

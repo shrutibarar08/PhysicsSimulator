@@ -1,6 +1,6 @@
 #include "RenderAPI.h"
 
-RenderAPI::RenderAPI() {}
+RenderAPI::RenderAPI() = default;
 
 RenderAPI::~RenderAPI() {
     if (d3d11DeviceContext) {
@@ -17,6 +17,7 @@ void RenderAPI::InitDeviceAndSwapChain(HWND hwnd, int width, int height) {
     swapChainDesc.BufferDesc.RefreshRate.Numerator = 60;
     swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
     swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+
     swapChainDesc.OutputWindow = hwnd;
     swapChainDesc.SampleDesc.Count = 1;
     swapChainDesc.SampleDesc.Quality = 0;
@@ -71,7 +72,7 @@ void RenderAPI::InitRenderTarget() {
 }
 
 void RenderAPI::InitViewport(int width, int height) {
-    D3D11_VIEWPORT viewport = {};
+    D3D11_VIEWPORT viewport;
     viewport.Width = static_cast<FLOAT>(width);
     viewport.Height = static_cast<FLOAT>(height);
     viewport.MinDepth = 0.0f;
