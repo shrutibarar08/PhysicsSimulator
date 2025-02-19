@@ -3,56 +3,64 @@
 #include <stdexcept>
 #include <string>
 
-std::unique_ptr<WindowSystem> WindowSystem::instance = nullptr;
-const wchar_t WindowSystem::CLASS_NAME[] = L"DXWindowClass_UniqueID";
-
-void WindowSystem::Init(HINSTANCE hInstance, int width, int height, const char* title) {
-    if (!instance) {
-        instance = std::unique_ptr<WindowSystem>(new WindowSystem(hInstance, width, height, title));
+void WindowSystem::Init(HINSTANCE hInstance, int width, int height, const std::wstring& title)
+{
+    if (!m_instance)
+    {
+        m_instance = std::unique_ptr<WindowSystem>(new WindowSystem(hInstance, width, height, title));
     }
 }
+
 WindowSystem* WindowSystem::Get()
 {
-    return instance.get();
+    return m_instance.get();
 }
 
-WindowSystem::WindowSystem(HINSTANCE hInstance, int width, int height, const char* title)
-    : mhInstance(hInstance), windowName(title) {
-    InitClassWindow();
+WindowSystem::WindowSystem(HINSTANCE hInstance, int width, int height, const std::wstring& title)
+    : mhInstance(hInstance), mWindowName(title)
+{
+    WNDCLASSEX wc{};
+    wc.cbClsExtra = 0;
+    wc.cbWndExtra = 0;
+    wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
+    wc.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
+    wc.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
+    wc.hbrBackground = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
+    wc.lpszMenuName = nullptr;
+    wc.style = CS_HREDRAW | CS_VREDRAW;
+    wc.cbSize = sizeof(WNDCLASSEX);
+    wc.lpfnWndProc = HandleMsgSetup;
+    wc.hInstance = mhInstance;
+    wc.lpszClassName = mClassName.c_str();
 
-    std::wstring windowTitle(windowName.begin(), windowName.end());
+    if (!RegisterClassEx(&wc))
+    {
+        DWORD error = GetLastError();
+        throw std::runtime_error("Failed to register window class. Error code: " + std::to_string(error));
+    }
+
+    std::wstring windowTitle(mWindowName.begin(), mWindowName.end());
     mHandleWindow = CreateWindowEx(
-        0, CLASS_NAME, windowTitle.c_str(), WS_OVERLAPPEDWINDOW,
+        0, mClassName.c_str(), windowTitle.c_str(), WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, CW_USEDEFAULT, width, height,
         nullptr, nullptr, mhInstance, nullptr
     );
 
-    if (!mHandleWindow) {
+    if (!mHandleWindow)
+    {
         throw std::runtime_error("Failed to create window");
     }
 
     ShowWindow(mHandleWindow, SW_SHOW);
 }
 
-WindowSystem::~WindowSystem(){
+WindowSystem::~WindowSystem()
+{
     if (mHandleWindow && IsWindow(mHandleWindow))
     {
         DestroyWindow(mHandleWindow);
     }
-    UnregisterClass(CLASS_NAME, mhInstance);
-}
-
-void WindowSystem::InitClassWindow()
-{
-    WNDCLASSEX wc = {};
-    wc.cbSize = sizeof(WNDCLASSEX);
-    wc.lpfnWndProc = HandleMsgSetup;
-    wc.hInstance = mhInstance;
-    wc.lpszClassName = CLASS_NAME;
-
-    if (!RegisterClassEx(&wc)) {
-        throw std::runtime_error("Failed to register window class");
-    }
+    UnregisterClass(mClassName.c_str(), mhInstance);
 }
 
 std::optional<int> WindowSystem::ProcessMessage()
@@ -70,16 +78,33 @@ std::optional<int> WindowSystem::ProcessMessage()
     return {};
 }
 
-HWND WindowSystem::GetHandleWindow() const {
+int WindowSystem::GetHeight()
+{
+    RECT rt;
+    GetClientRect(m_instance->GetHandleWindow(), &rt);
+    return rt.bottom - rt.top;
+}
+
+int WindowSystem::GetWidth()
+{
+    RECT rt;
+    GetClientRect(m_instance->GetHandleWindow(), &rt);
+    return rt.right - rt.left;
+}
+
+HWND WindowSystem::GetHandleWindow() const
+{
     return mHandleWindow;
 }
 
-HINSTANCE WindowSystem::GetInstance() const {
+HINSTANCE WindowSystem::GetInstance() const
+{
     return mhInstance;
 }
 
-std::string WindowSystem::GetWindowName() const {
-    return windowName;
+std::string WindowSystem::GetWindowName() const
+{
+    return std::string(mWindowName.begin(), mWindowName.end());
 }
 
 LRESULT WindowSystem::HandleMsgSetup(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) noexcept

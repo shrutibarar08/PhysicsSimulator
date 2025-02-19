@@ -1,57 +1,29 @@
-#include <windows.h>
+#include "WindowSystem.h"
 #include "RenderAPI.h"
 
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-    if (uMsg == WM_DESTROY) {
-        PostQuitMessage(0);
-        return 0;
-    }
-    return DefWindowProc(hwnd, uMsg, wParam, lParam);
-}
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
+{
+    try
+    {
+        UNREFERENCED_PARAMETER(hPrevInstance);
+        WindowSystem::Init(hInstance, 1270, 720,L"Simulation Sand Box");
+        RenderAPI::Init();
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int) {
-    const wchar_t CLASS_NAME[] = L"SampleWindowClass";
-
-    WNDCLASS wc = {};
-    wc.lpfnWndProc = WindowProc;
-    wc.hInstance = hInstance;
-    wc.lpszClassName = CLASS_NAME;
-
-    RegisterClass(&wc);
-
-    HWND hwnd = CreateWindowEx(
-        0,
-        CLASS_NAME,
-        L"Direct3D 11 - Clear Screen",
-        WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT, 800, 600,
-        nullptr,
-        nullptr,
-        hInstance,
-        nullptr
-    );
-
-    ShowWindow(hwnd, SW_SHOW);
-
-    RenderAPI renderAPI;
-    renderAPI.InitDeviceAndSwapChain(hwnd, 800, 600);
-    renderAPI.InitRenderTarget();
-    renderAPI.InitViewport(800, 600);
-
-    MSG msg = {};
-    while (true) {
-        if (WindowsSy)
+        while (true)
         {
-	        
-        }
-        
-        else {
-            float clearColor[4] = { 1.0, 0.7529, 0.7961 }; // Dark blue
-            renderAPI.PreDraw(clearColor);
-            renderAPI.Draw();
-            renderAPI.PostDraw();
+            if (std::optional<int> code = WindowSystem::ProcessMessage(); code.has_value())
+            {
+                return code.value();
+            }
+            RenderAPI::Render();
         }
     }
+    catch (std::exception& error)
+    {
+        std::string msg = error.what();
+        std::wstring errorMsg = std::wstring(msg.begin(), msg.end());
+        MessageBox(nullptr, errorMsg.c_str(), L"Error Found", MB_ICONERROR);
 
-    return 0;
+    	return E_FAIL;
+    }
 }

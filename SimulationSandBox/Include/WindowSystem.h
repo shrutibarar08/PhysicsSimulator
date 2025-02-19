@@ -4,32 +4,34 @@
 #include <string>
 #include <optional>
 
-class WindowSystem {
+class WindowSystem
+{
 public:
-    static void Init(HINSTANCE hInstance, int width, int height, const char* title);
+    static void Init(HINSTANCE hInstance, int width, int height, const std::wstring& title);
     static WindowSystem* Get();
-    HWND GetHandleWindow() const;
-    HINSTANCE GetInstance() const;
     static std::optional<int> ProcessMessage();
+
+    static int GetHeight();
+    static int GetWidth();
+
+	HWND GetHandleWindow() const;
+    HINSTANCE GetInstance() const;
     std::string GetWindowName() const;
 
     ~WindowSystem();
 
 private:
-    WindowSystem(HINSTANCE hInstance, int width, int height, const char* title);
-    
-
-    void InitClassWindow();
+    WindowSystem(HINSTANCE hInstance, int width, int height, const std::wstring& title);
 
     static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) noexcept;
     static LRESULT CALLBACK HandleMsgThunk(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) noexcept;
     LRESULT HandleMsg(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) noexcept;
 
-    static std::unique_ptr<WindowSystem> instance; 
+private:
+    HWND mHandleWindow;
+    HINSTANCE mhInstance;
+    std::wstring mWindowName;
 
-    HWND mHandleWindow = nullptr;
-    HINSTANCE mhInstance = nullptr;
-    std::string windowName;
-
-    static const wchar_t CLASS_NAME[];
+    std::wstring mClassName{L"WindowManagerClass"};
+    inline static std::unique_ptr<WindowSystem> m_instance = nullptr;
 };
