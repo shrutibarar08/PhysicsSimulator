@@ -12,9 +12,11 @@ public:
     bool ProcessMessage();
     std::string GetWindowName() const;
 
+    ~WindowSystem();
+
 private:
     WindowSystem(HINSTANCE hInstance, int width, int height, const char* title);
-    ~WindowSystem();
+    
 
     void InitClassWindow();
     static LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
