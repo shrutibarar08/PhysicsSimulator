@@ -1,29 +1,24 @@
-#include "WindowSystem.h"
-#include "RenderAPI.h"
+﻿#include "ApplicationAPI/ApplicationManager.h"
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
+#include <iostream>
+#include <cstdio>
+
+void EnableTerminal()
 {
-    try
+    // Allocate a new console if none exists
+    if (AllocConsole())
     {
-        UNREFERENCED_PARAMETER(hPrevInstance);
-        WindowSystem::Init(hInstance, 1270, 720,L"Simulation Sand Box");
-        RenderAPI::Init();
-
-        while (true)
-        {
-            if (std::optional<int> code = WindowSystem::ProcessMessage(); code.has_value())
-            {
-                return code.value();
-            }
-            RenderAPI::Render();
-        }
+        FILE* fp;
+        freopen_s(&fp, "CONOUT$", "w", stdout);  // Redirect standard output
+        freopen_s(&fp, "CONOUT$", "w", stderr);  // Redirect standard error
+        freopen_s(&fp, "CONIN$", "r", stdin);    // Redirect standard input
     }
-    catch (std::exception& error)
-    {
-        std::string msg = error.what();
-        std::wstring errorMsg = std::wstring(msg.begin(), msg.end());
-        MessageBox(nullptr, errorMsg.c_str(), L"Error Found", MB_ICONERROR);
+}
 
-    	return E_FAIL;
-    }
+
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+{
+    EnableTerminal();
+    ApplicationManager app{ L"Test Application", 1280, 720 };
+    return app.Update();
 }
