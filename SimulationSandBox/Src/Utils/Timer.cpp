@@ -91,7 +91,7 @@ void Timer::Tick()
 	}
 }
 
-void Timer::RecordingExecute()
+void Timer::RecordingExecute(float deltaTime)
 {
 	Tick();
 }

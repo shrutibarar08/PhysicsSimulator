@@ -113,7 +113,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_BABYIA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Src;$(ProjectDir)Externals</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Src;$(ProjectDir)Externals;$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -141,6 +141,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Core\ILightInterface.cpp" />
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\ConeObject.cpp" />
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\DodecahedronObject.cpp" />
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\HyperboloidObject.cpp" />
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\OctahedronObject.cpp" />
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\CylinderObject.cpp" />
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\PyramidObject.cpp" />
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\PrismObject.cpp" />
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\SphereObject.cpp" />
+    <ClCompile Include="Src\RenderAPI\Light\PointLight.cpp" />
+    <ClCompile Include="Src\RenderAPI\Light\DirectionalLight.cpp" />
+    <ClCompile Include="Src\RenderAPI\Shapes\ObjectManager.cpp" />
+    <ClCompile Include="Src\WindowsAPI\MouseComponent.cpp" />
+    <ClCompile Include="Src\WindowsAPI\KeyboardComponent.cpp" />
+    <ClCompile Include="Src\Core\IEntityInterface.cpp" />
+    <ClCompile Include="Src\RenderAPI\Light\LightManager.cpp" />
+    <ClCompile Include="Src\RenderAPI\Light\SpotLight.cpp" />
+    <ClCompile Include="Src\RenderAPI\CameraComponent.cpp" />
     <ClCompile Include="Externals\imgui\imgui.cpp" />
     <ClCompile Include="Externals\imgui\imgui_demo.cpp" />
     <ClCompile Include="Externals\imgui\imgui_draw.cpp" />
@@ -148,18 +166,31 @@
     <ClCompile Include="Externals\imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="Externals\imgui\imgui_tables.cpp" />
     <ClCompile Include="Externals\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="Src\Core\IScenarioBase.cpp" />
-    <ClCompile Include="Src\Scenarios\PlaneScenario.cpp" />
+    <ClCompile Include="Src\GuiAPI\GUIManager.cpp" />
+    <ClCompile Include="Src\Scenarios\ScenarioManager.cpp" />
+    <ClCompile Include="Src\Core\Scenario.cpp" />
     <ClCompile Include="Src\Core\IObjectInterface.cpp" />
-    <ClCompile Include="Src\Shapes\CubeObject.cpp" />
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\CubeObject.cpp" />
     <ClCompile Include="Src\ApplicationAPI\ApplicationManager.cpp" />
     <ClCompile Include="Src\Core\FrameUpdateManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Src\RenderAPI\RenderManager.cpp" />
     <ClCompile Include="Src\WindowsAPI\WindowsManager.cpp" />
     <ClCompile Include="Src\Utils\Timer.cpp" />
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\TorusObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\ConeObject.h" />
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\DodecahedronObject.h" />
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\HyperboloidObject.h" />
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\CylinderObject.h" />
+    <ClInclude Include="Include\Core\RegistryManager\RegistryLight.h" />
+    <ClInclude Include="Include\RenderAPI\Light\DefineLight.h" />
+    <ClInclude Include="Include\RenderAPI\Light\DirectionalLight.h" />
+    <ClInclude Include="Include\Core\Interface\IEntityInterface.h" />
+    <ClInclude Include="Include\Core\Interface\ILightInterface.h" />
+    <ClInclude Include="Include\Core\Interface\IStateInterface.h" />
+    <ClInclude Include="Include\RenderAPI\CameraComponent.h" />
     <ClInclude Include="Externals\imgui\imconfig.h" />
     <ClInclude Include="Externals\imgui\imgui.h" />
     <ClInclude Include="Externals\imgui\imgui_impl_dx11.h" />
@@ -168,27 +199,44 @@
     <ClInclude Include="Externals\imgui\imstb_rectpack.h" />
     <ClInclude Include="Externals\imgui\imstb_textedit.h" />
     <ClInclude Include="Externals\imgui\imstb_truetype.h" />
-    <ClInclude Include="Include\Core\IScenarioBase.h" />
-    <ClInclude Include="Include\Core\RenderDefine.h" />
+    <ClInclude Include="Include\Core\RegistryManager\RegistryShape.h" />
+    <ClInclude Include="Include\GuiAPI\GUIManager.h" />
+    <ClInclude Include="Include\GuiAPI\IUIElement.h" />
+    <ClInclude Include="Include\Scenarios\Scenario.h" />
+    <ClInclude Include="Include\RenderAPI\DefineRender.h" />
     <ClInclude Include="Include\RenderAPI\RenderQueue.h" />
-    <ClInclude Include="Include\Shapes\CubeObject.h" />
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\CubeObject.h" />
     <ClInclude Include="Include\ApplicationAPI\ApplicationManager.h" />
-    <ClInclude Include="Include\Core\FrameUpdateManager.h" />
-    <ClInclude Include="Include\Core\IObjectInterface.h" />
-    <ClInclude Include="Include\Core\ISubsystemInterface.h" />
-    <ClInclude Include="Include\Core\IFrame.h" />
-    <ClInclude Include="Include\Core\SubsystemManager.h" />
-    <ClInclude Include="Include\Info\ErrorCodes.h" />
+    <ClInclude Include="Include\Core\SystemManager\FrameUpdateManager.h" />
+    <ClInclude Include="Include\Core\Interface\IObjectInterface.h" />
+    <ClInclude Include="Include\Core\Interface\ISubsystemInterface.h" />
+    <ClInclude Include="Include\Core\Interface\IFrame.h" />
+    <ClInclude Include="Include\Core\SystemManager\SubsystemManager.h" />
+    <ClInclude Include="Include\RenderAPI\Shapes\DefineShape.h" />
+    <ClInclude Include="Include\WindowsAPI\WindowsHelper.h" />
     <ClInclude Include="Include\WindowsAPI\WindowsManager.h" />
     <ClInclude Include="Include\RenderAPI\RenderManager.h" />
     <ClInclude Include="Include\Utils\Timer.h" />
-    <ClInclude Include="Include\Scenarios\PlaneScenario.h" />
+    <ClInclude Include="Include\Scenarios\ScenarioManager.h" />
+    <ClInclude Include="Include\RenderAPI\Light\LightManager.h" />
+    <ClInclude Include="Include\WindowsAPI\KeyboardComponent.h" />
+    <ClInclude Include="Include\WindowsAPI\MouseComponent.h" />
+    <ClInclude Include="Include\RenderAPI\Shapes\ObjectManager.h" />
+    <ClInclude Include="Include\RenderAPI\Light\PointLight.h" />
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\PrismObject.h" />
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\PyramidObject.h" />
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\OctahedronObject.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Include\RenderAPI\Light\SpotLight.h" />
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\SphereObject.h" />
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\TorusObject.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Include\Info\ErrorCodes.def" />
+    <None Include="Data\saved_scenarios.json" />
+    <None Include="packages.config" />
     <None Include="Shaders\SimplePixelShader.cso" />
     <None Include="Shaders\SimpleVertexShader.cso" />
-    <None Include="To-Do.md" />
+    <None Include="Readme.md" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Code\SimplePixelShader.hlsl">
@@ -212,7 +260,25 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)Shaders/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SimulationSandBox.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Data\textures\test_texture.jpg" />
+    <Image Include="naruto_48.ico" />
+    <Image Include="naruto_icon.ico" />
+    <Image Include="physics_icon.ico" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\ImpulFox\packages\nlohmann.json.3.11.3\build\native\nlohmann.json.targets" Condition="Exists('..\ImpulFox\packages\nlohmann.json.3.11.3\build\native\nlohmann.json.targets')" />
+    <Import Project="..\ImpulFox\packages\directxtk_uwp.2024.10.29.1\build\native\directxtk_uwp.targets" Condition="Exists('..\ImpulFox\packages\directxtk_uwp.2024.10.29.1\build\native\directxtk_uwp.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\ImpulFox\packages\nlohmann.json.3.11.3\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\ImpulFox\packages\nlohmann.json.3.11.3\build\native\nlohmann.json.targets'))" />
+    <Error Condition="!Exists('..\ImpulFox\packages\directxtk_uwp.2024.10.29.1\build\native\directxtk_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\ImpulFox\packages\directxtk_uwp.2024.10.29.1\build\native\directxtk_uwp.targets'))" />
+  </Target>
 </Project>

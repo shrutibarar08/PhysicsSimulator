@@ -1,8 +1,7 @@
 #pragma once
 
-#include "Core/IFrame.h"
-#include "Core/ISubsystemInterface.h"
-
+#include "Core/Interface/IFrame.h"
+#include "Core/Interface/ISubsystemInterface.h"
 
 class Timer final: public ISubsystemInterface, public IFrameInterface
 {
@@ -18,7 +17,7 @@ public:
 	void Stop(); // Call when pause
 
 	void RecordingSetup() override;
-	void RecordingExecute() override;
+	void RecordingExecute(float deltaTime) override;
 
 private:
 	void Reset(); // before message loop

@@ -1,10 +1,13 @@
 #include "WindowsAPI/WindowsManager.h"
-#include "Info/ErrorCodes.h"
+#include "WindowsAPI/KeyboardComponent.h"
+#include "WindowsAPI/MouseComponent.h"
+#include "resource.h"
 
 
 WindowsManager::WindowsManager(const std::wstring& windowName, unsigned int width, unsigned int height)
 	: mhInstance(GetModuleHandle(nullptr)), mHandleWindow(nullptr), mWindowName(windowName), mWidth(width), mHeight(height)
-{}
+{
+}
 
 WindowsManager::~WindowsManager()
 {
@@ -17,9 +20,9 @@ void WindowsManager::Initialize()
 	wnd.cbClsExtra = 0;
 	wnd.cbSize = sizeof(wnd);
 	wnd.cbWndExtra = 0;
-	wnd.hCursor = LoadCursor(nullptr, IDC_ARROW);
-	wnd.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
-	wnd.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
+	wnd.hCursor = LoadCursor(mhInstance, IDC_ARROW);
+	wnd.hIcon = LoadIcon(mhInstance, MAKEINTRESOURCE(IDI_ICON3));
+	wnd.hIconSm = LoadIcon(mhInstance, MAKEINTRESOURCE(IDI_ICON3));
 	wnd.hInstance = mhInstance;
 	wnd.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 	wnd.lpfnWndProc = HandleMsgSetup;
@@ -27,23 +30,29 @@ void WindowsManager::Initialize()
 	wnd.lpszMenuName = nullptr;
 	wnd.style = CS_HREDRAW | CS_VREDRAW;
 
-	if (!RegisterClassEx(&wnd)) {
+	if (!RegisterClassEx(&wnd))
+	{
 		MessageBox(nullptr, L"Failed to register window class!", L"Error", MB_ICONERROR | MB_OK);
 		return;
 	}
+
+	RECT rect = { 0, 0, (LONG)mWidth, (LONG)mHeight };
+	AdjustWindowRect(&rect, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, FALSE);
 
 	mHandleWindow = CreateWindowEx(
 		0,             
 		L"WindowsManager",
 		GetWindowName().c_str(),
 		WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,
-		CW_USEDEFAULT, CW_USEDEFAULT,
-		mWidth, mHeight,
+		0, 0,
+		rect.right - rect.left,
+		rect.bottom - rect.top,
 		nullptr, nullptr,
 		mhInstance, nullptr
 	);
 
-	if (!mHandleWindow) {
+	if (!mHandleWindow)
+	{
 		MessageBox(nullptr, L"Failed to create window!", L"Error", MB_ICONERROR);
 		return;
 	}
@@ -52,6 +61,7 @@ void WindowsManager::Initialize()
 	UpdateWindow(GetHandleWindow());
 
 	ImGui_ImplWin32_Init(mHandleWindow);
+	MouseComponent::SetWindowHandle(mHandleWindow);
 }
 
 std::optional<int> WindowsManager::ProcessMessages() noexcept
@@ -100,6 +110,21 @@ unsigned int WindowsManager::GetHeight() const
 	return mHeight;
 }
 
+void WindowsManager::EnableFreelook()
+{
+	ShowCursor(FALSE);
+	RECT rect;
+	GetClientRect(mHandleWindow, &rect);
+	MapWindowPoints(mHandleWindow, nullptr, (LPPOINT)&rect, 2);
+	ClipCursor(&rect);
+}
+
+void WindowsManager::DisableFreelook()
+{
+	ShowCursor(TRUE);
+	ClipCursor(nullptr);
+}
+
 LRESULT WindowsManager::HandleMsgSetup(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) noexcept
 {
 	if (message == WM_NCCREATE)
@@ -124,6 +149,9 @@ LRESULT WindowsManager::HandleMsg(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 {
 	if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
 		return true;
+
+	KeyboardComponent::HandleWindowMessage(message, wParam);
+	MouseComponent::HandleWindowMessage(message, wParam, lParam);
 
 	switch (message)
 	{

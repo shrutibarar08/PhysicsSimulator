@@ -1,6 +1,6 @@
 ﻿#include "RenderAPI/RenderManager.h"
 
-#include "Core/SubsystemManager.h"
+#include "Core/SystemManager/SubsystemManager.h"
 #include "WindowsAPI/WindowsManager.h"
 
 #include <stdexcept>
@@ -9,6 +9,7 @@
 
 #include "RenderAPI/RenderQueue.h"
 #include "imgui/imgui_impl_dx11.h"
+#include "GuiAPI/GUIManager.h"
 
 
 RenderManager::~RenderManager()
@@ -30,38 +31,21 @@ void RenderManager::Shutdown()
 void RenderManager::RecordingSetup()
 {
 	IFrameInterface::RecordingSetup();
-
-	mWorldPosition.World = DirectX::XMMatrixIdentity();
-	// Initialize the view matrix
-	DirectX::XMVECTOR Eye = DirectX::XMVectorSet(0.0f, 1.0f, -5.0f, 0.0f);
-	DirectX::XMVECTOR At = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-	DirectX::XMVECTOR Up = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-	mWorldPosition.View = DirectX::XMMatrixLookAtLH(Eye, At, Up);
-	// Initialize the projection matrix
-	mWorldPosition.Projection = DirectX::XMMatrixPerspectiveFovLH(DirectX::XM_PIDIV2,
-		SubsystemManager::Get<WindowsManager>()->GetWidth() /
-		static_cast<float>(SubsystemManager::Get<WindowsManager>()->GetHeight()),
-		0.01f, 500.0f);
 }
 
 void RenderManager::RecordingBegin()
 {
-	const float color[]{ 0.5f, 0.7f, 0.1f, 1.0f };
-	md3dDeviceContext->ClearRenderTargetView(mRenderTargetView.Get(), color);
+	md3dDeviceContext->ClearRenderTargetView(mRenderTargetView.Get(), mColor);
 	md3dDeviceContext->ClearDepthStencilView(mDepthStencilView.Get(),
 		D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0u);
 }
 
-void RenderManager::RecordingExecute()
+void RenderManager::RecordingExecute(float deltaTime)
 {
-	// RENDER LOGIC
-	mWorldPosition.World = DirectX::XMMatrixIdentity();
-
 	//~ Setup for render
-	SubsystemManager::Get<RenderQueue>()->UpdateAllConstantBuffer(mWorldPosition);
 	SubsystemManager::Get<RenderQueue>()->RenderObjects(md3dDeviceContext.Get());
 
-	//~ Setup ImGui Render
+	//~ Setup ImGui Simulation
 	ImGui_ImplDX11_NewFrame();
 	ImGui::NewFrame();
 }
@@ -116,11 +100,11 @@ void RenderManager::BuildInputLayout(const std::wstring& VertBlobPath,
 	pBlob->Release();
 }
 
-void RenderManager::BuildVertexBuffer(const std::vector<Render::Vertex>& vertices, Microsoft::WRL::ComPtr<ID3D11Buffer>& pBuffer) const
+void RenderManager::BuildVertexBuffer(const std::vector<Simulation::Vertex>& vertices, Microsoft::WRL::ComPtr<ID3D11Buffer>& pBuffer) const
 {
 	D3D11_BUFFER_DESC ds{};
 	ds.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	ds.ByteWidth = static_cast<UINT>(vertices.size() * sizeof(Render::Vertex));
+	ds.ByteWidth = static_cast<UINT>(vertices.size() * sizeof(Simulation::Vertex));
 	ds.CPUAccessFlags = 0;
 	ds.Usage = D3D11_USAGE_DEFAULT;
 
@@ -150,7 +134,7 @@ void RenderManager::BuildConstantBuffer(Microsoft::WRL::ComPtr<ID3D11Buffer>& pB
 {
 	D3D11_BUFFER_DESC ds{};
 	ds.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	ds.ByteWidth = sizeof(Render::WorldSpace);
+	ds.ByteWidth = sizeof(Simulation::WorldSpace);
 	ds.CPUAccessFlags = 0;
 	ds.Usage = D3D11_USAGE_DEFAULT;
 
@@ -165,6 +149,24 @@ void RenderManager::BuildRasterizerState(const D3D11_RASTERIZER_DESC* pRasterize
 	{
 		throw std::runtime_error("Failed to Create Raster State!");
 	}
+}
+
+void RenderManager::SetBackgroundColor(float color[])
+{
+	for (int i = 0; i < 4; i++)
+	{
+		mColor[i] = color[i];
+	}
+}
+
+ID3D11Device* RenderManager::GetDevice() const
+{
+	return md3dDevice.Get();
+}
+
+ID3D11DeviceContext* RenderManager::GetDeviceContext() const
+{
+	return md3dDeviceContext.Get();
 }
 
 void RenderManager::InitDeviceAndSwapChain()
@@ -253,6 +255,21 @@ void RenderManager::InitRenderTargetAndDepthStencil()
 		MessageBox(nullptr, L"Failed To Create DSV", L"Error", MB_ICONERROR);
 		throw std::runtime_error("Failed to create depth stencil view.");
 	}
+
+	D3D11_DEPTH_STENCIL_DESC dsDesc{};
+	dsDesc.DepthEnable = TRUE;
+	dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
+
+	dsDesc.StencilEnable = FALSE;  // Change to TRUE if using stencil
+	hr = md3dDevice->CreateDepthStencilState(&dsDesc, &mDepthStencilState);
+
+	if (FAILED(hr))
+	{
+		MessageBox(nullptr, L"Failed To Create DSS", L"Error", MB_ICONERROR);
+		throw std::runtime_error("Failed to create depth stencil state.");
+	}
+	md3dDeviceContext->OMSetDepthStencilState(mDepthStencilState.Get(), 0);
 
 	// Bind RTV and DSV to output merger (OM) stage
 	md3dDeviceContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());

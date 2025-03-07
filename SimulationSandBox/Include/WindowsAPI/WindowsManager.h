@@ -1,6 +1,8 @@
 #pragma once
 
-#include "Core/ISubsystemInterface.h"
+#include <memory>
+
+#include "Core/Interface/ISubsystemInterface.h"
 
 #include <Windows.h>
 #include <string>
@@ -27,6 +29,9 @@ public:
 	[[nodiscard]] std::wstring GetWindowName() const;
 	[[nodiscard]] unsigned int GetWidth() const;
 	[[nodiscard]] unsigned int GetHeight() const;
+
+	void EnableFreelook();
+	void DisableFreelook();
 
 private:
 	static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) noexcept;

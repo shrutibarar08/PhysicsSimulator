@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include "Core/RenderDefine.h"
-#include "Core/ISubsystemInterface.h"
-#include "Core/IObjectInterface.h"
+#include "DefineRender.h"
+#include "Core/Interface/ISubsystemInterface.h"
+#include "Core/Interface/IEntityInterface.h"
 
 #include <unordered_map>
 
@@ -15,17 +15,17 @@ public:
 	void Initialize() override {}
 	void Shutdown() override {}
 
-	static void RegisterObject(IObjectInterface* object)
+	static void RegisterObject(IEntityInterface* object)
 	{
-		if (object->IsAssignID()) return;
+		if (object == nullptr || object->IsAssignID()) return;
 
 		mCounter++;
 		object->SetAssignID(mCounter);
 		mObjects[mCounter] = object;
-		mObjects[mCounter]->InitObject();
+		mObjects[mCounter]->SetupObject();
 	}
 
-	static void UnRegisterObject(IObjectInterface* object)
+	static void UnRegisterObject(IEntityInterface* object)
 	{
 		if (!object->IsAssignID()) return;
 
@@ -40,23 +40,22 @@ public:
 			if (object.second != nullptr)
 			{
 				object.second->RenderObject(pDeviceContext);
-				pDeviceContext->DrawIndexed(object.second->GetIndexCounts(), 0u, 0u);
 			}
 		}
 	}
 
-	static void UpdateAllConstantBuffer(const Render::WorldSpace& space)
+	static void UpdateAllConstantBuffer(const Simulation::WorldSpace& space)
 	{
 		for (auto& object : mObjects)
 		{
 			if (object.second != nullptr)
 			{
-				object.second->UpdateSpace(space);
+				object.second->UpdateBuffer(space);
 			}
 		}
 	}
 
 private:
-	inline static std::unordered_map<int, IObjectInterface*> mObjects;
+	inline static std::unordered_map<int, IEntityInterface*> mObjects;
 	inline static int mCounter = 0;
 };

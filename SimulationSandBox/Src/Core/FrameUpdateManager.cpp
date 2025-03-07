@@ -1,4 +1,4 @@
-#include "Core/FrameUpdateManager.h"
+#include "Core/SystemManager/FrameUpdateManager.h"
 
 
 void FrameUpdateManager::ScheduleCallback(IFrameInterface* subsystem)
@@ -33,10 +33,10 @@ void FrameUpdateManager::RecordEnd()
 	}
 }
 
-void FrameUpdateManager::RecordExecute()
+void FrameUpdateManager::RecordExecute(float deltaTime)
 {
 	for (auto i : mSubsystemWithFrames)
 	{
-		i.first->RecordingExecute();
+		i.first->RecordingExecute(deltaTime);
 	}
 }

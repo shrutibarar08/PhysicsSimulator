@@ -33,16 +33,13 @@
     <ClCompile Include="Src\Utils\Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Shapes\CubeObject.cpp">
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\CubeObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\IObjectInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\IScenarioBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Scenarios\PlaneScenario.cpp">
+    <ClCompile Include="Src\Core\Scenario.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Externals\imgui\imgui.cpp">
@@ -66,12 +63,75 @@
     <ClCompile Include="Externals\imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Scenarios\ScenarioManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GuiAPI\GUIManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderAPI\CameraComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderAPI\Light\SpotLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderAPI\Light\LightManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\IEntityInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\WindowsAPI\KeyboardComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\WindowsAPI\MouseComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderAPI\Shapes\ObjectManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderAPI\Light\DirectionalLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderAPI\Light\PointLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\SphereObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\PrismObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\PyramidObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\CylinderObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\OctahedronObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\DodecahedronObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\ConeObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\TorusObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderAPI\Shapes\Object\HyperboloidObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\ILightInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Core\ISubsystemInterface.h">
+    <ClInclude Include="Include\Core\Interface\ISubsystemInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Core\SubsystemManager.h">
+    <ClInclude Include="Include\Core\SystemManager\SubsystemManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\WindowsAPI\WindowsManager.h">
@@ -80,37 +140,31 @@
     <ClInclude Include="Include\RenderAPI\RenderManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Core\IFrame.h">
+    <ClInclude Include="Include\Core\Interface\IFrame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Core\FrameUpdateManager.h">
+    <ClInclude Include="Include\Core\SystemManager\FrameUpdateManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\ApplicationAPI\ApplicationManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Info\ErrorCodes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Utils\Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Core\IObjectInterface.h">
+    <ClInclude Include="Include\Core\Interface\IObjectInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Shapes\CubeObject.h">
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\CubeObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Core\RenderDefine.h">
+    <ClInclude Include="Include\RenderAPI\DefineRender.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\RenderAPI\RenderQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Core\IScenarioBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Scenarios\PlaneScenario.h">
+    <ClInclude Include="Include\Scenarios\Scenario.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Externals\imgui\imconfig.h">
@@ -137,17 +191,122 @@
     <ClInclude Include="Externals\imgui\imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Scenarios\ScenarioManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GuiAPI\GUIManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Core\RegistryManager\RegistryShape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderAPI\Shapes\DefineShape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GuiAPI\IUIElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderAPI\CameraComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Core\Interface\ILightInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderAPI\Light\SpotLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderAPI\Light\LightManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Core\Interface\IEntityInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\WindowsAPI\KeyboardComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\WindowsAPI\MouseComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderAPI\Shapes\ObjectManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Core\Interface\IStateInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderAPI\Light\DirectionalLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderAPI\Light\PointLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Core\RegistryManager\RegistryLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderAPI\Light\DefineLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\WindowsAPI\WindowsHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\SphereObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\PrismObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\PyramidObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\CylinderObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\OctahedronObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\DodecahedronObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\ConeObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\TorusObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderAPI\Shapes\Object\HyperboloidObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Include\Info\ErrorCodes.def">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="To-Do.md" />
+    <None Include="Readme.md" />
     <None Include="Shaders\SimplePixelShader.cso" />
     <None Include="Shaders\SimpleVertexShader.cso" />
+    <None Include="packages.config" />
+    <None Include="Data\saved_scenarios.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Code\SimpleVertexShader.hlsl" />
     <FxCompile Include="Shaders\Code\SimplePixelShader.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SimulationSandBox.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="naruto_icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="physics_icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="naruto_48.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Data\textures\test_texture.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

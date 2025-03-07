@@ -1,4 +1,5 @@
 ﻿#include "ApplicationAPI/ApplicationManager.h"
+#include <windows.h>
 
 #include <iostream>
 #include <cstdio>
@@ -20,5 +21,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
     EnableTerminal();
     ApplicationManager app{ L"Test Application", 1280, 720 };
-    return app.Update();
+    
+    return app.Update();;
 }
+
