@@ -60,7 +60,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>C:\Users\shruti\source\repos\Simulation Lab 1\Simulation Lab 1\Include;C:\Users\shruti\source\repos\Simulation Lab 1\Simulation Lab 1\Src;C:\Users\shruti\source\repos\Simulation Lab 1\Simulation Lab 1</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SimulationLibrary\Include;$(SolutionDir)\SimulationLibrary\Src;$(SolutionDir)\SimulationLibrary</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -115,11 +115,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Simulation Lab 1\Simulation Lab 1.vcxproj">
-      <Project>{42e8094b-194e-407a-a1fa-3eb89e73ccc4}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
