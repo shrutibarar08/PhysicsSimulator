@@ -11,6 +11,9 @@ public:
 	ApplicationManager(const std::wstring& AppName, int width, int height);
 	virtual ~ApplicationManager() = default;
 
+	void Execute();
+
+private:
 	int Update();
 };
 

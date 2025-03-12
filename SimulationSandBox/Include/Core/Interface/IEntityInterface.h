@@ -3,6 +3,9 @@
 
 #include "RenderAPI/DefineRender.h"
 
+#include "Core/Components/PhysicsObject.h"
+
+
 class IEntityInterface
 {
 public:
@@ -23,9 +26,13 @@ public:
 	std::string GetObjectName() const;
 	void SetObjectName(const std::string& name);
 
+	PhysicsObject* GetPhysicsObject();
+
 protected:
 	//~ Identity
 	int mAssignedID{ -1 };
 	std::string mObjectType{ "UNKNOWN" };
 	std::string mObjectName{ "UNKNOWN" };
+	
+	PhysicsObject mPhysicsObject;
 };

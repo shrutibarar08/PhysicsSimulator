@@ -40,3 +40,8 @@ void IEntityInterface::SetObjectName(const std::string& name)
 {
 	mObjectName = name.substr(0, name.find('\0'));
 }
+
+PhysicsObject* IEntityInterface::GetPhysicsObject()
+{
+	return &mPhysicsObject;
+}

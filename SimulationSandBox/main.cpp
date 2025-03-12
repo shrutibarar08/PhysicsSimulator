@@ -21,7 +21,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
     EnableTerminal();
     ApplicationManager app{ L"Test Application", 1280, 720 };
-    
-    return app.Update();;
+    app.Execute();
+    return 0;
 }
-

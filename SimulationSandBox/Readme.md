@@ -76,3 +76,21 @@
 
 **[This structure should work efficiently moving forward.]**
 
+## Physics Engine Init
+
+- Create Physics Interface
+	1. Needed a Particle should be unique not shared ig.
+	2. Needed a container for particle generators so that I can apply or remove particle effects from an object.
+	3. Need Common Particle Imgui Update so that I can dynamically set it from application.
+	4. Need some sort of GUI to add any particle effect I want to. [On objects GUI for update]
+	5. Need special case of stuff that I can set on specific objects for collision detection.
+
+- Create Physics Qeueu
+	1. Responsible for updating and simulating all the particle effects and etc.
+	
+- Create Physics Simulation Manager 
+	1. Needed a new thread for running this physics simulation entirely on.
+	2. Needed a physics queue where the renderer queue will load, unload physics objects from physics queue
+	3. should be responsible for storing the states of the objects
+
+- Create Physics Particle Effect Registry so that I can know dynamically what kind of particle effects are present inside my code.

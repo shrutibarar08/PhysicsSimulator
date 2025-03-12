@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace Physics
+namespace Phyx
 {
     class Vector3D
     {
@@ -28,7 +28,7 @@ namespace Physics
         Vector3D operator-(const Vector3D& vector) const;
 
         Vector3D ComponentProduct(const Vector3D& vector) const;
-        void ComponentProductUpdate(const Vector3D& vector);
+        void ComponentProductOnSelf(const Vector3D& vector);
 
         float ScalarProduct(const Vector3D& vector) const;
         float operator*(const Vector3D& vector) const;
@@ -38,11 +38,14 @@ namespace Physics
         void operator%=(const Vector3D& vector);    // Update Vector to be a vector product of current values
         Vector3D operator%(const Vector3D& vector) const; // Return vector product
 
+        void Reset();
+
     public:
         float x, y, z;
 
     private:
         float pad;
+        float _start_x{ 0 }, _start_y{ 0 }, _start_z{ 0 };
     };
 }
 

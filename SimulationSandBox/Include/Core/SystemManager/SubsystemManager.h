@@ -32,7 +32,6 @@ public:
 				FrameUpdateManager::ScheduleCallback(frame);
 			}
 		}
-
 	}
 	
 	template<typename T>

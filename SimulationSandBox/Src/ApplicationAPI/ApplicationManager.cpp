@@ -13,6 +13,8 @@
 #include "GuiAPI/GUIManager.h"
 #include "WindowsAPI/WindowsManager.h"
 
+#include "PhysicsAPI/PhysicsManager.h"
+
 #ifdef _DEBUG
 #include <iostream>
 #endif
@@ -41,6 +43,13 @@ ApplicationManager::ApplicationManager(const std::wstring& AppName, int width, i
     SubsystemManager::Register<RenderQueue>();
     SubsystemManager::Register<GUIManager>();
     SubsystemManager::Register<ScenarioManager>();
+    SubsystemManager::Register<PhysicsManager>();
+}
+
+void ApplicationManager::Execute()
+{
+    Update();
+    SubsystemManager::ShutdownAll();
 }
 
 int ApplicationManager::Update()

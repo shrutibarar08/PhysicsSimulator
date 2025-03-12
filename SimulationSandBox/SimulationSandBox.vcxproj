@@ -118,7 +118,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;SimulationLibrary.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -141,6 +141,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\PhysicsAPI\PhysicsManager.cpp" />
+    <ClCompile Include="Src\Core\IPhysicsInterface.cpp" />
     <ClCompile Include="Src\Core\ILightInterface.cpp" />
     <ClCompile Include="Src\RenderAPI\Shapes\Object\ConeObject.cpp" />
     <ClCompile Include="Src\RenderAPI\Shapes\Object\DodecahedronObject.cpp" />
@@ -180,6 +182,7 @@
     <ClCompile Include="Src\RenderAPI\Shapes\Object\TorusObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Core\RegistryManager\RegistryEffect.h" />
     <ClInclude Include="Include\RenderAPI\Shapes\Object\ConeObject.h" />
     <ClInclude Include="Include\RenderAPI\Shapes\Object\DodecahedronObject.h" />
     <ClInclude Include="Include\RenderAPI\Shapes\Object\HyperboloidObject.h" />
@@ -226,6 +229,8 @@
     <ClInclude Include="Include\RenderAPI\Shapes\Object\PrismObject.h" />
     <ClInclude Include="Include\RenderAPI\Shapes\Object\PyramidObject.h" />
     <ClInclude Include="Include\RenderAPI\Shapes\Object\OctahedronObject.h" />
+    <ClInclude Include="Include\Core\Components\PhysicsObject.h" />
+    <ClInclude Include="Include\PhysicsAPI\PhysicsManager.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Include\RenderAPI\Light\SpotLight.h" />
     <ClInclude Include="Include\RenderAPI\Shapes\Object\SphereObject.h" />
