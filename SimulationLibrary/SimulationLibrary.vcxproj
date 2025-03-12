@@ -124,7 +124,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Src;$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -155,24 +155,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
-    <ClInclude Include="Include\Shapes\Collider.h" />
-    <ClInclude Include="Include\Shapes\Line.h" />
+    <ClInclude Include="Include\Core.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Include\Shapes\Plane.h" />
-    <ClInclude Include="Include\Shapes\Sphere.h" />
     <ClInclude Include="Include\Math\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Include\Shapes\Collider.cpp" />
-    <ClCompile Include="Src\Shapes\Line.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Src\Shapes\Plane.cpp" />
-    <ClCompile Include="Src\Shapes\Sphere.cpp" />
     <ClCompile Include="Src\Math\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
