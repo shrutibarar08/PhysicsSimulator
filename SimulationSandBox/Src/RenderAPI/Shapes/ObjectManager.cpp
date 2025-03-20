@@ -77,6 +77,7 @@ void ObjectManager::LoadFromJson(const nlohmann::json& jsonData)
 		desc.ObjectName = objJson["object_name"];
 		desc.ObjectType = objJson["object_type"];
 		desc.TexturePath = objJson["texture_path"];
+
 		AddObjectOnScene(&desc);
 	}
 }

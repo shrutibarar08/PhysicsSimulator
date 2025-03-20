@@ -39,7 +39,7 @@
     <ClCompile Include="Src\Core\IObjectInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\Scenario.cpp">
+    <ClCompile Include="Src\Scenarios\Scenario.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Externals\imgui\imgui.cpp">
@@ -291,6 +291,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\PhysicsAPI\PhysicsManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\PhysicsAPI\DefineEffects.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Core\RegistryManager\RegistryCollider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\PhysicsAPI\DefineCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

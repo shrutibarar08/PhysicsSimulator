@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Compute/ParticleEffect.h"
+#include "Collider/ICollider.h"
 
 #include <unordered_map>
 #include <functional>
@@ -14,11 +14,11 @@
  * Registered Objects Class Name to be created Dynamically
  * Must be registered manually for showing up on the list.
  */
-class RegistryEffect
+class RegistryCollider
 {
 public:
 
-    using CreateFunc = std::function<std::unique_ptr<ParticleEffectInterface>()>;
+    using CreateFunc = std::function<std::unique_ptr<ICollider>()>;
 
     static void Register(const std::string& name, CreateFunc createFunc)
     {
@@ -27,7 +27,7 @@ public:
         registry_[name] = std::move(createFunc);
         mNames.push_back(name);
     }
-    static std::unique_ptr<ParticleEffectInterface> Create(const std::string& name)
+    static std::unique_ptr<ICollider> Create(const std::string& name)
     {
         auto it = registry_.find(name);
         return it != registry_.end() ? it->second() : nullptr;
@@ -42,11 +42,11 @@ private:
     inline static std::vector<std::string> mNames;
 };
 
-#define REGISTER_PARTICLE_EFFECT(CLASS_NAME) \
+#define REGISTER_COLLIDER(CLASS_NAME) \
     namespace { \
         struct CLASS_NAME##Registrar { \
             CLASS_NAME##Registrar() { \
-                RegistryEffect::Register(#CLASS_NAME, []() { return std::make_unique<CLASS_NAME>(); }); \
+                RegistryCollider::Register(#CLASS_NAME, []() { return std::make_unique<CLASS_NAME>(); }); \
             } \
         }; \
         static CLASS_NAME##Registrar CLASS_NAME##_registrar; \

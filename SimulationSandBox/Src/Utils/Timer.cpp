@@ -1,97 +1,83 @@
 #include "Utils/Timer.h"
-#include <Windows.h>
+#include <chrono>
 
-Timer::Timer():
-mSecondsPerCount(0.0), mDeltaTime(-1.0),
-mBaseTime(0), mPausedTime(0),
-mPrevTime(0), mCurrTime(0),
-mbStopped(false), mStopTime(0)
+Timer::Timer()
+    : mDeltaTime(std::chrono::duration<double>(0.0)),
+    mbStopped(false),
+    mPausedDuration(std::chrono::duration<double>(0.0))
 {
-	__int64 countsPerSec;
-	QueryPerformanceFrequency((LARGE_INTEGER*)&countsPerSec);
-	mSecondsPerCount = 1.0 / (double)countsPerSec;
+    mBaseTime = std::chrono::high_resolution_clock::now();
+    mPrevTime = mBaseTime;
 }
 
 float Timer::TotalTime() const
 {
-
-	if (mbStopped)
-	{
-		return (float)(((mStopTime - mPausedTime) -
-			mBaseTime) * mSecondsPerCount);
-	}
-
-	else
-	{
-		return (float)(((mCurrTime - mPausedTime) -
-			mBaseTime) * mSecondsPerCount);
-	}
+    if (mbStopped) 
+    {
+        return std::chrono::duration<float>(mStopTime - mBaseTime - mPausedDuration).count();
+    }
+    return std::chrono::duration<float>(mCurrTime - mBaseTime - mPausedDuration).count();
 }
 
 float Timer::DeltaTime() const
 {
-	return static_cast<float>(mDeltaTime);
+    return static_cast<float>(mDeltaTime.count());
 }
 
 void Timer::Reset()
 {
-	__int64 currTime;
-	QueryPerformanceCounter((LARGE_INTEGER*)&currTime);
-	mBaseTime = currTime;
-	mPrevTime = currTime;
-	mStopTime = 0;
-	mbStopped = false;
+    auto currTime = std::chrono::high_resolution_clock::now();
+    mBaseTime = currTime;
+    mPrevTime = currTime;
+    mStopTime = {};
+    mPausedDuration = std::chrono::duration<double>(0.0);
+    mbStopped = false;
 }
 
 void Timer::Start()
 {
-	__int64 startTime;
-	QueryPerformanceCounter((LARGE_INTEGER*)&startTime);
-
-	if (mbStopped)
-	{
-		mPausedTime += (startTime - mStopTime);
-		mPrevTime = startTime;
-		mStopTime = 0;
-		mbStopped = false;
-	}
+    if (mbStopped) 
+    {
+        auto startTime = std::chrono::high_resolution_clock::now();
+        mPausedDuration += startTime - mStopTime;
+        mPrevTime = startTime;
+        mbStopped = false;
+    }
 }
 
 void Timer::Stop()
 {
-	if (!mbStopped)
-	{
-		__int64 currTime;
-		QueryPerformanceCounter((LARGE_INTEGER*)&currTime);
-		mStopTime = currTime;
-		mbStopped = true;
-	}
+    if (!mbStopped) 
+    {
+        mStopTime = std::chrono::high_resolution_clock::now();
+        mbStopped = true;
+    }
 }
 
 void Timer::RecordingSetup()
 {
-	Reset();
+    Reset();
 }
 
 void Timer::Tick()
 {
-	if (mbStopped)
-	{
-		mDeltaTime = 0.0;
-		return;
-	}
-	__int64 currTime;
-	QueryPerformanceCounter((LARGE_INTEGER*)&currTime);
-	mCurrTime = currTime;
-	mDeltaTime = (mCurrTime - mPrevTime) * mSecondsPerCount;
-	mPrevTime = mCurrTime;
-	if (mDeltaTime < 0.0)
-	{
-		mDeltaTime = 0.0;
-	}
+    if (mbStopped)
+    {
+        mDeltaTime = std::chrono::duration<double>(0.0);
+        return;
+    }
+
+    mCurrTime = std::chrono::high_resolution_clock::now();
+    mDeltaTime = mCurrTime - mPrevTime;
+    mPrevTime = mCurrTime;
+
+    if (mDeltaTime.count() < 0.0) 
+    {
+        mDeltaTime = std::chrono::duration<double>(0.0);
+    }
 }
 
 void Timer::RecordingExecute(float deltaTime)
 {
-	Tick();
+    Tick();
 }

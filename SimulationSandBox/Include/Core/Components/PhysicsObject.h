@@ -1,24 +1,34 @@
 #pragma once
-#include "Physics/ParticleEffects/XParticleEffectInterface.h"
+#include "ParticleSystem.h"
+#include "Collider/ICollider.h"
 
-#include <vector>
+#include <unordered_map>
 
+struct ParticleEffectData
+{
+	int id;
+	std::string name;
+	std::unique_ptr<ParticleEffectInterface> effect;
+};
 
 class PhysicsObject
 {
 public:
 	PhysicsObject() = default;
 
-	void ApplyEffect(IParticleEffectInterface* effect);
-	void RemoveEffect(IParticleEffectInterface* effect);
+	void InitColliderPopUp();
+	void InitColliderUpdateGUI();
 
+	void InitParticleEffectPopUp();
 	void InitParticleUpdateGUI();
+	void Update(float deltaTime);
 
-protected:
-	XParticle mParticle;
+public:
+	std::unique_ptr<ICollider> mCollider{ nullptr };
+	Particle mParticle{};
+	ParticleSystem mParticleSystem{};
 
 private:
-	std::vector<IParticleEffectInterface*> mActiveParticleEffect;
-
-	//~ TODO Create Collision Effect
+	std::vector<ParticleEffectData> mParticleEffects;
+	int mColliderIndex{ -1 };
 };

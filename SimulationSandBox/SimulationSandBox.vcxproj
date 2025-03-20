@@ -170,7 +170,7 @@
     <ClCompile Include="Externals\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Src\GuiAPI\GUIManager.cpp" />
     <ClCompile Include="Src\Scenarios\ScenarioManager.cpp" />
-    <ClCompile Include="Src\Core\Scenario.cpp" />
+    <ClCompile Include="Src\Scenarios\Scenario.cpp" />
     <ClCompile Include="Src\Core\IObjectInterface.cpp" />
     <ClCompile Include="Src\RenderAPI\Shapes\Object\CubeObject.cpp" />
     <ClCompile Include="Src\ApplicationAPI\ApplicationManager.cpp" />
@@ -182,7 +182,10 @@
     <ClCompile Include="Src\RenderAPI\Shapes\Object\TorusObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Core\RegistryManager\RegistryCollider.h" />
     <ClInclude Include="Include\Core\RegistryManager\RegistryEffect.h" />
+    <ClInclude Include="Include\PhysicsAPI\DefineCollider.h" />
+    <ClInclude Include="Include\PhysicsAPI\DefineEffects.h" />
     <ClInclude Include="Include\RenderAPI\Shapes\Object\ConeObject.h" />
     <ClInclude Include="Include\RenderAPI\Shapes\Object\DodecahedronObject.h" />
     <ClInclude Include="Include\RenderAPI\Shapes\Object\HyperboloidObject.h" />
@@ -283,5 +286,6 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('..\packages\directxtk_uwp.2024.10.29.1\build\native\directxtk_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_uwp.2024.10.29.1\build\native\directxtk_uwp.targets'))" />
   </Target>
 </Project>

@@ -2,36 +2,34 @@
 
 #include "Core/Interface/IFrame.h"
 #include "Core/Interface/ISubsystemInterface.h"
+#include <chrono>
 
-class Timer final: public ISubsystemInterface, public IFrameInterface
+class Timer final : public ISubsystemInterface, public IFrameInterface
 {
 public:
-	Timer();
-	~Timer() override{}
+    Timer();
+    ~Timer() override = default;
 
-	//~ Total Time elapsed in secs.
-	float TotalTime() const;
-	float DeltaTime() const;
+    // Total time elapsed in seconds.
+    float TotalTime() const;
+    float DeltaTime() const;
 
-	void Start(); // Call when unpaused
-	void Stop(); // Call when pause
+    void Start(); // Call when unpaused
+    void Stop();  // Call when paused
 
-	void RecordingSetup() override;
-	void RecordingExecute(float deltaTime) override;
-
-private:
-	void Reset(); // before message loop
-	void Tick(); // Call every frame.
+    void RecordingSetup() override;
+    void RecordingExecute(float deltaTime) override;
 
 private:
-	double mSecondsPerCount;
-	double mDeltaTime;
+    void Reset(); // Before message loop
+    void Tick();  // Call every frame
+private:
+    std::chrono::high_resolution_clock::time_point mBaseTime;
+    std::chrono::high_resolution_clock::time_point mStopTime;
+    std::chrono::high_resolution_clock::time_point mPrevTime;
+    std::chrono::high_resolution_clock::time_point mCurrTime;
 
-	__int64 mBaseTime;
-	__int64 mPausedTime;
-	__int64 mStopTime;
-	__int64 mPrevTime;
-	__int64 mCurrTime;
-
-	bool mbStopped;
+    std::chrono::duration<double> mDeltaTime;
+    std::chrono::duration<double> mPausedDuration;
+    bool mbStopped;
 };

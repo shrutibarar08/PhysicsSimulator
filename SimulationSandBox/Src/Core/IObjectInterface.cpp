@@ -39,10 +39,13 @@ void IObjectInterface::RenderObject(ID3D11DeviceContext* pDeviceContext)
 void IObjectInterface::SetTransform(const Simulation::Transform& transform)
 {
 	mTransform = transform;
+	if (transform.Translation.x && transform.Translation.y && transform.Translation.z)
+		mPhysicsObject.mParticle.Position = transform.Translation;
 }
 
-Simulation::Transform IObjectInterface::GetTransform() const
+Simulation::Transform IObjectInterface::GetTransform()
 {
+	mTransform.Translation = mPhysicsObject.mParticle.Position;
 	return mTransform;
 }
 
@@ -97,10 +100,10 @@ void IObjectInterface::InitControlGUI()
 {
 	if (mChangeObjectName.empty()) mChangeObjectName.resize(150);
 
-	// Input field
+	// Input field for object name
 	ImGui::InputText("Set Name", mChangeObjectName.data(), mChangeObjectName.size());
 
-	// Submit button
+	// Apply button
 	if (ImGui::Button("Apply"))
 	{
 		if (mChangeObjectName != mObjectName)
@@ -110,8 +113,31 @@ void IObjectInterface::InitControlGUI()
 		}
 	}
 
+	// --- Particle System Controls ---
+	ImGui::Separator();
+	ImGui::Text("Particle Controls");
+
+	// Mass
+	ImGui::DragFloat("Mass", &mPhysicsObject.mParticle.mMass, 0.1f, 0.001f, 10000.0f);
+	mPhysicsObject.mParticle.SetMass(mPhysicsObject.mParticle.mMass);  // Ensure setter is called
+
+	// Velocity
+	ImGui::DragFloat3("Velocity", reinterpret_cast<float*>(&mPhysicsObject.mParticle.Velocity), 0.1f);
+	mPhysicsObject.mParticle.SetVelocity(mPhysicsObject.mParticle.Velocity);
+
+	// Acceleration
+	ImGui::DragFloat3("Acceleration", reinterpret_cast<float*>(&mPhysicsObject.mParticle.Acceleration), 0.1f);
+	mPhysicsObject.mParticle.SetAcceleration(mPhysicsObject.mParticle.Acceleration);
+
+	// Accumulated Force
+	ImGui::DragFloat3("Force", reinterpret_cast<float*>(&mPhysicsObject.mParticle.AccumulatedForce), 0.1f);
+
+	// --- Transform Controls ---
+	ImGui::Separator();
+	ImGui::Text("Transform Controls");
+
 	ImGui::Text("Translation");
-	ImGui::DragFloat3("##Position", reinterpret_cast<float*>(&mTransform.Translation), 0.1f);
+	ImGui::DragFloat3("##Position", reinterpret_cast<float*>(&mPhysicsObject.mParticle.Position), 0.1f);
 
 	ImGui::Text("Rotation");
 	ImGui::DragFloat3("##Rotation", reinterpret_cast<float*>(&mTransform.Rotation), 0.1f);
@@ -119,12 +145,12 @@ void IObjectInterface::InitControlGUI()
 	ImGui::Text("Scale");
 	ImGui::DragFloat3("##Scale", reinterpret_cast<float*>(&mTransform.Scale), 0.1f, 0.1f, 100000.0f);
 
+	// File path selection
 	ImGui::InputText("Selected Path", muiFilePath, MAX_PATH, ImGuiInputTextFlags_ReadOnly);
 	ImGui::SameLine();
 
 	if (ImGui::Button("Browse Path"))
 	{
-
 		std::string selectedFile = OpenFileDialog();
 		if (!selectedFile.empty())
 		{
@@ -133,7 +159,14 @@ void IObjectInterface::InitControlGUI()
 			std::cout << "Applied texture to Object: " << this << "\n";
 		}
 	}
+
 	ImGui::Separator();
+
+	mPhysicsObject.InitParticleEffectPopUp();
+	mPhysicsObject.InitParticleUpdateGUI();
+
+	mPhysicsObject.InitColliderPopUp();
+	mPhysicsObject.InitColliderUpdateGUI();
 }
 
 void IObjectInterface::SetTexture(const std::string& path)
@@ -219,7 +252,10 @@ void IObjectInterface::UpdateVertexConstantBuffer(ID3D11DeviceContext* pDeviceCo
 {
 	DirectX::XMMATRIX scaleMat = DirectX::XMMatrixScaling(mTransform.Scale.x, mTransform.Scale.y, mTransform.Scale.z);
 	DirectX::XMMATRIX rotMat = DirectX::XMMatrixRotationRollPitchYaw(mTransform.Rotation.x, mTransform.Rotation.y, mTransform.Rotation.z);
-	DirectX::XMMATRIX transMat = DirectX::XMMatrixTranslation(mTransform.Translation.x, mTransform.Translation.y, mTransform.Translation.z);
+	DirectX::XMMATRIX transMat = DirectX::XMMatrixTranslation(
+		mPhysicsObject.mParticle.Position.x,
+		mPhysicsObject.mParticle.Position.y,
+		mPhysicsObject.mParticle.Position.z);
 
 	DirectX::XMMATRIX worldMatrix = scaleMat * rotMat * transMat;
 

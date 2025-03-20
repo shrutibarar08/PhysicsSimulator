@@ -1,23 +1,18 @@
 #pragma once
 
-#include <Windows.h>
 #include "Core/Interface/ISubsystemInterface.h"
+#include "RenderAPI/RenderQueue.h"
 
 
-class PhysicsManager final: public ISubsystemInterface
+class PhysicsManager final: public ISubsystemInterface, public IFrameInterface
 {
 public:
 	void Initialize() override;
-	void Shutdown() override;
+	void RecordingExecute(float deltaTime) override;
 
 private:
-	static unsigned __stdcall threadFunc(void* param);
-	HANDLE Start();
-	int Run();
-	void Update();
-	void WaitForTermination();
+	void HandleCollisions() const;
 
 private:
-	HANDLE _hThread;
-	bool _terminate{ false };
+	RenderQueue* mRenderQ{ nullptr };
 };

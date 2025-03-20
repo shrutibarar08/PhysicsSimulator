@@ -21,28 +21,25 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Math\Vector3.h">
+    <ClInclude Include="Include\Compute\Particle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Core.h">
+    <ClInclude Include="Include\Compute\Integration.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Physics\Particle.h">
+    <ClInclude Include="Include\ParticleSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Physics\ParticleForceGen.h">
+    <ClInclude Include="Include\Compute\ParticleEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Physics\ParticleEffects\XParticleEffectInterface.h">
+    <ClInclude Include="Include\Collider\ICollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Physics\ParticleEffects\XPEGravity.h">
+    <ClInclude Include="Include\Collider\SphereCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Physics\ParticleEffects\XPEDrag.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Physics\DefineParticleEffects.h">
+    <ClInclude Include="Include\Collider\PlaneCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -50,19 +47,22 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Math\Vector3.cpp">
+    <ClCompile Include="Src\Compute\Particle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Physics\Particle.cpp">
+    <ClCompile Include="Src\ParticleSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Physics\ParticleForceGen.cpp">
+    <ClCompile Include="Src\Compute\ParticleEffect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Physics\ParticleEffects\XPEGravity.cpp">
+    <ClCompile Include="Src\Collider\PlaneCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Physics\ParticleEffects\XPEDrag.cpp">
+    <ClCompile Include="Src\Collider\SphereCollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Collider\ICollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

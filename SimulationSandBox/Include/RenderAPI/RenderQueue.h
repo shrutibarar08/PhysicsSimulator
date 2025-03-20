@@ -5,6 +5,9 @@
 
 #include <unordered_map>
 
+#include "Core/SystemManager/SubsystemManager.h"
+#include "Utils/Timer.h"
+
 
 class RenderQueue final: public ISubsystemInterface
 {
@@ -55,7 +58,9 @@ public:
 		}
 	}
 
-private:
+public:
 	inline static std::unordered_map<int, IEntityInterface*> mObjects;
+private:
+	
 	inline static int mCounter = 0;
 };

@@ -155,28 +155,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
-    <ClInclude Include="Include\Core.h" />
-    <ClInclude Include="Include\Physics\DefineParticleEffects.h" />
-    <ClInclude Include="Include\Physics\Particle.h" />
-    <ClInclude Include="Include\Physics\ParticleEffects\XParticleEffectInterface.h" />
-    <ClInclude Include="Include\Physics\ParticleForceGen.h" />
+    <ClInclude Include="Include\Collider\ICollider.h" />
+    <ClInclude Include="Include\Compute\Integration.h" />
+    <ClInclude Include="Include\Compute\Particle.h" />
+    <ClInclude Include="Include\ParticleSystem.h" />
+    <ClInclude Include="Include\Compute\ParticleEffect.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Include\Math\Vector3.h" />
-    <ClInclude Include="Include\Physics\ParticleEffects\XPEGravity.h" />
-    <ClInclude Include="Include\Physics\ParticleEffects\XPEDrag.h" />
+    <ClInclude Include="Include\Collider\SphereCollider.h" />
+    <ClInclude Include="Include\Collider\PlaneCollider.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Physics\ParticleForceGen.cpp" />
-    <ClCompile Include="Src\Physics\Particle.cpp" />
+    <ClCompile Include="Include\Collider\ICollider.cpp" />
+    <ClCompile Include="Src\Collider\PlaneCollider.cpp" />
+    <ClCompile Include="Src\Collider\SphereCollider.cpp" />
+    <ClCompile Include="Src\Compute\ParticleEffect.cpp" />
+    <ClCompile Include="Src\ParticleSystem.cpp" />
+    <ClCompile Include="Src\Compute\Particle.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Src\Math\Vector3.cpp" />
-    <ClCompile Include="Src\Physics\ParticleEffects\XPEGravity.cpp" />
-    <ClCompile Include="Src\Physics\ParticleEffects\XPEDrag.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

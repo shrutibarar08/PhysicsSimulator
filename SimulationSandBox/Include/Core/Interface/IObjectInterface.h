@@ -37,7 +37,7 @@ public:
 
 	//~ Getters and Setters
 	void SetTransform(const Simulation::Transform& transform);
-	Simulation::Transform GetTransform() const;
+	Simulation::Transform GetTransform();
 
 	UINT GetIndexCounts() const;
 
