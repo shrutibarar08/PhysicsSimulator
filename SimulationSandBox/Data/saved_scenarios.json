@@ -383,7 +383,7 @@
             {
                 "object_name": "Plane",
                 "object_type": "CubeObject",
-                "texture_path": "../../../../OneDrive/Desktop/Workstation/SimulationSandBox/Data/textures/test_texture.jpg",
+                "texture_path": "../../../../OneDrive/Desktop/Workstation/SimulationSandBox/Data/textures/wooden.jpg",
                 "transform": {
                     "rotation": [
                         0.0,
@@ -418,9 +418,9 @@
                         1.0
                     ],
                     "translation": [
-                        0.0,
                         1.0,
-                        1.9750254154205322
+                        1.0,
+                        -9.100000381469727
                     ]
                 }
             },

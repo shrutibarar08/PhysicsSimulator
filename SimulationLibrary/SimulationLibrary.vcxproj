@@ -165,7 +165,7 @@
     <ClInclude Include="Include\Collider\PlaneCollider.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Include\Collider\ICollider.cpp" />
+    <ClCompile Include="Src\Collider\ICollider.cpp" />
     <ClCompile Include="Src\Collider\PlaneCollider.cpp" />
     <ClCompile Include="Src\Collider\SphereCollider.cpp" />
     <ClCompile Include="Src\Compute\ParticleEffect.cpp" />

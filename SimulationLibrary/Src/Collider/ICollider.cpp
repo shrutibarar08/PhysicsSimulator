@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "ICollider.h"
+#include "Collider/ICollider.h"
 
 void ICollider::AttachParticle(Particle* attachParticle)
 {

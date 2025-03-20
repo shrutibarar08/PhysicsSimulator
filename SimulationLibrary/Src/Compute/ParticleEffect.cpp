@@ -2,7 +2,7 @@
 #include "Compute/ParticleEffect.h"
 
 
-void GravityEffect::ApplyEffect(Particle& particle, float deltaTime)
+void GravityFreeFallEffect::ApplyEffect(Particle& particle, float deltaTime)
 {
     using namespace DirectX;
 
@@ -20,4 +20,9 @@ void GravityEffect::ApplyEffect(Particle& particle, float deltaTime)
     XMVECTOR particleVelocity = XMLoadFloat3(&particle.AccumulatedVelocity);
     particleVelocity = XMVectorAdd(particleVelocity, velocityVec);
     XMStoreFloat3(&particle.AccumulatedVelocity, particleVelocity);
+}
+
+void GravityEffect::ApplyEffect(Particle& particle, float deltaTime)
+{
+    particle.AddForce(mGravity);
 }

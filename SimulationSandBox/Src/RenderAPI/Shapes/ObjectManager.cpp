@@ -12,6 +12,8 @@ void ObjectManager::Load()
 	mState = State::Loaded;
 
 	std::cout << "Loading " << mObjects.size() << " Objects onto Simulation Queue!\n";
+
+	//~ Registers (Add) all the Object on Render Queue so that the DirectX can Render it
 	for (int i = 0; i < mObjects.size(); i++)
 	{
 		RenderQueue::RegisterObject(mObjects[i].get());
@@ -24,6 +26,9 @@ void ObjectManager::UnLoad()
 	mState = State::UnLoaded;
 
 	std::cout << "Off Loading " << mObjects.size() << " Objects onto Simulation Queue!\n";
+
+	//~ RenderQ bhai jitne object iss specific scene me hai usse render mt kro
+	// kyuki scene change ho chuka hai unload hone ke baad
 	for (int i = 0; i < mObjects.size(); i++)
 	{
 		RenderQueue::UnRegisterObject(mObjects[i].get());

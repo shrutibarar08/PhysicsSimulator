@@ -8,7 +8,6 @@
 #include <nlohmann/json.hpp>
 
 
-
 class ObjectManager: public IStateManager
 {
 public:
@@ -28,6 +27,4 @@ public:
 
 private:
 	std::vector<std::unique_ptr<IObjectInterface>> mObjects;
-	//~ Just For Test
-	std::unique_ptr<GravityEffect> mGravityEffect{ nullptr };
 };

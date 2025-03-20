@@ -62,7 +62,7 @@
     <ClCompile Include="Src\Collider\SphereCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Include\Collider\ICollider.cpp">
+    <ClCompile Include="Src\Collider\ICollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

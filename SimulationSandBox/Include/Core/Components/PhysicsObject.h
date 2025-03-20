@@ -21,6 +21,7 @@ public:
 
 	void InitParticleEffectPopUp();
 	void InitParticleUpdateGUI();
+
 	void Update(float deltaTime);
 
 public:
