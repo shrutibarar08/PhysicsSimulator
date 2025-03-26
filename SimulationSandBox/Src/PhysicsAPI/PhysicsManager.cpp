@@ -16,7 +16,7 @@ void PhysicsManager::RecordingExecute(float deltaTime)
 	}
 }
 
-void PhysicsManager::HandleCollisions() const
+void PhysicsManager::HandleCollisions()
 {
     for (auto& object : mRenderQ->mObjects)
     {
@@ -26,19 +26,31 @@ void PhysicsManager::HandleCollisions() const
             {
                 auto* colliderA = object.second->GetPhysicsObject()->mCollider.get();
                 auto* colliderB = otherObject.second->GetPhysicsObject()->mCollider.get();
-
+               
                 if (colliderA == nullptr || colliderB == nullptr) continue;
 
                 if (colliderA->CheckCollision(colliderB))
                 {
                     colliderA->ResolveCollision(colliderB);
                     colliderB->ResolveCollision(colliderA);
-                    std::cout << "Collision Detected Between: "
-                	<< object.second->GetObjectName()
-                	<< " And " << otherObject.second->GetObjectName()
-                	<< "\n";
+
+                    LogCollision(object.second->GetObjectName(),
+                        otherObject.second->GetObjectName());
                 }
             }
         }
     }
+}
+
+void PhysicsManager::LogCollision(const std::string& left, const std::string& right)
+{
+    if ((left == _collider || left == _collided) &&
+        (right == _collider || right == _collided))
+    {
+        return;
+    }
+    _collided = left;
+    _collider = right;
+
+    std::cout << _collider << " Collided with: " << _collided << "!\n";
 }

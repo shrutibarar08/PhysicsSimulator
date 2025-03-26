@@ -25,8 +25,6 @@ public:
 	DirectX::XMFLOAT3 GetAcceleration() const;
 	DirectX::XMFLOAT3 GetAccumulatedForce() const;
 
-	bool IsFixed() const;
-
 public:
 	DirectX::XMFLOAT3 Position{ 0.0f, 0.0f, 0.0f };
 	DirectX::XMFLOAT3 Velocity{ 0.0f, 0.0f, 0.0f };
@@ -36,4 +34,5 @@ public:
 
 	float mMass{ 1.0f };
 	float mInverseMass{ 1.0f };
+	float mDamping{ 0.9f }; // For removing Energy gradually
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include "Particle.h"
 #include <DirectXMath.h>
+#include <cmath>
 
 
 namespace Phyx
@@ -37,7 +38,8 @@ public:
         XMVECTOR accumulatedForce = XMLoadFloat3(&particle.AccumulatedForce);
         XMVECTOR defaultAcceleration = XMLoadFloat3(&particle.Acceleration);
         float inverseMass = particle.GetInverseMass();
-
+        float damping = particle.mDamping;  // Retrieve damping factor
+        
         // Compute total acceleration
         XMVECTOR forceAcceleration = XMVectorScale(accumulatedForce, inverseMass);
         XMVECTOR totalAcceleration = XMVectorAdd(defaultAcceleration, forceAcceleration);
@@ -46,6 +48,10 @@ public:
         auto totalVelocity = XMVectorAdd(velocity, accVelocity);
         position = XMVectorAdd(position, XMVectorScale(totalVelocity, deltaTime));
         velocity = XMVectorAdd(velocity, XMVectorScale(totalAcceleration, deltaTime));
+
+        // Apply damping to velocity (exponential decay)
+        velocity = XMVectorScale(velocity, std::pow(damping, deltaTime));
+
         // Store results
         XMStoreFloat3(&particle.Position, position);
         XMStoreFloat3(&particle.Velocity, velocity);
@@ -72,13 +78,17 @@ public:
         XMVECTOR accumulatedForce = XMLoadFloat3(&particle.AccumulatedForce);
         XMVECTOR defaultAcceleration = XMLoadFloat3(&particle.Acceleration);
         float inverseMass = particle.GetInverseMass();
+        float damping = particle.mDamping;  // Retrieve damping factor
 
         // Compute total acceleration
         XMVECTOR forceAcceleration = XMVectorScale(accumulatedForce, inverseMass);
         XMVECTOR totalAcceleration = XMVectorAdd(defaultAcceleration, forceAcceleration);
 
-        // Semi-Implicit Euler: v' = v + a*dt, x' = x + v'*dt
+        // Semi-Implicit Euler: v' = v + a*dt, then apply damping
         velocity = XMVectorAdd(velocity, XMVectorScale(totalAcceleration, deltaTime));
+        velocity = XMVectorScale(velocity, std::pow(damping, deltaTime)); // Apply damping
+
+        // Update position using new velocity
         auto totalVelocity = XMVectorAdd(velocity, accVelocity);
         position = XMVectorAdd(position, XMVectorScale(totalVelocity, deltaTime));
 

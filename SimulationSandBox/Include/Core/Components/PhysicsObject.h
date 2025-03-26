@@ -16,15 +16,16 @@ class PhysicsObject
 public:
 	PhysicsObject() = default;
 
+	void InitGUI();
+	void Update(float deltaTime);
+	void ToggleEffects();
+
+private:
 	void InitColliderPopUp();
 	void InitColliderUpdateGUI();
 
 	void InitParticleEffectPopUp();
 	void InitParticleUpdateGUI();
-
-	void Update(float deltaTime);
-
-	void ToggleEffects();
 
 public:
 	std::unique_ptr<ICollider> mCollider{ nullptr };

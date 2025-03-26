@@ -22,5 +22,4 @@ public:
 
     bool CheckCollision(ICollider* other) override;
     void ResolveCollision(ICollider* other) override;
-    std::string GetColliderName() override;
 };

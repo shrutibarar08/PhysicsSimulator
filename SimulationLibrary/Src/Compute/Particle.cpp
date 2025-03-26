@@ -66,12 +66,3 @@ DirectX::XMFLOAT3 Particle::GetPosition() const { return Position; }
 DirectX::XMFLOAT3 Particle::GetVelocity() const { return Velocity; }
 DirectX::XMFLOAT3 Particle::GetAcceleration() const { return Acceleration; }
 DirectX::XMFLOAT3 Particle::GetAccumulatedForce() const { return AccumulatedForce; }
-
-bool Particle::IsFixed() const
-{
-    //~ Static Object or no
-    float anyMovement = Velocity.x + Velocity.y + Velocity.z
-        + Acceleration.x + Acceleration.y + Acceleration.z
-        +AccumulatedVelocity.x + AccumulatedVelocity.y + AccumulatedVelocity.z;
-    return std::abs(anyMovement) < 1e-6f;
-}

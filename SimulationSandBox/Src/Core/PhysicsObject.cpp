@@ -72,6 +72,37 @@ void PhysicsObject::InitParticleEffectPopUp()
     }
 }
 
+void PhysicsObject::InitGUI()
+{
+    ImGui::Text("Particle Controls");
+
+    // Mass
+    ImGui::DragFloat("Mass", &mParticle.mMass, 0.1f, 0.001f, 10000.0f);
+	mParticle.SetMass(mParticle.mMass);  // Ensure setter is called
+
+    // Velocity
+    ImGui::DragFloat3("Velocity", reinterpret_cast<float*>(&mParticle.Velocity), 0.1f);
+    mParticle.SetVelocity(mParticle.Velocity);
+
+    // Acceleration
+    ImGui::DragFloat3("Acceleration", reinterpret_cast<float*>(&mParticle.Acceleration), 0.1f);
+    mParticle.SetAcceleration(mParticle.Acceleration);
+
+    // Accumulated Force
+    ImGui::DragFloat3("Force", reinterpret_cast<float*>(&mParticle.AccumulatedForce), 0.1f);
+
+    // Damping Energy
+    ImGui::DragFloat("Damping", &mParticle.mDamping,
+        0.01f, 0.f,
+        1.f, "%0.02f");
+
+    InitParticleEffectPopUp();
+    InitParticleUpdateGUI();
+
+    InitColliderPopUp();
+    InitColliderUpdateGUI();
+}
+
 void PhysicsObject::InitColliderPopUp()
 {
     ImGui::Separator();
@@ -124,6 +155,7 @@ void PhysicsObject::InitColliderPopUp()
             mCollider.reset();
             mCollider = std::move(effect);
             mCollider->AttachParticle(&mParticle);
+            mCollider->SetColliderName(colliderNames[mColliderIndex]);
 
             ImGui::CloseCurrentPopup();
         }
@@ -155,7 +187,7 @@ void PhysicsObject::InitColliderUpdateGUI()
     }
 
     ImGui::Text("Properties:");
-    ImGui::DragFloat("Elastic", &mCollider->Elastic, 0.1f,
+    ImGui::DragFloat("Elastic", &mCollider->Elastic, 0.01f,
         0.0f, 1.0f, "%0.002f");
 
     ImGui::Checkbox("Static", &mCollider->bStatic);

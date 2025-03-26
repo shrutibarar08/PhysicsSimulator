@@ -29,11 +29,6 @@ void SphereCollider::ResolveCollision(ICollider* other)
     }
 }
 
-std::string SphereCollider::GetColliderName()
-{
-    return "Sphere Collider";
-}
-
 // ------------------- COLLISION DETECTION ------------------------------
 
 #pragma region SPHERE_COLLISION
@@ -87,6 +82,23 @@ void SphereCollider::ResolveSpherePenetration(
     const DirectX::XMVECTOR& normal, float penetrationDepth,
     SphereCollider* other) const
 {
+    if (AreStatic(other)) return;
+
+    if (bStatic)
+    {
+        // Move only the dynamic object
+        DirectX::XMVECTOR correction = DirectX::XMVectorScale(normal, penetrationDepth);
+        XMStoreFloat3(&other->mAttachedObject->Position, DirectX::XMVectorSubtract(centerB, correction));
+        return;
+    }
+	if (other->bStatic)
+    {
+        // Move only this object
+        DirectX::XMVECTOR correction = DirectX::XMVectorScale(normal, penetrationDepth);
+        XMStoreFloat3(&mAttachedObject->Position, DirectX::XMVectorAdd(centerA, correction));
+        return;
+    }
+
     float totalMass = mAttachedObject->mMass + other->mAttachedObject->mMass;
 
     // Compute displacement factors based on mass
@@ -102,9 +114,10 @@ void SphereCollider::ResolveSpherePenetration(
     XMStoreFloat3(&other->mAttachedObject->Position, DirectX::XMVectorSubtract(centerB, correctionB));
 }
 
-void SphereCollider::ResolveSphereVelocity(const DirectX::XMVECTOR& normal,
-    const SphereCollider* other) const
+void SphereCollider::ResolveSphereVelocity(const DirectX::XMVECTOR& normal, const SphereCollider* other) const
 {
+    if (AreStatic(other)) return;
+
     DirectX::XMVECTOR velocityA = XMLoadFloat3(&mAttachedObject->Velocity);
     DirectX::XMVECTOR velocityB = XMLoadFloat3(&other->mAttachedObject->Velocity);
 
@@ -114,27 +127,34 @@ void SphereCollider::ResolveSphereVelocity(const DirectX::XMVECTOR& normal,
     // Compute relative velocity
     DirectX::XMVECTOR relativeVelocity = DirectX::XMVectorSubtract(velocityA, velocityB);
 
-    // Compute velocity along the collision normal
+    // Compute velocity along the normal
     float velAlongNormal = DirectX::XMVectorGetX(DirectX::XMVector3Dot(relativeVelocity, normal));
 
-    // If objects are separating, do nothing
-    if (velAlongNormal > 0) return;
+    if (velAlongNormal > 0) return; // Objects are separating
 
-    // Compute impulse scalar
-    float impulseScalar = -(1 + Elastic) * velAlongNormal / (1.0f / massA + 1.0f / massB);
+    // Compute impulse scalar correctly
+    float impulseScalar = -(1 + Elastic) * velAlongNormal;
+    impulseScalar /= (1.0f / massA + 1.0f / massB);
 
     // Compute impulse vector
     DirectX::XMVECTOR impulse = DirectX::XMVectorScale(normal, impulseScalar);
 
-    // Apply impulse scaled by mass
-    DirectX::XMVECTOR newVelocityA = DirectX::XMVectorAdd(velocityA, DirectX::XMVectorScale(impulse, 1.0f / massA));
-    DirectX::XMVECTOR newVelocityB = DirectX::XMVectorSubtract(velocityB, DirectX::XMVectorScale(impulse, 1.0f / massB));
-
-    // Store updated velocities
-    XMStoreFloat3(&mAttachedObject->Velocity, newVelocityA);
-    XMStoreFloat3(&other->mAttachedObject->Velocity, newVelocityB);
+    // Apply impulse to non-static objects
+    if (!bStatic)
+    {
+        DirectX::XMVECTOR newVelocityA = DirectX::XMVectorAdd(velocityA, DirectX::XMVectorScale(impulse, 1.0f / massA));
+        newVelocityA = DirectX::XMVectorScale(newVelocityA, mAttachedObject->mDamping); // Apply damping
+        XMStoreFloat3(&mAttachedObject->Velocity, newVelocityA);
+    }
+    if (!other->bStatic)
+    {
+        DirectX::XMVECTOR newVelocityB = DirectX::XMVectorSubtract(velocityB, DirectX::XMVectorScale(impulse, 1.0f / massB));
+        newVelocityB = DirectX::XMVectorScale(newVelocityB, other->mAttachedObject->mDamping); // Apply damping
+        XMStoreFloat3(&other->mAttachedObject->Velocity, newVelocityB);
+    }
 }
 
+//~ For immovable objects
 void SphereCollider::ComputeSphereVelocityChange(
     const DirectX::XMVECTOR& velocityA, const DirectX::XMVECTOR& velocityB,
     const DirectX::XMVECTOR& normal, DirectX::XMVECTOR& newVelocityA, DirectX::XMVECTOR& newVelocityB) const

@@ -112,26 +112,6 @@ void IObjectInterface::InitControlGUI()
 			SetObjectName(mChangeObjectName);
 		}
 	}
-
-	// --- Particle System Controls ---
-	ImGui::Separator();
-	ImGui::Text("Particle Controls");
-
-	// Mass
-	ImGui::DragFloat("Mass", &mPhysicsObject.mParticle.mMass, 0.1f, 0.001f, 10000.0f);
-	mPhysicsObject.mParticle.SetMass(mPhysicsObject.mParticle.mMass);  // Ensure setter is called
-
-	// Velocity
-	ImGui::DragFloat3("Velocity", reinterpret_cast<float*>(&mPhysicsObject.mParticle.Velocity), 0.1f);
-	mPhysicsObject.mParticle.SetVelocity(mPhysicsObject.mParticle.Velocity);
-
-	// Acceleration
-	ImGui::DragFloat3("Acceleration", reinterpret_cast<float*>(&mPhysicsObject.mParticle.Acceleration), 0.1f);
-	mPhysicsObject.mParticle.SetAcceleration(mPhysicsObject.mParticle.Acceleration);
-
-	// Accumulated Force
-	ImGui::DragFloat3("Force", reinterpret_cast<float*>(&mPhysicsObject.mParticle.AccumulatedForce), 0.1f);
-
 	// --- Transform Controls ---
 	ImGui::Separator();
 	ImGui::Text("Transform Controls");
@@ -159,14 +139,10 @@ void IObjectInterface::InitControlGUI()
 			std::cout << "Applied texture to Object: " << this << "\n";
 		}
 	}
-
 	ImGui::Separator();
 
-	mPhysicsObject.InitParticleEffectPopUp();
-	mPhysicsObject.InitParticleUpdateGUI();
-
-	mPhysicsObject.InitColliderPopUp();
-	mPhysicsObject.InitColliderUpdateGUI();
+	// --- Particle System Controls ---
+	mPhysicsObject.InitGUI();
 }
 
 void IObjectInterface::SetTexture(const std::string& path)

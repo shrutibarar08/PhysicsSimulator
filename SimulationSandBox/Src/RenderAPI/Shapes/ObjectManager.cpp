@@ -98,29 +98,38 @@ nlohmann::json ObjectManager::SaveToJson() const
 		objJson["object_name"] = object->GetObjectName();
 		objJson["texture_path"] = object->GetTexturePath();
 
-		Simulation::Transform transform = object->GetTransform();
+		const auto& transform = object->GetTransform();
 		objJson["transform"] = {
 			{ "translation", { transform.Translation.x, transform.Translation.y, transform.Translation.z } },
 			{ "rotation", { transform.Rotation.x, transform.Rotation.y, transform.Rotation.z } },
 			{ "scale", { transform.Scale.x, transform.Scale.y, transform.Scale.z } }
 		};
 
-		auto physics = object->GetPhysicsObject();
-		auto particle = physics->mParticle;
-		objJson["Physics"] = {
-			{
-				"Particle", {
-					{ "Velocity", { particle.Velocity.x, particle.Velocity.y, particle.Velocity.z } },
-					{ "Acceleration", { particle.Acceleration.x, particle.Acceleration.y, particle.Acceleration.z } },
-					{ "Mass", particle.GetMass() }
-				}
-			}
-		};
+		if (auto physics = object->GetPhysicsObject(); physics)
+		{
+			auto particle = physics->mParticle;
+			objJson["Physics"] = {
+				{ "Velocity", { particle.Velocity.x, particle.Velocity.y, particle.Velocity.z } },
+				{ "Acceleration", { particle.Acceleration.x, particle.Acceleration.y, particle.Acceleration.z } },
+				{ "Mass", particle.GetMass() }
+			};
 
-		scenarioJson.push_back(objJson);
+			if (physics->mCollider)
+			{
+				objJson["Physics"]["Collider"] = {
+					{ "Name", physics->mCollider->GetColliderName() },
+					{ "Static", physics->mCollider->bStatic },
+					{ "Elastic", physics->mCollider->Elastic }
+				};
+			}
+		}
+
+		scenarioJson.emplace_back(std::move(objJson));
 	}
+
 	return scenarioJson;
 }
+
 
 void ObjectManager::InitCreationalGUI()
 {

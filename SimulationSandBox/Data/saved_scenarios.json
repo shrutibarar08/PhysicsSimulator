@@ -160,6 +160,19 @@
         ],
         "Objects": [
             {
+                "Physics": {
+                    "Acceleration": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 1.0,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
                 "object_name": "Sea Object",
                 "object_type": "CubeObject",
                 "texture_path": "Data/textures/sea.jpg",
@@ -182,6 +195,19 @@
                 }
             },
             {
+                "Physics": {
+                    "Acceleration": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 1.0,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
                 "object_name": "Wooden Plank",
                 "object_type": "CubeObject",
                 "texture_path": "Data/textures/texture_2.jpg",
@@ -204,6 +230,19 @@
                 }
             },
             {
+                "Physics": {
+                    "Acceleration": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 1.0,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
                 "object_name": "Galaxy Ball",
                 "object_type": "SphereObject",
                 "texture_path": "Data/textures/ball texture.jpg",
@@ -226,6 +265,19 @@
                 }
             },
             {
+                "Physics": {
+                    "Acceleration": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 1.0,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
                 "object_name": "Swim Ring",
                 "object_type": "TorusObject",
                 "texture_path": "Data/textures/swim ring.jpg",
@@ -248,6 +300,19 @@
                 }
             },
             {
+                "Physics": {
+                    "Acceleration": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 1.0,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
                 "object_name": "Destroyed Crate",
                 "object_type": "PrismObject",
                 "texture_path": "Data/textures/wooden.jpg",
@@ -270,6 +335,19 @@
                 }
             },
             {
+                "Physics": {
+                    "Acceleration": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 1.0,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
                 "object_name": "Lost Treasure",
                 "object_type": "CylinderObject",
                 "texture_path": "Data/textures/for cylinder.jpg",
@@ -292,6 +370,19 @@
                 }
             },
             {
+                "Physics": {
+                    "Acceleration": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 1.0,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
                 "object_name": "Huge Diamond",
                 "object_type": "OctahedronObject",
                 "texture_path": "Data/textures/diamond.jpg",
@@ -314,6 +405,19 @@
                 }
             },
             {
+                "Physics": {
+                    "Acceleration": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 1.0,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
                 "object_name": "Lost Hat",
                 "object_type": "ConeObject",
                 "texture_path": "Data/textures/hat.jpg",
@@ -381,6 +485,24 @@
         ],
         "Objects": [
             {
+                "Physics": {
+                    "Acceleration": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Collider": {
+                        "Elastic": 1.0,
+                        "Name": "PlaneCollider",
+                        "Static": false
+                    },
+                    "Mass": 1.0,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
                 "object_name": "Plane",
                 "object_type": "CubeObject",
                 "texture_path": "../../../../OneDrive/Desktop/Workstation/SimulationSandBox/Data/textures/wooden.jpg",
@@ -403,6 +525,24 @@
                 }
             },
             {
+                "Physics": {
+                    "Acceleration": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Collider": {
+                        "Elastic": 1.0,
+                        "Name": "SphereCollider",
+                        "Static": false
+                    },
+                    "Mass": 1.0,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
                 "object_name": "white ball",
                 "object_type": "SphereObject",
                 "texture_path": "../../../../OneDrive/Desktop/Workstation/SimulationSandBox/Data/textures/swim ring.jpg",
@@ -418,13 +558,26 @@
                         1.0
                     ],
                     "translation": [
-                        63.79971694946289,
-                        10.0,
-                        28.814613342285156
+                        0.0,
+                        1.0,
+                        0.0
                     ]
                 }
             },
             {
+                "Physics": {
+                    "Acceleration": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 1.0,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
                 "object_name": "brown ball",
                 "object_type": "SphereObject",
                 "texture_path": "../../../../OneDrive/Desktop/Workstation/SimulationSandBox/Data/textures/for cylinder.jpg",
@@ -440,13 +593,26 @@
                         1.0
                     ],
                     "translation": [
-                        -12.571179389953613,
-                        10.0,
-                        -4.873115062713623
+                        0.0,
+                        0.0,
+                        0.0
                     ]
                 }
             },
             {
+                "Physics": {
+                    "Acceleration": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 1.0,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
                 "object_name": "ball 3",
                 "object_type": "SphereObject",
                 "texture_path": "../../../../OneDrive/Desktop/Workstation/SimulationSandBox/Data/textures/diamond.jpg",
@@ -462,13 +628,26 @@
                         1.0
                     ],
                     "translation": [
-                        -32.44390106201172,
-                        10.0,
-                        7.873739242553711
+                        0.0,
+                        0.0,
+                        0.0
                     ]
                 }
             },
             {
+                "Physics": {
+                    "Acceleration": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 1.0,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
                 "object_name": "ball 4",
                 "object_type": "SphereObject",
                 "texture_path": "../../../../OneDrive/Desktop/Workstation/SimulationSandBox/Data/textures/texture_2.jpg",
@@ -484,9 +663,9 @@
                         1.0
                     ],
                     "translation": [
-                        -4.544142246246338,
-                        10.0,
-                        27.336828231811523
+                        0.0,
+                        0.0,
+                        0.0
                     ]
                 }
             }

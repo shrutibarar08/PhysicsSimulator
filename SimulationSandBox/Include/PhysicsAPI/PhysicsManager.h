@@ -11,8 +11,13 @@ public:
 	void RecordingExecute(float deltaTime) override;
 
 private:
-	void HandleCollisions() const;
+	void HandleCollisions();
+	void LogCollision(const std::string& left, const std::string& right);
 
 private:
 	RenderQueue* mRenderQ{ nullptr };
+
+	//~ Cache for better logging
+	std::string _collider{ "" };
+	std::string _collided{ "" };
 };
