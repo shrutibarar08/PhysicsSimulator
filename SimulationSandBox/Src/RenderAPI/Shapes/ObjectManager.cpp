@@ -104,6 +104,19 @@ nlohmann::json ObjectManager::SaveToJson() const
 			{ "rotation", { transform.Rotation.x, transform.Rotation.y, transform.Rotation.z } },
 			{ "scale", { transform.Scale.x, transform.Scale.y, transform.Scale.z } }
 		};
+
+		auto physics = object->GetPhysicsObject();
+		auto particle = physics->mParticle;
+		objJson["Physics"] = {
+			{
+				"Particle", {
+					{ "Velocity", { particle.Velocity.x, particle.Velocity.y, particle.Velocity.z } },
+					{ "Acceleration", { particle.Acceleration.x, particle.Acceleration.y, particle.Acceleration.z } },
+					{ "Mass", particle.GetMass() }
+				}
+			}
+		};
+
 		scenarioJson.push_back(objJson);
 	}
 	return scenarioJson;

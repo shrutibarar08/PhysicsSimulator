@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "Collider/ICollider.h"
 #include "Compute/Particle.h"
 
@@ -23,4 +22,5 @@ public:
 
     bool CheckCollision(ICollider* other) override;
     void ResolveCollision(ICollider* other) override;
+    std::string GetColliderName() override;
 };

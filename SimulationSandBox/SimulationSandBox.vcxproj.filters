@@ -126,7 +126,7 @@
     <ClCompile Include="Src\Core\ILightInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\IPhysicsInterface.cpp">
+    <ClCompile Include="Src\Core\PhysicsObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\PhysicsAPI\PhysicsManager.cpp">
@@ -305,8 +305,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Readme.md" />
-    <None Include="Shaders\SimplePixelShader.cso" />
-    <None Include="Shaders\SimpleVertexShader.cso" />
     <None Include="packages.config" />
     <None Include="Data\saved_scenarios.json" />
   </ItemGroup>

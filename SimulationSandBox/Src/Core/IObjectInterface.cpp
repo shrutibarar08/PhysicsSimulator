@@ -263,6 +263,8 @@ void IObjectInterface::UpdateVertexConstantBuffer(ID3D11DeviceContext* pDeviceCo
 	cb.World = DirectX::XMMatrixTranspose(worldMatrix);
 	cb.View = DirectX::XMMatrixTranspose(mWorldSpace.View);
 	cb.Projection = DirectX::XMMatrixTranspose(mWorldSpace.Projection);
+	cb.Velocity = mPhysicsObject.mParticle.Velocity;
+	cb.Elastic = 0.5f;
 	pDeviceContext->UpdateSubresource(mVertexConstantBuffer.Get(), 0, nullptr, &cb, 0, 0);
 }
 

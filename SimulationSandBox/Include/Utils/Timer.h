@@ -20,6 +20,8 @@ public:
     void RecordingSetup() override;
     void RecordingExecute(float deltaTime) override;
 
+    void UpdateDeltaTime(float value);
+
 private:
     void Reset(); // Before message loop
     void Tick();  // Call every frame

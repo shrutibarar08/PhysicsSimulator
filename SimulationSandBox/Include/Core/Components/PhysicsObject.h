@@ -24,6 +24,8 @@ public:
 
 	void Update(float deltaTime);
 
+	void ToggleEffects();
+
 public:
 	std::unique_ptr<ICollider> mCollider{ nullptr };
 	Particle mParticle{};
@@ -32,4 +34,5 @@ public:
 private:
 	std::vector<ParticleEffectData> mParticleEffects;
 	int mColliderIndex{ -1 };
+	bool mbEffects{ true };
 };

@@ -81,3 +81,8 @@ void Timer::RecordingExecute(float deltaTime)
 {
     Tick();
 }
+
+void Timer::UpdateDeltaTime(float value)
+{
+    mDeltaTime += std::chrono::duration<double>(value);
+}

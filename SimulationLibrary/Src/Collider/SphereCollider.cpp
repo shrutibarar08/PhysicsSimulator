@@ -8,35 +8,11 @@ bool SphereCollider::CheckCollision(ICollider* other)
 {
     if (auto* sphereCollider = dynamic_cast<SphereCollider*>(other))
     {
-        // Sphere-Sphere Collision
-        DirectX::XMVECTOR centerA = XMLoadFloat3(&mAttachedObject->Position);
-        DirectX::XMVECTOR centerB = XMLoadFloat3(&sphereCollider->mAttachedObject->Position);
-        DirectX::XMVECTOR diff = DirectX::XMVectorSubtract(centerA, centerB);
-
-        float distanceSq = DirectX::XMVectorGetX(DirectX::XMVector3LengthSq(diff));
-        float radiusSum = Radius + sphereCollider->Radius;
-
-        return distanceSq <= (radiusSum * radiusSum);
+        return CheckSphereCollision(sphereCollider);
     }
     else if (auto* planeCollider = dynamic_cast<PlaneCollider*>(other))
     {
-        // Load sphere position
-        DirectX::XMVECTOR sphereCenter = XMLoadFloat3(&mAttachedObject->Position);
-
-        // Load plane transform (position, normal, rotation)
-        DirectX::XMVECTOR planePosition = XMLoadFloat3(&planeCollider->Position);
-        DirectX::XMVECTOR planeNormal = XMLoadFloat3(&planeCollider->Normal);
-        DirectX::XMVECTOR planeRotation = XMLoadFloat4(&planeCollider->Rotation);
-
-        // Apply rotation to plane normal
-        planeNormal = DirectX::XMVector3Rotate(planeNormal, planeRotation);
-
-        // Compute signed distance from sphere to plane
-        DirectX::XMVECTOR sphereToPlane = DirectX::XMVectorSubtract(sphereCenter, planePosition);
-        float signedDistance = DirectX::XMVectorGetX(DirectX::XMVector3Dot(sphereToPlane, planeNormal));
-
-        // Check if the sphere is colliding with the plane
-        return signedDistance <= Radius && signedDistance >= -Radius;
+        return CheckPlaneCollision(planeCollider);
     }
     return false;
 }
@@ -45,64 +21,188 @@ void SphereCollider::ResolveCollision(ICollider* other)
 {
     if (auto* sphereCollider = dynamic_cast<SphereCollider*>(other))
     {
-        // Sphere-Sphere Collision Response
-        DirectX::XMVECTOR centerA = XMLoadFloat3(&mAttachedObject->Position);
-        DirectX::XMVECTOR centerB = XMLoadFloat3(&sphereCollider->mAttachedObject->Position);
-        DirectX::XMVECTOR diff = DirectX::XMVectorSubtract(centerA, centerB);
-        DirectX::XMVECTOR normal = DirectX::XMVector3Normalize(diff);
-
-        float distance = DirectX::XMVectorGetX(DirectX::XMVector3Length(diff));
-        float radiusSum = Radius + sphereCollider->Radius;
-        float penetrationDepth = radiusSum - distance;
-
-        if (penetrationDepth > 0.0f) // Ensure there's penetration
-        {
-            DirectX::XMVECTOR correction = DirectX::XMVectorScale(normal, penetrationDepth * 0.5f);
-
-            DirectX::XMVECTOR newPosA = DirectX::XMVectorAdd(centerA, correction);
-            DirectX::XMVECTOR newPosB = DirectX::XMVectorSubtract(centerB, correction);
-
-            XMStoreFloat3(&mAttachedObject->Position, newPosA);
-            XMStoreFloat3(&sphereCollider->mAttachedObject->Position, newPosB);
-        }
-
-        // Reflect velocity
-        DirectX::XMVECTOR velocityA = XMLoadFloat3(&mAttachedObject->Velocity);
-        DirectX::XMVECTOR velocityB = XMLoadFloat3(&sphereCollider->mAttachedObject->Velocity);
-
-        DirectX::XMVECTOR vA_normal = DirectX::XMVectorScale(normal, DirectX::XMVectorGetX(DirectX::XMVector3Dot(velocityA, normal)));
-        DirectX::XMVECTOR vB_normal = DirectX::XMVectorScale(normal, DirectX::XMVectorGetX(DirectX::XMVector3Dot(velocityB, normal)));
-
-        DirectX::XMVECTOR newVelocityA = DirectX::XMVectorSubtract(velocityA, DirectX::XMVectorScale(vA_normal, 2.0f));
-        DirectX::XMVECTOR newVelocityB = DirectX::XMVectorSubtract(velocityB, DirectX::XMVectorScale(vB_normal, 2.0f));
-
-        XMStoreFloat3(&mAttachedObject->Velocity, newVelocityA);
-        XMStoreFloat3(&sphereCollider->mAttachedObject->Velocity, newVelocityB);
+        HandleSphereCollision(sphereCollider);
     }
-
     else if (auto* planeCollider = dynamic_cast<PlaneCollider*>(other))
     {
-        // Sphere-Plane Collision Response
-        DirectX::XMVECTOR velocity = XMLoadFloat3(&mAttachedObject->Velocity);
-        DirectX::XMVECTOR normal = DirectX::XMLoadFloat3(&planeCollider->Normal);
-
-        // Reflect velocity
-        DirectX::XMVECTOR reflectedVelocity = DirectX::XMVectorSubtract(
-            velocity,
-            DirectX::XMVectorScale(normal, 2 * DirectX::XMVectorGetX(DirectX::XMVector3Dot(velocity, normal)))
-        );
-
-        XMStoreFloat3(&mAttachedObject->Velocity, reflectedVelocity);
-
-        // Push sphere out of plane to prevent sinking
-        DirectX::XMVECTOR sphereCenter = XMLoadFloat3(&mAttachedObject->Position);
-        float distance = DirectX::XMVectorGetX(DirectX::XMVector3Dot(normal, sphereCenter)) + planeCollider->D;
-
-        if (std::abs(distance) < Radius)
-        {
-            DirectX::XMVECTOR correction = DirectX::XMVectorScale(normal, Radius - distance);
-            DirectX::XMVECTOR newPosition = DirectX::XMVectorAdd(sphereCenter, correction);
-            XMStoreFloat3(&mAttachedObject->Position, newPosition);
-        }
+        HandlePlaneCollision(planeCollider);
     }
 }
+
+std::string SphereCollider::GetColliderName()
+{
+    return "Sphere Collider";
+}
+
+// ------------------- COLLISION DETECTION ------------------------------
+
+#pragma region SPHERE_COLLISION
+
+void SphereCollider::HandleSphereCollision(SphereCollider* other)
+{
+    DirectX::XMVECTOR centerA = DirectX::XMLoadFloat3(&mAttachedObject->Position);
+    DirectX::XMVECTOR centerB = DirectX::XMLoadFloat3(&other->mAttachedObject->Position);
+
+    DirectX::XMVECTOR normal;
+    float penetrationDepth;
+
+    if (ComputeSphereCollisionInfo(centerA, centerB, normal, penetrationDepth, other))
+    {
+        ResolveSpherePenetration(centerA, centerB, normal, penetrationDepth, other);
+        ResolveSphereVelocity(normal, other);
+    }
+}
+
+bool SphereCollider::CheckSphereCollision(SphereCollider* other) const
+{
+    DirectX::XMVECTOR centerA = XMLoadFloat3(&mAttachedObject->Position);
+    DirectX::XMVECTOR centerB = XMLoadFloat3(&other->mAttachedObject->Position);
+
+    DirectX::XMVECTOR diff = DirectX::XMVectorSubtract(centerA, centerB);
+    float distanceSq = DirectX::XMVectorGetX(DirectX::XMVector3LengthSq(diff));
+    float radiusSum = Radius + other->Radius;
+
+    return distanceSq <= (radiusSum * radiusSum);
+}
+
+bool SphereCollider::ComputeSphereCollisionInfo(
+    const DirectX::XMVECTOR& centerA, const DirectX::XMVECTOR& centerB,
+    DirectX::XMVECTOR& normal, float& penetrationDepth, SphereCollider* other) const
+{
+    DirectX::XMVECTOR diff = DirectX::XMVectorSubtract(centerA, centerB);
+    float distanceSq = DirectX::XMVectorGetX(DirectX::XMVector3LengthSq(diff));
+    float radiusSum = Radius + other->Radius;
+
+    if (distanceSq > (radiusSum * radiusSum))
+        return false;  // No collision
+
+    float distance = std::sqrt(distanceSq);
+    normal = DirectX::XMVectorDivide(diff, DirectX::XMVectorReplicate(distance));
+    penetrationDepth = radiusSum - distance;
+    return true;
+}
+
+void SphereCollider::ResolveSpherePenetration(
+    const DirectX::XMVECTOR& centerA, const DirectX::XMVECTOR& centerB,
+    const DirectX::XMVECTOR& normal, float penetrationDepth,
+    SphereCollider* other) const
+{
+    float totalMass = mAttachedObject->mMass + other->mAttachedObject->mMass;
+
+    // Compute displacement factors based on mass
+    float moveA = other->mAttachedObject->mMass / totalMass;
+    float moveB = mAttachedObject->mMass / totalMass;
+
+    // Distribute penetration correction
+    DirectX::XMVECTOR correctionA = DirectX::XMVectorScale(normal, penetrationDepth * moveA);
+    DirectX::XMVECTOR correctionB = DirectX::XMVectorScale(normal, penetrationDepth * moveB);
+
+    // Apply corrections
+    XMStoreFloat3(&mAttachedObject->Position, DirectX::XMVectorAdd(centerA, correctionA));
+    XMStoreFloat3(&other->mAttachedObject->Position, DirectX::XMVectorSubtract(centerB, correctionB));
+}
+
+void SphereCollider::ResolveSphereVelocity(const DirectX::XMVECTOR& normal,
+    const SphereCollider* other) const
+{
+    DirectX::XMVECTOR velocityA = XMLoadFloat3(&mAttachedObject->Velocity);
+    DirectX::XMVECTOR velocityB = XMLoadFloat3(&other->mAttachedObject->Velocity);
+
+    float massA = mAttachedObject->mMass;
+    float massB = other->mAttachedObject->mMass;
+
+    // Compute relative velocity
+    DirectX::XMVECTOR relativeVelocity = DirectX::XMVectorSubtract(velocityA, velocityB);
+
+    // Compute velocity along the collision normal
+    float velAlongNormal = DirectX::XMVectorGetX(DirectX::XMVector3Dot(relativeVelocity, normal));
+
+    // If objects are separating, do nothing
+    if (velAlongNormal > 0) return;
+
+    // Compute impulse scalar
+    float impulseScalar = -(1 + Elastic) * velAlongNormal / (1.0f / massA + 1.0f / massB);
+
+    // Compute impulse vector
+    DirectX::XMVECTOR impulse = DirectX::XMVectorScale(normal, impulseScalar);
+
+    // Apply impulse scaled by mass
+    DirectX::XMVECTOR newVelocityA = DirectX::XMVectorAdd(velocityA, DirectX::XMVectorScale(impulse, 1.0f / massA));
+    DirectX::XMVECTOR newVelocityB = DirectX::XMVectorSubtract(velocityB, DirectX::XMVectorScale(impulse, 1.0f / massB));
+
+    // Store updated velocities
+    XMStoreFloat3(&mAttachedObject->Velocity, newVelocityA);
+    XMStoreFloat3(&other->mAttachedObject->Velocity, newVelocityB);
+}
+
+void SphereCollider::ComputeSphereVelocityChange(
+    const DirectX::XMVECTOR& velocityA, const DirectX::XMVECTOR& velocityB,
+    const DirectX::XMVECTOR& normal, DirectX::XMVECTOR& newVelocityA, DirectX::XMVECTOR& newVelocityB) const
+{
+    DirectX::XMVECTOR vA_proj = DirectX::XMVectorScale(normal, DirectX::XMVectorGetX(DirectX::XMVector3Dot(velocityA, normal)));
+    DirectX::XMVECTOR vB_proj = DirectX::XMVectorScale(normal, DirectX::XMVectorGetX(DirectX::XMVector3Dot(velocityB, normal)));
+
+    newVelocityA = DirectX::XMVectorSubtract(velocityA, DirectX::XMVectorScale(vA_proj, 2.0f));
+    newVelocityB = DirectX::XMVectorSubtract(velocityB, DirectX::XMVectorScale(vB_proj, 2.0f));
+}
+
+#pragma endregion
+
+#pragma region PLANE_COLLISION
+
+void SphereCollider::HandlePlaneCollision(PlaneCollider* other)
+{
+    DirectX::XMVECTOR velocity = XMLoadFloat3(&mAttachedObject->Velocity);
+    DirectX::XMVECTOR normal = DirectX::XMLoadFloat3(&other->Normal);
+
+    ReflectVelocity(normal);
+    CorrectSpherePosition(normal, other);
+}
+
+bool SphereCollider::CheckPlaneCollision(PlaneCollider* planeCollider)
+{
+    // Load sphere position
+    DirectX::XMVECTOR sphereCenter = XMLoadFloat3(&mAttachedObject->Position);
+
+    // Load plane transform (position, normal, rotation)
+    DirectX::XMVECTOR planePosition = DirectX::XMLoadFloat3(&planeCollider->Position);
+    DirectX::XMVECTOR planeNormal = DirectX::XMLoadFloat3(&planeCollider->Normal);
+    DirectX::XMVECTOR planeRotation = DirectX::XMLoadFloat4(&planeCollider->Rotation);
+
+    // Apply rotation to plane normal
+    planeNormal = DirectX::XMVector3Rotate(planeNormal, planeRotation);
+
+    // Compute signed distance from sphere to plane
+    DirectX::XMVECTOR sphereToPlane = DirectX::XMVectorSubtract(sphereCenter, planePosition);
+    float signedDistance = DirectX::XMVectorGetX(DirectX::XMVector3Dot(sphereToPlane, planeNormal));
+
+    // Check if the sphere is colliding with the plane
+    return signedDistance <= Radius && signedDistance >= -Radius;
+}
+
+void SphereCollider::ReflectVelocity(const DirectX::XMVECTOR& normal)
+{
+    DirectX::XMVECTOR velocity = XMLoadFloat3(&mAttachedObject->Velocity);
+    DirectX::XMVECTOR reflectedVelocity = DirectX::XMVectorSubtract(
+        velocity,
+        DirectX::XMVectorScale(normal, 2 * DirectX::XMVectorGetX(DirectX::XMVector3Dot(velocity, normal)))
+    );
+
+    XMStoreFloat3(&mAttachedObject->Velocity, reflectedVelocity);
+}
+
+void SphereCollider::CorrectSpherePosition(const DirectX::XMVECTOR& normal,
+    const PlaneCollider* planeCollider) const
+{
+    DirectX::XMVECTOR sphereCenter = XMLoadFloat3(&mAttachedObject->Position);
+    float distance = DirectX::XMVectorGetX(DirectX::XMVector3Dot(normal, sphereCenter)) + planeCollider->D;
+
+    if (std::abs(distance) < Radius)
+    {
+        DirectX::XMVECTOR correction = DirectX::XMVectorScale(normal, Radius - distance);
+        DirectX::XMVECTOR newPosition = DirectX::XMVectorAdd(sphereCenter, correction);
+        XMStoreFloat3(&mAttachedObject->Position, newPosition);
+    }
+}
+
+#pragma endregion

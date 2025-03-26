@@ -18,6 +18,7 @@ void GUIManager::RequestUpdate()
 	BuildAddLightGUI();
 	BuildCameraGUI();
 	BuildColorGUI();
+	BuildSimulationGUI();
 }
 
 void GUIManager::RecordingSetup()
@@ -36,6 +37,7 @@ void GUIManager::RecordingExecute(float deltaTime)
 	ShowSceneCreationPopup();
 	ShowCameraConfigWindow();
 	ShowColorSelectionWindow();
+	ShowSimulationWindow();
 }
 
 MainMenuBar& GUIManager::GetMainMenu()
@@ -109,6 +111,19 @@ void GUIManager::BuildColorGUI()
 			mShowColorPicker = !mShowColorPicker; // Toggle the color picker window
 		});
 	mMainMenu.AddMenu(std::move(colorItem));
+}
+
+void GUIManager::BuildSimulationGUI()
+{
+	auto simulationMenu = std::make_unique<MenuItem>(
+		"Simulation",
+		[&]()
+		{
+			mShowSimulationMenu = !mShowSimulationMenu;
+		}
+	);
+
+	mMainMenu.AddMenu(std::move(simulationMenu));
 }
 
 void GUIManager::ShowControlPanel()
@@ -436,5 +451,47 @@ void GUIManager::ShowColorSelectionWindow()
 		SubsystemManager::Get<RenderManager>()->SetBackgroundColor(mColor);
 	}
 
+	ImGui::End();
+}
+
+void GUIManager::ShowSimulationWindow()
+{
+	if (!mShowSimulationMenu) return;
+	ImGui::Begin("Simulation", &mShowSimulationMenu);
+
+	Timer* timer = SubsystemManager::Get<Timer>();
+
+	ImGui::Text("Total Elapsed Time: %.2f", timer->TotalTime());
+
+	ImGui::Separator();
+	ImGui::Text("Simulation Controls");
+
+	if (ImGui::Button("Pause Simulation"))
+	{
+		timer->Stop();
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Resume Simulation"))
+	{
+		timer->Start();
+	}
+
+	ImGui::Separator();
+	ImGui::Text("Modify Time Step");
+
+	ImGui::DragFloat("Time Step", &mUpdatedTimeStep,
+		0.01f, -60.0f, 60.0f, "%.2f");
+
+	if (ImGui::Button("Increase Time Step"))
+	{
+		timer->UpdateDeltaTime(-mUpdatedTimeStep);
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Decrease Time Step"))
+	{
+		timer->UpdateDeltaTime(mUpdatedTimeStep);
+	}
+
+	ImGui::Separator();
 	ImGui::End();
 }

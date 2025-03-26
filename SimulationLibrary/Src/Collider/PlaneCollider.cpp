@@ -39,3 +39,8 @@ void PlaneCollider::ResolveCollision(ICollider* other)
         XMStoreFloat3(&sphereCollider->mAttachedObject->Velocity, reflectedVelocity);
     }
 }
+
+std::string PlaneCollider::GetColliderName()
+{
+    return "Plane Collider";
+}

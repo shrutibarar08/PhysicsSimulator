@@ -1,6 +1,4 @@
 #include "PhysicsAPI/PhysicsManager.h"
-#include <process.h>
-#include <thread>
 
 #include <iostream>
 

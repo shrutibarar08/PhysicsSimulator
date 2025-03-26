@@ -25,6 +25,8 @@ public:
 	DirectX::XMFLOAT3 GetAcceleration() const;
 	DirectX::XMFLOAT3 GetAccumulatedForce() const;
 
+	bool IsFixed() const;
+
 public:
 	DirectX::XMFLOAT3 Position{ 0.0f, 0.0f, 0.0f };
 	DirectX::XMFLOAT3 Velocity{ 0.0f, 0.0f, 0.0f };

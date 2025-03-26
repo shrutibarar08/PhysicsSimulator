@@ -11,6 +11,8 @@ namespace Simulation
 		DirectX::XMMATRIX World;
 		DirectX::XMMATRIX View;
 		DirectX::XMMATRIX Projection;
+		DirectX::XMFLOAT3 Velocity;
+		float Elastic;
 	};
 
 	struct Vertex

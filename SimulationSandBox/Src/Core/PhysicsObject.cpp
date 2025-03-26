@@ -74,6 +74,7 @@ void PhysicsObject::InitParticleEffectPopUp()
 
 void PhysicsObject::InitColliderPopUp()
 {
+    ImGui::Separator();
     if (ImGui::Button("Add Collider"))
     {
         ImGui::OpenPopup("Collider Selector");
@@ -139,12 +140,31 @@ void PhysicsObject::InitColliderPopUp()
 
 void PhysicsObject::InitColliderUpdateGUI()
 {
+    ImGui::Text("Attached Collider:");
+    if (mCollider == nullptr)
+    {
+        ImGui::Text("No Collider Attached");
+        return;
+    }
+    ImGui::Text("%s", mCollider->GetColliderName().c_str());
+    ImGui::SameLine();
+    if (ImGui::Button("Remove"))
+    {
+        std::cout << "Collider Removed!\n";
+        mCollider.reset();
+    }
 
+    ImGui::Text("Properties:");
+    ImGui::DragFloat("Elastic", &mCollider->Elastic, 0.1f,
+        0.0f, 1.0f, "%0.002f");
+
+    ImGui::Checkbox("Static", &mCollider->bStatic);
+
+    ImGui::Separator();
 }
 
 void PhysicsObject::InitParticleUpdateGUI()
 {
-    ImGui::Separator();
     ImGui::Text("Active Particle Effects:");
 
     if (mParticleEffects.empty())
@@ -174,5 +194,10 @@ void PhysicsObject::InitParticleUpdateGUI()
 
 void PhysicsObject::Update(float deltaTime)
 {
-    mParticleSystem.Update(mParticle, deltaTime);
+    if (mbEffects) mParticleSystem.Update(mParticle, deltaTime);
+}
+
+void PhysicsObject::ToggleEffects()
+{
+    mbEffects = !mbEffects;
 }
