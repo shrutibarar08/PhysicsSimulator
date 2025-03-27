@@ -212,6 +212,32 @@ void PhysicsObject::ToggleEffects()
     mbEffects = !mbEffects;
 }
 
+nlohmann::json PhysicsObject::SaveToJson()
+{
+    nlohmann::json cache;
+
+    cache["Particle"] = mParticle.SaveToJson();
+    if (mCollider != nullptr)
+        cache["Collider"] = mCollider->SaveToJson();
+    else cache["Collider"] = {};
+
+    return cache;
+}
+
+void PhysicsObject::LoadFromJson(const nlohmann::json& json)
+{
+    if (json.contains("Particle") && json["Particle"].is_object())
+        mParticle.LoadFromJson(json["Particle"]);
+
+    if (json.contains("Collider") && json["Collider"].is_object())
+    {
+        mCollider = RegistryCollider::Create(json["Collider"]["Name"]);
+        mCollider->Collider()->AttachParticle(mParticle.GetParticle());
+        mCollider->Collider()->SetColliderName(json["Collider"]["Name"]);
+        mCollider->LoadFromJson(json["Collider"]);
+    }
+}
+
 void PhysicsObject::InitParticleUpdateGUI()
 {
     SubOptionElement::DrawSubOption("Particle",

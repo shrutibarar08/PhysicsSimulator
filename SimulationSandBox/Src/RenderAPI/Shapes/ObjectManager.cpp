@@ -56,34 +56,25 @@ void ObjectManager::AddObjectOnScene(const SIMULATION_OBJECT_CREATE_DESC* object
 	mObjects.emplace_back(std::move(object));
 }
 
+void ObjectManager::AddObjectOnScene(const nlohmann::json& jsonData)
+{
+	if (!jsonData.contains("object_type")) return;
+	std::unique_ptr<IObjectInterface> object = RegistryShape::Create(jsonData["object_type"]);
+	object->LoadFromJson(jsonData);
+
+	if (mState == State::Loaded)
+	{
+		RenderQueue::RegisterObject(object.get());
+		std::cout << "Added Object on Scene!\n";
+	}
+	mObjects.emplace_back(std::move(object));
+}
+
 void ObjectManager::LoadFromJson(const nlohmann::json& jsonData)
 {
 	for (const auto& objJson : jsonData)
 	{
-		Simulation::Transform transform;
-		transform.Translation = {
-			objJson["transform"]["translation"][0],
-			objJson["transform"]["translation"][1],
-			objJson["transform"]["translation"][2]
-		};
-		transform.Rotation = {
-			objJson["transform"]["rotation"][0],
-			objJson["transform"]["rotation"][1],
-			objJson["transform"]["rotation"][2]
-		};
-		transform.Scale = {
-			objJson["transform"]["scale"][0],
-			objJson["transform"]["scale"][1],
-			objJson["transform"]["scale"][2]
-		};
-
-		SIMULATION_OBJECT_CREATE_DESC desc{};
-		desc.Transform = transform;
-		desc.ObjectName = objJson["object_name"];
-		desc.ObjectType = objJson["object_type"];
-		desc.TexturePath = objJson["texture_path"];
-
-		AddObjectOnScene(&desc);
+		AddObjectOnScene(objJson);
 	}
 }
 

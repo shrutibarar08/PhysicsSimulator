@@ -15,11 +15,24 @@ void SphereColliderUI::OnUpdateGUI()
 
 void SphereColliderUI::LoadFromJson(const nlohmann::json& jsonData)
 {
+    if (jsonData.contains("Elastic") && jsonData["Elastic"].is_number_float())
+        mSphereCollider.Elastic = jsonData["Elastic"];
+
+    if (jsonData.contains("Radius") && jsonData["Radius"].is_number_float())
+        mSphereCollider.Radius = jsonData["Radius"];
+
+    if (jsonData.contains("Static") && jsonData["Static"].is_boolean())
+        mSphereCollider.bStatic = jsonData["Static"];
 }
 
 nlohmann::json SphereColliderUI::SaveToJson()
 {
-	return nlohmann::json();
+    return {
+        {"Name", mSphereCollider.GetColliderName() },
+        {"Elastic", mSphereCollider.Elastic},
+        {"Radius", mSphereCollider.Radius},
+        {"Static", mSphereCollider.bStatic}
+    };
 }
 
 ICollider* SphereColliderUI::Collider()

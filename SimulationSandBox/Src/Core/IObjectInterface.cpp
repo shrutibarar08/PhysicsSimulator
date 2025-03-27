@@ -305,6 +305,48 @@ std::string IObjectInterface::GetTexturePath() const
 
 void IObjectInterface::LoadFromJson(const nlohmann::json& json)
 {
+	if (json.contains("object_type") && json["object_type"].is_string())
+		SetObjectType(json["object_type"]);
+
+	if (json.contains("object_name") && json["object_name"].is_string())
+		SetObjectName(json["object_name"]);
+
+	if (json.contains("texture_path") && json["texture_path"].is_string())
+		SetTexture(json["texture_path"]);
+
+	if (json.contains("transform") && json["transform"].is_object())
+	{
+		Simulation::Transform transform{};
+
+		if (json["transform"].contains("translation") && json["transform"]["translation"].is_array() && json["transform"]["translation"].size() == 3)
+		{
+			transform.Translation.x = json["transform"]["translation"][0];
+			transform.Translation.y = json["transform"]["translation"][1];
+			transform.Translation.z = json["transform"]["translation"][2];
+		}
+
+		if (json["transform"].contains("rotation") && json["transform"]["rotation"].is_array() && json["transform"]["rotation"].size() == 3)
+		{
+			transform.Rotation.x = json["transform"]["rotation"][0];
+			transform.Rotation.y = json["transform"]["rotation"][1];
+			transform.Rotation.z = json["transform"]["rotation"][2];
+		}
+
+		if (json["transform"].contains("scale") && json["transform"]["scale"].is_array() && json["transform"]["scale"].size() == 3)
+		{
+			transform.Scale.x = json["transform"]["scale"][0];
+			transform.Scale.y = json["transform"]["scale"][1];
+			transform.Scale.z = json["transform"]["scale"][2];
+		}
+
+		SetTransform(transform);
+
+		if (json["transform"].contains("Param") && json["transform"]["Param"].is_object())
+			LoadParamFromJson(json["transform"]["Param"]);
+	}
+
+	if (json.contains("Physics") && json["Physics"].is_object() && GetPhysicsObject() != nullptr)
+		GetPhysicsObject()->LoadFromJson(json["Physics"]);
 }
 
 nlohmann::json IObjectInterface::SaveToJson()
@@ -319,31 +361,11 @@ nlohmann::json IObjectInterface::SaveToJson()
 	objJson["transform"] = {
 		{ "translation", { transform.Translation.x, transform.Translation.y, transform.Translation.z } },
 		{ "rotation", { transform.Rotation.x, transform.Rotation.y, transform.Rotation.z } },
-		{ "scale", { transform.Scale.x, transform.Scale.y, transform.Scale.z } }
+		{ "scale", { transform.Scale.x, transform.Scale.y, transform.Scale.z } },
+		{ "Param", SaveParamToJson() }
 	};
-	objJson["Param"] = SaveParamToJson();
 
-	if (auto physics = GetPhysicsObject(); physics)
-	{
-		auto particle = physics->mParticle.GetParticle();
-		objJson["Physics"] = {
-			{ "Velocity", { particle->Velocity.x,
-				particle->Velocity.y, particle->Velocity.z } },
-			{ "Acceleration", { particle->Acceleration.x,
-				particle->Acceleration.y, particle->Acceleration.z } },
-			{ "Mass", particle->GetMass() }
-		};
-
-		if (physics->mCollider)
-		{
-			auto collider = physics->mCollider->Collider();
-			objJson["Physics"]["Collider"] = {
-				{ "Name", collider->GetColliderName() },
-				{ "Static", collider->bStatic },
-				{ "Elastic", collider->Elastic }
-			};
-		}
-	}
+	objJson["Physics"] = GetPhysicsObject()->SaveToJson();
 
 	return objJson;
 }

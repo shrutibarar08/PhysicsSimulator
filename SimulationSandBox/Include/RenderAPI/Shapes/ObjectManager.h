@@ -16,6 +16,8 @@ public:
 	void UnLoad() override;
 
 	void AddObjectOnScene(const SIMULATION_OBJECT_CREATE_DESC* objectCreateDesc);
+	void AddObjectOnScene(const nlohmann::json& jsonData);
+
 	void LoadFromJson(const nlohmann::json& jsonData) override;
 	nlohmann::json SaveToJson() const override;
 

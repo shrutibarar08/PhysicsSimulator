@@ -3,10 +3,10 @@
         "Lights": [
             {
                 "ambient": [
-                    0.9529411792755127,
-                    0.2705882489681244,
-                    0.2705882489681244,
-                    1.0
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
                 ],
                 "attenuation": [
                     0.0,
@@ -14,15 +14,15 @@
                     0.0
                 ],
                 "diffuse": [
-                    0.7450980544090271,
-                    0.32156863808631897,
-                    0.32156863808631897,
-                    1.0
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
                 ],
                 "direction": [
-                    12.699999809265137,
-                    -16.299999237060547,
-                    4.099999904632568
+                    0.0,
+                    0.0,
+                    0.0
                 ],
                 "light_name": "",
                 "light_type": "DirectionalLight",
@@ -33,10 +33,10 @@
                 ],
                 "range": 0.0,
                 "specular": [
-                    0.929411768913269,
-                    0.501960813999176,
-                    0.501960813999176,
-                    1.0
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
                 ],
                 "spot": 0.0
             },
@@ -45,18 +45,18 @@
                     0.0,
                     0.0,
                     0.0,
-                    1.0
+                    0.0
                 ],
                 "attenuation": [
-                    1.0,
-                    0.36000001430511475,
-                    0.6800000071525574
+                    0.0,
+                    0.0,
+                    0.0
                 ],
                 "diffuse": [
-                    0.291814923286438,
-                    0.035308558493852615,
-                    0.035308558493852615,
-                    1.0
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
                 ],
                 "direction": [
                     0.0,
@@ -72,30 +72,30 @@
                 ],
                 "range": 0.0,
                 "specular": [
-                    0.8825622797012329,
-                    0.5496384501457214,
-                    0.5496384501457214,
-                    1.0
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
                 ],
                 "spot": 0.0
             },
             {
                 "ambient": [
-                    0.4341636896133423,
-                    0.146781325340271,
-                    0.146781325340271,
-                    1.0
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
                 ],
                 "attenuation": [
-                    1.0,
-                    0.4300000071525574,
+                    0.0,
+                    0.0,
                     0.0
                 ],
                 "diffuse": [
-                    0.7647058963775635,
-                    0.29411765933036804,
-                    0.29411765933036804,
-                    1.0
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
                 ],
                 "direction": [
                     0.0,
@@ -105,36 +105,36 @@
                 "light_name": "focus light",
                 "light_type": "PointLight",
                 "position": [
-                    6.5,
+                    0.0,
                     0.0,
                     0.0
                 ],
-                "range": 5.099999904632568,
+                "range": 0.0,
                 "specular": [
-                    0.501960813999176,
-                    0.16862745583057404,
-                    0.16862745583057404,
-                    1.0
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
                 ],
                 "spot": 0.0
             },
             {
                 "ambient": [
-                    0.9058823585510254,
-                    0.3137255012989044,
-                    0.3137255012989044,
-                    1.0
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
                 ],
                 "attenuation": [
-                    1.0,
-                    0.2800000011920929,
+                    0.0,
+                    0.0,
                     0.0
                 ],
                 "diffuse": [
-                    0.3772242069244385,
-                    0.2966780960559845,
-                    0.2966780960559845,
-                    1.0
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
                 ],
                 "direction": [
                     0.0,
@@ -150,34 +150,43 @@
                 ],
                 "range": 0.0,
                 "specular": [
-                    0.7864768505096436,
-                    0.6297412514686584,
-                    0.6297412514686584,
-                    1.0
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
                 ],
                 "spot": 0.0
             }
         ],
         "Objects": [
             {
-                "Param": null,
                 "Physics": {
-                    "Acceleration": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Mass": 1.0,
-                    "Velocity": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
+                    "Collider": null,
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
                 },
                 "object_name": "Sea Object",
                 "object_type": "CubeObject",
                 "texture_path": "Data/textures/sea.jpg",
                 "transform": {
+                    "Param": null,
                     "rotation": [
                         0.0,
                         -3.799999952316284,
@@ -196,24 +205,33 @@
                 }
             },
             {
-                "Param": null,
                 "Physics": {
-                    "Acceleration": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Mass": 1.0,
-                    "Velocity": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
+                    "Collider": null,
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
                 },
                 "object_name": "Wooden Plank",
                 "object_type": "CubeObject",
                 "texture_path": "Data/textures/texture_2.jpg",
                 "transform": {
+                    "Param": null,
                     "rotation": [
                         0.0,
                         0.5,
@@ -232,28 +250,37 @@
                 }
             },
             {
-                "Param": {
-                    "LatitudeBands": 20,
-                    "LongitudeBands": 20,
-                    "Radius": 1.0
-                },
                 "Physics": {
-                    "Acceleration": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Mass": 1.0,
-                    "Velocity": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
+                    "Collider": null,
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
                 },
                 "object_name": "Galaxy Ball",
                 "object_type": "SphereObject",
                 "texture_path": "Data/textures/ball texture.jpg",
                 "transform": {
+                    "Param": {
+                        "LatitudeBands": 20,
+                        "LongitudeBands": 20,
+                        "Radius": 1.0
+                    },
                     "rotation": [
                         0.0,
                         0.0,
@@ -272,29 +299,38 @@
                 }
             },
             {
-                "Param": {
-                    "RadialSegments": 40,
-                    "Radius": 1.0,
-                    "TubeRadius": 0.30000001192092896,
-                    "TubularSegments": 20
-                },
                 "Physics": {
-                    "Acceleration": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Mass": 1.0,
-                    "Velocity": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
+                    "Collider": null,
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
                 },
                 "object_name": "Swim Ring",
                 "object_type": "TorusObject",
                 "texture_path": "Data/textures/swim ring.jpg",
                 "transform": {
+                    "Param": {
+                        "RadialSegments": 40,
+                        "Radius": 1.0,
+                        "TubeRadius": 0.30000001192092896,
+                        "TubularSegments": 20
+                    },
                     "rotation": [
                         3.200000047683716,
                         -63.5,
@@ -313,28 +349,37 @@
                 }
             },
             {
-                "Param": {
-                    "BaseWidth": 1.0,
-                    "Depth": 1.0,
-                    "Height": 1.0
-                },
                 "Physics": {
-                    "Acceleration": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Mass": 1.0,
-                    "Velocity": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
+                    "Collider": null,
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
                 },
                 "object_name": "Destroyed Crate",
                 "object_type": "PrismObject",
                 "texture_path": "Data/textures/wooden.jpg",
                 "transform": {
+                    "Param": {
+                        "BaseWidth": 1.0,
+                        "Depth": 1.0,
+                        "Height": 1.0
+                    },
                     "rotation": [
                         -1.600000023841858,
                         2.200000047683716,
@@ -353,28 +398,37 @@
                 }
             },
             {
-                "Param": {
-                    "Height": 2.0,
-                    "Radius": 1.0,
-                    "Segments": 20
-                },
                 "Physics": {
-                    "Acceleration": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Mass": 1.0,
-                    "Velocity": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
+                    "Collider": null,
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
                 },
                 "object_name": "Lost Treasure",
                 "object_type": "CylinderObject",
                 "texture_path": "Data/textures/for cylinder.jpg",
                 "transform": {
+                    "Param": {
+                        "Height": 2.0,
+                        "Radius": 1.0,
+                        "Segments": 20
+                    },
                     "rotation": [
                         2.0999999046325684,
                         -0.4000000059604645,
@@ -393,24 +447,33 @@
                 }
             },
             {
-                "Param": null,
                 "Physics": {
-                    "Acceleration": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Mass": 1.0,
-                    "Velocity": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
+                    "Collider": null,
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
                 },
                 "object_name": "Huge Diamond",
                 "object_type": "OctahedronObject",
                 "texture_path": "Data/textures/diamond.jpg",
                 "transform": {
+                    "Param": null,
                     "rotation": [
                         1.899999976158142,
                         -4.300000190734863,
@@ -429,28 +492,37 @@
                 }
             },
             {
-                "Param": {
-                    "Height": 2.0,
-                    "Radius": 1.0,
-                    "Slices": 20
-                },
                 "Physics": {
-                    "Acceleration": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Mass": 1.0,
-                    "Velocity": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
+                    "Collider": null,
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
                 },
                 "object_name": "Lost Hat",
                 "object_type": "ConeObject",
                 "texture_path": "Data/textures/hat.jpg",
                 "transform": {
+                    "Param": {
+                        "Height": 2.0,
+                        "Radius": 1.0,
+                        "Slices": 20
+                    },
                     "rotation": [
                         -0.4000000059604645,
                         -0.800000011920929,
@@ -474,10 +546,10 @@
         "Lights": [
             {
                 "ambient": [
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0
+                    1.0,
+                    1.0,
+                    1.0,
+                    0.9960784316062927
                 ],
                 "attenuation": [
                     0.0,
@@ -485,10 +557,10 @@
                     0.0
                 ],
                 "diffuse": [
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
                 ],
                 "direction": [
                     0.0,
@@ -504,34 +576,53 @@
                 ],
                 "range": 0.0,
                 "specular": [
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
                 ],
                 "spot": 0.0
             }
         ],
         "Objects": [
             {
-                "Param": null,
                 "Physics": {
-                    "Acceleration": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Mass": 1.0,
-                    "Velocity": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
+                    "Collider": {
+                        "Elastic": 1.0,
+                        "Name": "PlaneColliderUI",
+                        "Normal": [
+                            0.0,
+                            1.0,
+                            0.0
+                        ],
+                        "OffSet": 0.0,
+                        "Static": false
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 100.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
                 },
                 "object_name": "Plane",
                 "object_type": "CubeObject",
                 "texture_path": "../../../../OneDrive/Desktop/Workstation/SimulationSandBox/Data/textures/wooden.jpg",
                 "transform": {
+                    "Param": null,
                     "rotation": [
                         0.0,
                         0.0,
@@ -550,28 +641,42 @@
                 }
             },
             {
-                "Param": {
-                    "LatitudeBands": 20,
-                    "LongitudeBands": 20,
-                    "Radius": 1.0
-                },
                 "Physics": {
-                    "Acceleration": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Mass": 1.0,
-                    "Velocity": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
+                    "Collider": {
+                        "Elastic": 1.0,
+                        "Name": "SphereColliderUI",
+                        "Radius": 1.0,
+                        "Static": false
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
                 },
                 "object_name": "white ball",
                 "object_type": "SphereObject",
                 "texture_path": "../../../../OneDrive/Desktop/Workstation/SimulationSandBox/Data/textures/swim ring.jpg",
                 "transform": {
+                    "Param": {
+                        "LatitudeBands": 20,
+                        "LongitudeBands": 20,
+                        "Radius": 1.0
+                    },
                     "rotation": [
                         0.0,
                         0.0,
@@ -583,35 +688,49 @@
                         1.0
                     ],
                     "translation": [
-                        -1.5989999771118164,
-                        0.9449381828308105,
-                        -0.26566848158836365
+                        -3.3591814041137695,
+                        1.0,
+                        -0.5581169128417969
                     ]
                 }
             },
             {
-                "Param": {
-                    "LatitudeBands": 20,
-                    "LongitudeBands": 20,
-                    "Radius": 1.0
-                },
                 "Physics": {
-                    "Acceleration": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Mass": 1.0,
-                    "Velocity": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
+                    "Collider": {
+                        "Elastic": 1.0,
+                        "Name": "SphereColliderUI",
+                        "Radius": 1.0,
+                        "Static": false
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
                 },
                 "object_name": "brown ball",
                 "object_type": "SphereObject",
                 "texture_path": "../../../../OneDrive/Desktop/Workstation/SimulationSandBox/Data/textures/for cylinder.jpg",
                 "transform": {
+                    "Param": {
+                        "LatitudeBands": 20,
+                        "LongitudeBands": 20,
+                        "Radius": 1.0
+                    },
                     "rotation": [
                         0.0,
                         0.0,
@@ -623,35 +742,49 @@
                         1.0
                     ],
                     "translation": [
-                        0.0,
-                        0.0,
-                        0.0
+                        2.559680223464966,
+                        1.0,
+                        0.42528271675109863
                     ]
                 }
             },
             {
-                "Param": {
-                    "LatitudeBands": 20,
-                    "LongitudeBands": 20,
-                    "Radius": 1.0
-                },
                 "Physics": {
-                    "Acceleration": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Mass": 1.0,
-                    "Velocity": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
+                    "Collider": {
+                        "Elastic": 1.0,
+                        "Name": "SphereColliderUI",
+                        "Radius": 1.0,
+                        "Static": false
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
                 },
                 "object_name": "ball 3",
                 "object_type": "SphereObject",
                 "texture_path": "../../../../OneDrive/Desktop/Workstation/SimulationSandBox/Data/textures/diamond.jpg",
                 "transform": {
+                    "Param": {
+                        "LatitudeBands": 20,
+                        "LongitudeBands": 20,
+                        "Radius": 1.0
+                    },
                     "rotation": [
                         0.0,
                         0.0,
@@ -663,35 +796,49 @@
                         1.0
                     ],
                     "translation": [
-                        0.0,
-                        0.0,
-                        0.0
+                        -1.3862276077270508,
+                        1.0,
+                        -0.23031634092330933
                     ]
                 }
             },
             {
-                "Param": {
-                    "LatitudeBands": 20,
-                    "LongitudeBands": 20,
-                    "Radius": 1.0
-                },
                 "Physics": {
-                    "Acceleration": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Mass": 1.0,
-                    "Velocity": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
+                    "Collider": {
+                        "Elastic": 1.0,
+                        "Name": "SphereColliderUI",
+                        "Radius": 1.0,
+                        "Static": false
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
                 },
                 "object_name": "ball 4",
                 "object_type": "SphereObject",
                 "texture_path": "../../../../OneDrive/Desktop/Workstation/SimulationSandBox/Data/textures/texture_2.jpg",
                 "transform": {
+                    "Param": {
+                        "LatitudeBands": 20,
+                        "LongitudeBands": 20,
+                        "Radius": 1.0
+                    },
                     "rotation": [
                         0.0,
                         0.0,
@@ -703,9 +850,9 @@
                         1.0
                     ],
                     "translation": [
-                        0.0,
-                        0.0,
-                        0.0
+                        0.5867263674736023,
+                        1.0,
+                        0.0974828228354454
                     ]
                 }
             }

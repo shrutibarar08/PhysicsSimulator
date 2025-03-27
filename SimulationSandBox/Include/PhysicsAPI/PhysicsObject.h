@@ -19,6 +19,9 @@ public:
 	void Update(float deltaTime);
 	void ToggleEffects();
 
+	nlohmann::json SaveToJson();
+	void LoadFromJson(const nlohmann::json& json);
+
 private:
 	void InitParticleUpdateGUI();
 	void InitColliderPopUp();
