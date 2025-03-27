@@ -1,6 +1,8 @@
 #include "RenderAPI/Shapes/Object/ConeObject.h"
 #include <cmath>
 
+#include "imgui/imgui.h"
+
 
 void ConeObject::SetupObject()
 {
@@ -10,21 +12,20 @@ void ConeObject::SetupObject()
 
 std::vector<WORD> ConeObject::BuildIndices()
 {
-    const int slices = 20;
     std::vector<WORD> indices;
 
     // Side triangles
-    for (int i = 0; i < slices; i++)
+    for (int i = 0; i < mSlices; i++)
     {
-        indices.push_back(slices);          // Tip of the cone
+        indices.push_back(mSlices);          // Tip of the cone
         indices.push_back(i);
-        indices.push_back((i + 1) % slices);
+        indices.push_back((i + 1) % mSlices);
     }
 
     // Base triangles
-    for (int i = 0; i < slices - 2; i++)
+    for (int i = 0; i < mSlices - 2; i++)
     {
-        indices.push_back(slices + 1);  // Center of the base
+        indices.push_back(mSlices + 1);  // Center of the base
         indices.push_back(i + 1);
         indices.push_back(i);
     }
@@ -34,20 +35,18 @@ std::vector<WORD> ConeObject::BuildIndices()
 
 std::vector<DirectX::XMFLOAT3> ConeObject::BuildPosition()
 {
-    const int slices = 20;
-    const float radius = 1.0f;
-    const float height = 2.0f;
     std::vector<DirectX::XMFLOAT3> positions;
 
     // Base circle vertices
-    for (int i = 0; i < slices; i++)
+    for (int i = 0; i < mSlices; i++)
     {
-        float theta = (2.0f * 3.14159265f * i) / slices;
-        positions.emplace_back(radius * cosf(theta), 0.0f, radius * sinf(theta));
+        float theta = (2.0f * 3.14159265f * i) / mSlices;
+        positions.emplace_back(mRadius * cosf(theta), 0.0f, 
+            mRadius * sinf(theta));
     }
 
     // Cone tip
-    positions.emplace_back(0.0f, height, 0.0f);
+    positions.emplace_back(0.0f, mHeight, 0.0f);
 
     // Base center
     positions.emplace_back(0.0f, 0.0f, 0.0f);
@@ -57,12 +56,11 @@ std::vector<DirectX::XMFLOAT3> ConeObject::BuildPosition()
 
 std::vector<DirectX::XMFLOAT3> ConeObject::BuildNormal()
 {
-    const int slices = 20;
     std::vector<DirectX::XMFLOAT3> normals;
 
-    for (int i = 0; i < slices; i++)
+    for (int i = 0; i < mSlices; i++)
     {
-        float theta = (2.0f * 3.14159265f * i) / slices;
+        float theta = (2.0f * 3.14159265f * i) / static_cast<float>(mSlices);
         normals.emplace_back(cosf(theta), 0.5f, sinf(theta));
     }
 
@@ -77,12 +75,11 @@ std::vector<DirectX::XMFLOAT3> ConeObject::BuildNormal()
 
 std::vector<DirectX::XMFLOAT2> ConeObject::BuildTexCoords()
 {
-    const int slices = 20;
     std::vector<DirectX::XMFLOAT2> texCoords;
 
-    for (int i = 0; i < slices; i++)
+    for (int i = 0; i < mSlices; i++)
     {
-        float u = static_cast<float>(i) / (slices - 1);
+        float u = static_cast<float>(i) / (mSlices - 1);
         texCoords.emplace_back(u, 1.0f);
     }
 
@@ -93,4 +90,16 @@ std::vector<DirectX::XMFLOAT2> ConeObject::BuildTexCoords()
     texCoords.emplace_back(0.5f, 0.5f);
 
     return texCoords;
+}
+
+void ConeObject::InitPrimitiveControlGUI()
+{
+    ImGui::SliderInt("Slices", &mSlices, 3, 100);
+    ImGui::DragFloat("Radius", &mRadius, 0.1f, 0.1f, 100.0f, "%.2f");
+    ImGui::DragFloat("Height", &mHeight, 0.1f, 0.1f, 100.0f, "%.2f");
+
+    if (ImGui::Button("Build"))
+    {
+        SetupObject();
+    }
 }

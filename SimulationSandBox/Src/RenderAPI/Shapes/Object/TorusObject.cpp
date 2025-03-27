@@ -1,6 +1,8 @@
 #include "RenderAPI/Shapes/Object/TorusObject.h"
 #include <cmath>
 
+#include "imgui/imgui.h"
+
 
 void TorusObject::SetupObject()
 {
@@ -12,17 +14,17 @@ std::vector<WORD> TorusObject::BuildIndices()
 {
     std::vector<WORD> indices;
 
-    for (int j = 0; j < tubularSegments; ++j)
+    for (int j = 0; j < mTubularSegments; ++j)
     {
-        for (int i = 0; i < radialSegments; ++i)
+        for (int i = 0; i < mRadialSegments; ++i)
         {
-            int nextI = (i + 1) % radialSegments;
-            int nextJ = (j + 1) % tubularSegments;
+            int nextI = (i + 1) % mRadialSegments;
+            int nextJ = (j + 1) % mTubularSegments;
 
-            WORD a = j * radialSegments + i;
-            WORD b = j * radialSegments + nextI;
-            WORD c = nextJ * radialSegments + i;
-            WORD d = nextJ * radialSegments + nextI;
+            WORD a = j * mRadialSegments + i;
+            WORD b = j * mRadialSegments + nextI;
+            WORD c = nextJ * mRadialSegments + i;
+            WORD d = nextJ * mRadialSegments + nextI;
 
             indices.push_back(a);
             indices.push_back(c);
@@ -41,21 +43,21 @@ std::vector<DirectX::XMFLOAT3> TorusObject::BuildPosition()
 {
     std::vector<DirectX::XMFLOAT3> positions;
 
-    for (int j = 0; j < tubularSegments; ++j)
+    for (int j = 0; j < mTubularSegments; ++j)
     {
-        float v = (float)j / tubularSegments * DirectX::XM_2PI;
+        float v = (float)j / mTubularSegments * DirectX::XM_2PI;
         float cosV = cos(v);
         float sinV = sin(v);
 
-        for (int i = 0; i < radialSegments; ++i)
+        for (int i = 0; i < mRadialSegments; ++i)
         {
-            float u = (float)i / radialSegments * DirectX::XM_2PI;
+            float u = (float)i / mRadialSegments * DirectX::XM_2PI;
             float cosU = cos(u);
             float sinU = sin(u);
 
-            float x = (radius + tubeRadius * cosU) * cosV;
-            float y = (radius + tubeRadius * cosU) * sinV;
-            float z = tubeRadius * sinU;
+            float x = (mRadius + mTubeRadius * cosU) * cosV;
+            float y = (mRadius + mTubeRadius * cosU) * sinV;
+            float z = mTubeRadius * sinU;
 
             positions.emplace_back(x, y, z);
         }
@@ -68,15 +70,15 @@ std::vector<DirectX::XMFLOAT3> TorusObject::BuildNormal()
 {
     std::vector<DirectX::XMFLOAT3> normals;
 
-    for (int j = 0; j < tubularSegments; ++j)
+    for (int j = 0; j < mTubularSegments; ++j)
     {
-        float v = (float)j / tubularSegments * DirectX::XM_2PI;
+        float v = (float)j / mTubularSegments * DirectX::XM_2PI;
         float cosV = cos(v);
         float sinV = sin(v);
 
-        for (int i = 0; i < radialSegments; ++i)
+        for (int i = 0; i < mRadialSegments; ++i)
         {
-            float u = (float)i / radialSegments * DirectX::XM_2PI;
+            float u = (float)i / mRadialSegments * DirectX::XM_2PI;
             float cosU = cos(u);
             float sinU = sin(u);
 
@@ -95,15 +97,28 @@ std::vector<DirectX::XMFLOAT2> TorusObject::BuildTexCoords()
 {
     std::vector<DirectX::XMFLOAT2> texCoords;
 
-    for (int j = 0; j < tubularSegments; ++j)
+    for (int j = 0; j < mTubularSegments; ++j)
     {
-        float v = (float)j / tubularSegments;
-        for (int i = 0; i < radialSegments; ++i)
+        float v = (float)j / mTubularSegments;
+        for (int i = 0; i < mRadialSegments; ++i)
         {
-            float u = (float)i / radialSegments;
+            float u = (float)i / mRadialSegments;
             texCoords.emplace_back(u, v);
         }
     }
 
     return texCoords;
+}
+
+void TorusObject::InitPrimitiveControlGUI()
+{
+    ImGui::SliderInt("Radial Segments", &mRadialSegments, 3, 100);
+    ImGui::SliderInt("Tubular Segments", &mTubularSegments, 3, 100);
+    ImGui::DragFloat("Radius", &mRadius, 0.1f, 0.1f, 10.0f, "%.2f");
+    ImGui::DragFloat("Tube Radius", &mTubeRadius, 0.05f, 0.01f, 5.0f, "%.2f");
+
+    if (ImGui::Button("Build"))
+    {
+        SetupObject();
+    }
 }

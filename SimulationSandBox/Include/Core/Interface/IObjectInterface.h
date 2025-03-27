@@ -52,6 +52,7 @@ protected:
 	virtual std::vector<DirectX::XMFLOAT3> BuildPosition()	= 0;
 	virtual std::vector<DirectX::XMFLOAT3> BuildNormal()	= 0;
 	virtual std::vector<DirectX::XMFLOAT2> BuildTexCoords() = 0;
+	virtual void InitPrimitiveControlGUI() = 0;
 
 private:
 	void ConstructVertices();
@@ -63,7 +64,10 @@ private:
 	void ConstructRasterizationState();
 	void ConstructSamplerState();
 
-	void UpdateVertexConstantBuffer(ID3D11DeviceContext* pDeviceContext) const;
+	void UpdateVertexConstantBuffer(ID3D11DeviceContext* pDeviceContext);
+
+	void InitDataControlGUI();
+	void InitTransformControlGUI();
 
 protected:
 	D3D11_PRIMITIVE_TOPOLOGY mTopology{ D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP };

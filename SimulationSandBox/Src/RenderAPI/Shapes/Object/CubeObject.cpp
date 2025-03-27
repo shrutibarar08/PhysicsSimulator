@@ -73,3 +73,7 @@ std::vector<DirectX::XMFLOAT2> CubeObject::BuildTexCoords()
         {0.0f, 1.0f}, {1.0f, 1.0f}, {1.0f, 0.0f}, {0.0f, 0.0f}
     };
 }
+
+void CubeObject::InitPrimitiveControlGUI()
+{
+}

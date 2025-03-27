@@ -1,6 +1,8 @@
 #include "RenderAPI/Shapes/Object/HyperboloidObject.h"
 #include <cmath>
 
+#include "imgui/imgui.h"
+
 
 void HyperboloidObject::SetupObject()
 {
@@ -12,15 +14,15 @@ std::vector<DirectX::XMFLOAT3> HyperboloidObject::BuildPosition()
 {
     std::vector<DirectX::XMFLOAT3> positions;
 
-    for (int y = 0; y <= heightSegments; y++)
+    for (int y = 0; y <= mHeightSegments; y++)
     {
-        float t = static_cast<float>(y) / heightSegments;
-        float currentHeight = -height / 2.0f + t * height;
-        float radius = sqrtf((radiusBottom + t * (radiusTop - radiusBottom)) * (radiusBottom + t * (radiusTop - radiusBottom)) + currentHeight * currentHeight);
+        float t = static_cast<float>(y) / mHeightSegments;
+        float currentHeight = -mHeight / 2.0f + t * mHeight;
+        float radius = sqrtf((mRadiusBottom + t * (mRadiusTop - mRadiusBottom)) * (mRadiusBottom + t * (mRadiusTop - mRadiusBottom)) + currentHeight * currentHeight);
 
-        for (int i = 0; i < radialSegments; i++)
+        for (int i = 0; i < mRadialSegments; i++)
         {
-            float theta = (2.0f * DirectX::XM_PI * i) / radialSegments;
+            float theta = (2.0f * DirectX::XM_PI * i) / mRadialSegments;
             positions.emplace_back(radius * cosf(theta), currentHeight, radius * sinf(theta));
         }
     }
@@ -32,13 +34,13 @@ std::vector<WORD> HyperboloidObject::BuildIndices()
     std::vector<WORD> indices;
 
 
-    for (int y = 0; y < heightSegments; y++)
+    for (int y = 0; y < mHeightSegments; y++)
     {
-        for (int i = 0; i < radialSegments; i++)
+        for (int i = 0; i < mRadialSegments; i++)
         {
-            int next = (i + 1) % radialSegments;
-            int currentRow = y * radialSegments;
-            int nextRow = (y + 1) * radialSegments;
+            int next = (i + 1) % mRadialSegments;
+            int currentRow = y * mRadialSegments;
+            int nextRow = (y + 1) * mRadialSegments;
 
             indices.push_back(currentRow + i);
             indices.push_back(nextRow + i);
@@ -85,16 +87,30 @@ std::vector<DirectX::XMFLOAT2> HyperboloidObject::BuildTexCoords()
 {
     std::vector<DirectX::XMFLOAT2> texCoords;
 
-    for (int y = 0; y <= heightSegments; y++)
+    for (int y = 0; y <= mHeightSegments; y++)
     {
-        float v = static_cast<float>(y) / heightSegments;
+        float v = static_cast<float>(y) / mHeightSegments;
 
-        for (int i = 0; i < radialSegments; i++)
+        for (int i = 0; i < mRadialSegments; i++)
         {
-            float u = static_cast<float>(i) / radialSegments;
+            float u = static_cast<float>(i) / mRadialSegments;
             texCoords.emplace_back(u, v);
         }
     }
 
     return texCoords;
+}
+
+void HyperboloidObject::InitPrimitiveControlGUI()
+{
+    ImGui::SliderInt("Radial Segments", &mRadialSegments, 3, 100);
+    ImGui::SliderInt("Height Segments", &mHeightSegments, 1, 50);
+    ImGui::DragFloat("Height", &mHeight, 0.1f, 0.1f, 10.0f, "%.2f");
+    ImGui::DragFloat("Bottom Radius", &mRadiusBottom, 0.1f, 0.1f, 10.0f, "%.2f");
+    ImGui::DragFloat("Top Radius", &mRadiusTop, 0.1f, 0.1f, 10.0f, "%.2f");
+
+    if (ImGui::Button("Build"))
+    {
+        SetupObject();
+    }
 }

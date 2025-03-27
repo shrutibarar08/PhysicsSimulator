@@ -185,9 +185,9 @@ bool SphereCollider::CheckPlaneCollision(PlaneCollider* planeCollider)
     DirectX::XMVECTOR sphereCenter = XMLoadFloat3(&mAttachedObject->Position);
 
     // Load plane transform (position, normal, rotation)
-    DirectX::XMVECTOR planePosition = DirectX::XMLoadFloat3(&planeCollider->Position);
+    DirectX::XMVECTOR planePosition = DirectX::XMLoadFloat3(&planeCollider->mAttachedObject->Position);
     DirectX::XMVECTOR planeNormal = DirectX::XMLoadFloat3(&planeCollider->Normal);
-    DirectX::XMVECTOR planeRotation = DirectX::XMLoadFloat4(&planeCollider->Rotation);
+    DirectX::XMVECTOR planeRotation = DirectX::XMLoadFloat4(&planeCollider->mAttachedObject->Rotation);
 
     // Apply rotation to plane normal
     planeNormal = DirectX::XMVector3Rotate(planeNormal, planeRotation);

@@ -7,13 +7,14 @@
 #include <memory>
 #include <unordered_map>
 
+
 class ParticleSystem
 {
 public:
 	ParticleSystem();
 
 	void SetIntegration(Phyx::EIntegration type);
-	void Update(Particle& particle, float deltaTime);
+	void Update(Particle* particle, float deltaTime);
 
 	int AddEffect(ParticleEffectInterface* effect);
 	void RemoveEffect(int effectId);

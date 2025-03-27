@@ -1,8 +1,7 @@
 #pragma once
 #include "ParticleSystem.h"
-#include "Collider/ICollider.h"
-
-#include <unordered_map>
+#include "GuiAPI/PhysicsUI/ParticleUI.h"
+#include "PhysicsAPI/DefineCollider.h"
 
 struct ParticleEffectData
 {
@@ -21,15 +20,16 @@ public:
 	void ToggleEffects();
 
 private:
+	void InitParticleUpdateGUI();
 	void InitColliderPopUp();
 	void InitColliderUpdateGUI();
 
 	void InitParticleEffectPopUp();
-	void InitParticleUpdateGUI();
+	void InitParticleEffectsUpdateGUI();
 
 public:
-	std::unique_ptr<ICollider> mCollider{ nullptr };
-	Particle mParticle{};
+	std::unique_ptr<IColliderUI> mCollider{ nullptr };
+	ParticleUI mParticle{};
 	ParticleSystem mParticleSystem{};
 
 private:

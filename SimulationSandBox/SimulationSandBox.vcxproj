@@ -143,8 +143,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\PhysicsAPI\ParticleUI.cpp" />
+    <ClCompile Include="Src\GuiAPI\PhysicsUI\ColliderGUI\PlaneColliderUI.cpp" />
+    <ClCompile Include="Src\GuiAPI\PhysicsUI\ColliderGUI\SphereColliderUI.cpp" />
     <ClCompile Include="Src\PhysicsAPI\PhysicsManager.cpp" />
-    <ClCompile Include="Src\Core\PhysicsObject.cpp" />
+    <ClCompile Include="Src\PhysicsAPI\PhysicsObject.cpp" />
     <ClCompile Include="Src\Core\ILightInterface.cpp" />
     <ClCompile Include="Src\RenderAPI\Shapes\Object\ConeObject.cpp" />
     <ClCompile Include="Src\RenderAPI\Shapes\Object\DodecahedronObject.cpp" />
@@ -186,6 +189,9 @@
   <ItemGroup>
     <ClInclude Include="Include\Core\RegistryManager\RegistryCollider.h" />
     <ClInclude Include="Include\Core\RegistryManager\RegistryEffect.h" />
+    <ClInclude Include="Include\GuiAPI\PhysicsUI\ColliderGUI\IColliderUI.h" />
+    <ClInclude Include="Include\GuiAPI\PhysicsUI\ColliderGUI\SphereColliderUI.h" />
+    <ClInclude Include="Include\GuiAPI\PhysicsUI\IPhysicsUI.h" />
     <ClInclude Include="Include\PhysicsAPI\DefineCollider.h" />
     <ClInclude Include="Include\PhysicsAPI\DefineEffects.h" />
     <ClInclude Include="Include\RenderAPI\Shapes\Object\ConeObject.h" />
@@ -234,8 +240,10 @@
     <ClInclude Include="Include\RenderAPI\Shapes\Object\PrismObject.h" />
     <ClInclude Include="Include\RenderAPI\Shapes\Object\PyramidObject.h" />
     <ClInclude Include="Include\RenderAPI\Shapes\Object\OctahedronObject.h" />
-    <ClInclude Include="Include\Core\Components\PhysicsObject.h" />
+    <ClInclude Include="Include\PhysicsAPI\PhysicsObject.h" />
     <ClInclude Include="Include\PhysicsAPI\PhysicsManager.h" />
+    <ClInclude Include="Include\GuiAPI\PhysicsUI\ColliderGUI\PlaneColliderUI.h" />
+    <ClInclude Include="Include\GuiAPI\PhysicsUI\ParticleUI.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Include\RenderAPI\Light\SpotLight.h" />
     <ClInclude Include="Include\RenderAPI\Shapes\Object\SphereObject.h" />

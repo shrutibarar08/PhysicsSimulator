@@ -17,28 +17,28 @@ namespace Phyx
 class IntegrationInterface
 {
 public:
-    virtual void Integrate(Particle& particle, float deltaTime) = 0;
+    virtual void Integrate(Particle* particle, float deltaTime) = 0;
     virtual ~IntegrationInterface() = default;
 };
 
 class EulerIntegration : public IntegrationInterface
 {
 public:
-    void Integrate(Particle& particle, float deltaTime) override
+    void Integrate(Particle* particle, float deltaTime) override
     {
         using namespace DirectX;
 
-        if (particle.GetInverseMass() <= 0.0f) return; // Avoid division by zero for static objects
+        if (particle->GetInverseMass() <= 0.0f) return; // Avoid division by zero for static objects
 
         // Load current values
-        XMVECTOR position = XMLoadFloat3(&particle.Position);
-        XMVECTOR velocity = XMLoadFloat3(&particle.Velocity);
-        XMVECTOR accVelocity = XMLoadFloat3(&particle.AccumulatedVelocity);
+        XMVECTOR position = XMLoadFloat3(&particle->Position);
+        XMVECTOR velocity = XMLoadFloat3(&particle->Velocity);
+        XMVECTOR accVelocity = XMLoadFloat3(&particle->AccumulatedVelocity);
 
-        XMVECTOR accumulatedForce = XMLoadFloat3(&particle.AccumulatedForce);
-        XMVECTOR defaultAcceleration = XMLoadFloat3(&particle.Acceleration);
-        float inverseMass = particle.GetInverseMass();
-        float damping = particle.mDamping;  // Retrieve damping factor
+        XMVECTOR accumulatedForce = XMLoadFloat3(&particle->AccumulatedForce);
+        XMVECTOR defaultAcceleration = XMLoadFloat3(&particle->Acceleration);
+        float inverseMass = particle->GetInverseMass();
+        float damping = particle->mDamping;  // Retrieve damping factor
         
         // Compute total acceleration
         XMVECTOR forceAcceleration = XMVectorScale(accumulatedForce, inverseMass);
@@ -53,32 +53,32 @@ public:
         velocity = XMVectorScale(velocity, std::pow(damping, deltaTime));
 
         // Store results
-        XMStoreFloat3(&particle.Position, position);
-        XMStoreFloat3(&particle.Velocity, velocity);
+        XMStoreFloat3(&particle->Position, position);
+        XMStoreFloat3(&particle->Velocity, velocity);
 
         // Reset accumulated force after applying
-        particle.ResetForce();
-        particle.ResetAccumulatedVelocity();
+        particle->ResetForce();
+        particle->ResetAccumulatedVelocity();
     }
 };
 
 class SemiImplicitEulerIntegration : public IntegrationInterface
 {
 public:
-    void Integrate(Particle& particle, float deltaTime) override
+    void Integrate(Particle* particle, float deltaTime) override
     {
         using namespace DirectX;
 
-        if (particle.GetInverseMass() <= 0.0f) return; // Avoid division by zero for static objects
+        if (particle->GetInverseMass() <= 0.0f) return; // Avoid division by zero for static objects
 
         // Load current values
-        XMVECTOR position = XMLoadFloat3(&particle.Position);
-        XMVECTOR velocity = XMLoadFloat3(&particle.Velocity);
-        XMVECTOR accVelocity = XMLoadFloat3(&particle.AccumulatedVelocity);
-        XMVECTOR accumulatedForce = XMLoadFloat3(&particle.AccumulatedForce);
-        XMVECTOR defaultAcceleration = XMLoadFloat3(&particle.Acceleration);
-        float inverseMass = particle.GetInverseMass();
-        float damping = particle.mDamping;  // Retrieve damping factor
+        XMVECTOR position = XMLoadFloat3(&particle->Position);
+        XMVECTOR velocity = XMLoadFloat3(&particle->Velocity);
+        XMVECTOR accVelocity = XMLoadFloat3(&particle->AccumulatedVelocity);
+        XMVECTOR accumulatedForce = XMLoadFloat3(&particle->AccumulatedForce);
+        XMVECTOR defaultAcceleration = XMLoadFloat3(&particle->Acceleration);
+        float inverseMass = particle->GetInverseMass();
+        float damping = particle->mDamping;  // Retrieve damping factor
 
         // Compute total acceleration
         XMVECTOR forceAcceleration = XMVectorScale(accumulatedForce, inverseMass);
@@ -93,11 +93,11 @@ public:
         position = XMVectorAdd(position, XMVectorScale(totalVelocity, deltaTime));
 
         // Store results
-        XMStoreFloat3(&particle.Velocity, velocity);
-        XMStoreFloat3(&particle.Position, position);
+        XMStoreFloat3(&particle->Velocity, velocity);
+        XMStoreFloat3(&particle->Position, position);
 
         // Reset accumulated force after applying
-        particle.ResetForce();
-        particle.ResetAccumulatedVelocity();
+        particle->ResetForce();
+        particle->ResetAccumulatedVelocity();
     }
 };

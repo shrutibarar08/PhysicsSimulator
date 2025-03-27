@@ -1,5 +1,7 @@
 #include "RenderAPI/Shapes/Object/SphereObject.h"
 
+#include "imgui/imgui.h"
+
 
 void SphereObject::SetupObject()
 {
@@ -89,4 +91,16 @@ std::vector<DirectX::XMFLOAT2> SphereObject::BuildTexCoords()
         }
     }
     return texCoords;
+}
+
+void SphereObject::InitPrimitiveControlGUI()
+{
+    ImGui::SliderInt("Latitude Bands", &mLatitudeBands, 3, 100);
+    ImGui::SliderInt("Longitude Bands", &mLongitudeBands, 3, 100);
+    ImGui::DragFloat("Radius", &mRadius, 0.1f, 0.1f, 10.0f, "%.2f");
+
+    if (ImGui::Button("Build"))
+    {
+        SetupObject();
+    }
 }

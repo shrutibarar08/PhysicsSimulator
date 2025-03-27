@@ -56,3 +56,7 @@ std::vector<DirectX::XMFLOAT2> OctahedronObject::BuildTexCoords()
         { 0.5f, 0.0f }   // Bottom
     };
 }
+
+void OctahedronObject::InitPrimitiveControlGUI()
+{
+}

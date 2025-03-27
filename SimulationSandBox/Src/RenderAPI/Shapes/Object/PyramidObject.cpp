@@ -1,5 +1,7 @@
 #include "RenderAPI/Shapes/Object/PyramidObject.h"
 
+#include "imgui/imgui.h"
+
 
 void PyramidObject::SetupObject()
 {
@@ -53,4 +55,15 @@ std::vector<DirectX::XMFLOAT2> PyramidObject::BuildTexCoords()
         {0.0f, 1.0f}, {1.0f, 1.0f}, {1.0f, 0.0f}, {0.0f, 0.0f}, // Base
         {0.5f, 0.0f}  // Peak
     };
+}
+
+void PyramidObject::InitPrimitiveControlGUI()
+{
+    ImGui::DragFloat("Base Size", &mBaseSize, 0.1f, 0.1f, 10.0f, "%.2f");
+    ImGui::DragFloat("Height", &mHeight, 0.1f, 0.1f, 10.0f, "%.2f");
+
+    if (ImGui::Button("Build"))
+    {
+        SetupObject();
+    }
 }

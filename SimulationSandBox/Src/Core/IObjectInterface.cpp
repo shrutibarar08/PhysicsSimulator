@@ -4,6 +4,7 @@
 #include <stdexcept>
 
 #include "Core/SystemManager/SubsystemManager.h"
+#include "GuiAPI/IUIElement.h"
 #include "imgui/imgui.h"
 
 #include "RenderAPI/RenderManager.h"
@@ -40,12 +41,12 @@ void IObjectInterface::SetTransform(const Simulation::Transform& transform)
 {
 	mTransform = transform;
 	if (transform.Translation.x && transform.Translation.y && transform.Translation.z)
-		mPhysicsObject.mParticle.Position = transform.Translation;
+		mPhysicsObject.mParticle.GetParticle()->Position = transform.Translation;
 }
 
 Simulation::Transform IObjectInterface::GetTransform()
 {
-	mTransform.Translation = mPhysicsObject.mParticle.Position;
+	mTransform.Translation = mPhysicsObject.mParticle.GetParticle()->Position;
 	return mTransform;
 }
 
@@ -98,48 +99,23 @@ UINT IObjectInterface::GetIndexCounts() const
 
 void IObjectInterface::InitControlGUI()
 {
-	if (mChangeObjectName.empty()) mChangeObjectName.resize(150);
-
-	// Input field for object name
-	ImGui::InputText("Set Name", mChangeObjectName.data(), mChangeObjectName.size());
-
-	// Apply button
-	if (ImGui::Button("Apply"))
-	{
-		if (mChangeObjectName != mObjectName)
+	SubOptionElement::DrawSubOption(
+		"Info",
+		[&]()
 		{
-			std::cout << "Object name changed to: " << mChangeObjectName << "\n";
-			SetObjectName(mChangeObjectName);
+			InitDataControlGUI();
 		}
-	}
+	);
+
 	// --- Transform Controls ---
-	ImGui::Separator();
-	ImGui::Text("Transform Controls");
-
-	ImGui::Text("Translation");
-	ImGui::DragFloat3("##Position", reinterpret_cast<float*>(&mPhysicsObject.mParticle.Position), 0.1f);
-
-	ImGui::Text("Rotation");
-	ImGui::DragFloat3("##Rotation", reinterpret_cast<float*>(&mTransform.Rotation), 0.1f);
-
-	ImGui::Text("Scale");
-	ImGui::DragFloat3("##Scale", reinterpret_cast<float*>(&mTransform.Scale), 0.1f, 0.1f, 100000.0f);
-
-	// File path selection
-	ImGui::InputText("Selected Path", muiFilePath, MAX_PATH, ImGuiInputTextFlags_ReadOnly);
-	ImGui::SameLine();
-
-	if (ImGui::Button("Browse Path"))
-	{
-		std::string selectedFile = OpenFileDialog();
-		if (!selectedFile.empty())
+	SubOptionElement::DrawSubOption(
+		"Transform Controls",
+		[&]()
 		{
-			strcpy_s(muiFilePath, selectedFile.c_str());
-			SetTexture(selectedFile.c_str());
-			std::cout << "Applied texture to Object: " << this << "\n";
+			InitTransformControlGUI();
+			InitPrimitiveControlGUI();
 		}
-	}
-	ImGui::Separator();
+	);
 
 	// --- Particle System Controls ---
 	mPhysicsObject.InitGUI();
@@ -224,14 +200,14 @@ void IObjectInterface::ConstructConstantBuffer()
 	SubsystemManager::Get<RenderManager>()->BuildConstantBuffer(mVertexConstantBuffer);
 }
 
-void IObjectInterface::UpdateVertexConstantBuffer(ID3D11DeviceContext* pDeviceContext) const
+void IObjectInterface::UpdateVertexConstantBuffer(ID3D11DeviceContext* pDeviceContext)
 {
 	DirectX::XMMATRIX scaleMat = DirectX::XMMatrixScaling(mTransform.Scale.x, mTransform.Scale.y, mTransform.Scale.z);
 	DirectX::XMMATRIX rotMat = DirectX::XMMatrixRotationRollPitchYaw(mTransform.Rotation.x, mTransform.Rotation.y, mTransform.Rotation.z);
 	DirectX::XMMATRIX transMat = DirectX::XMMatrixTranslation(
-		mPhysicsObject.mParticle.Position.x,
-		mPhysicsObject.mParticle.Position.y,
-		mPhysicsObject.mParticle.Position.z);
+		mPhysicsObject.mParticle.GetParticle()->Position.x,
+		mPhysicsObject.mParticle.GetParticle()->Position.y,
+		mPhysicsObject.mParticle.GetParticle()->Position.z);
 
 	DirectX::XMMATRIX worldMatrix = scaleMat * rotMat * transMat;
 
@@ -239,9 +215,57 @@ void IObjectInterface::UpdateVertexConstantBuffer(ID3D11DeviceContext* pDeviceCo
 	cb.World = DirectX::XMMatrixTranspose(worldMatrix);
 	cb.View = DirectX::XMMatrixTranspose(mWorldSpace.View);
 	cb.Projection = DirectX::XMMatrixTranspose(mWorldSpace.Projection);
-	cb.Velocity = mPhysicsObject.mParticle.Velocity;
+	cb.Velocity = mPhysicsObject.mParticle.GetParticle()->Velocity;
 	cb.Elastic = 0.5f;
 	pDeviceContext->UpdateSubresource(mVertexConstantBuffer.Get(), 0, nullptr, &cb, 0, 0);
+}
+
+void IObjectInterface::InitDataControlGUI()
+{
+	if (mChangeObjectName.empty()) mChangeObjectName.resize(150);
+
+	// Input field for object name
+	ImGui::InputText("Set Name", mChangeObjectName.data(), mChangeObjectName.size());
+
+	// Apply button
+	if (ImGui::Button("Apply"))
+	{
+		if (mChangeObjectName != mObjectName)
+		{
+			std::cout << "Object name changed to: " << mChangeObjectName << "\n";
+			SetObjectName(mChangeObjectName);
+		}
+	}
+
+	// File path selection
+	ImGui::InputText("Selected Path", muiFilePath, MAX_PATH, ImGuiInputTextFlags_ReadOnly);
+	ImGui::SameLine();
+
+	if (ImGui::Button("Browse Path"))
+	{
+		std::string selectedFile = OpenFileDialog();
+		if (!selectedFile.empty())
+		{
+			strcpy_s(muiFilePath, selectedFile.c_str());
+			SetTexture(selectedFile.c_str());
+			std::cout << "Applied texture to Object: " << this << "\n";
+		}
+	}
+	ImGui::Separator();
+}
+
+void IObjectInterface::InitTransformControlGUI()
+{
+	ImGui::Text("Translation");
+	ImGui::DragFloat3("##Position", reinterpret_cast<float*>(&mPhysicsObject.mParticle.GetParticle()->Position), 0.1f);
+
+	ImGui::Text("Rotation");
+	ImGui::DragFloat3("##Rotation", reinterpret_cast<float*>(&mTransform.Rotation), 0.1f);
+
+	ImGui::Text("Scale");
+	ImGui::DragFloat3("##Scale", reinterpret_cast<float*>(&mTransform.Scale), 0.1f, 0.1f, 100000.0f);
+
+	ImGui::Separator();
 }
 
 void IObjectInterface::ConstructRasterizationState()

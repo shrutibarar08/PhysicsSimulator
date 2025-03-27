@@ -2,8 +2,7 @@
 #include <string>
 
 #include "RenderAPI/DefineRender.h"
-
-#include "Core/Components/PhysicsObject.h"
+#include "PhysicsAPI/PhysicsObject.h"
 
 
 class IEntityInterface

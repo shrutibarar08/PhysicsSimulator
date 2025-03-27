@@ -1,5 +1,7 @@
 #include "RenderAPI/Shapes/Object/PrismObject.h"
 
+#include "imgui/imgui.h"
+
 
 void PrismObject::SetupObject()
 {
@@ -69,4 +71,16 @@ std::vector<DirectX::XMFLOAT2> PrismObject::BuildTexCoords()
         {0.0f, 0.0f}, {1.0f, 0.0f}, {0.5f, 1.0f},
         {0.0f, 0.0f}, {1.0f, 0.0f}, {0.5f, 1.0f}
     };
+}
+
+void PrismObject::InitPrimitiveControlGUI()
+{
+    ImGui::DragFloat("Base Width", &mBaseWidth, 0.1f, 0.1f, 10.0f, "%.2f");
+    ImGui::DragFloat("Height", &mHeight, 0.1f, 0.1f, 10.0f, "%.2f");
+    ImGui::DragFloat("Depth", &mDepth, 0.1f, 0.1f, 10.0f, "%.2f");
+
+    if (ImGui::Button("Build"))
+    {
+        SetupObject();
+    }
 }

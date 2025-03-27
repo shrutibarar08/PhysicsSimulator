@@ -107,19 +107,22 @@ nlohmann::json ObjectManager::SaveToJson() const
 
 		if (auto physics = object->GetPhysicsObject(); physics)
 		{
-			auto particle = physics->mParticle;
+			auto particle = physics->mParticle.GetParticle();
 			objJson["Physics"] = {
-				{ "Velocity", { particle.Velocity.x, particle.Velocity.y, particle.Velocity.z } },
-				{ "Acceleration", { particle.Acceleration.x, particle.Acceleration.y, particle.Acceleration.z } },
-				{ "Mass", particle.GetMass() }
+				{ "Velocity", { particle->Velocity.x,
+					particle->Velocity.y, particle->Velocity.z } },
+				{ "Acceleration", { particle->Acceleration.x,
+					particle->Acceleration.y, particle->Acceleration.z } },
+				{ "Mass", particle->GetMass() }
 			};
 
 			if (physics->mCollider)
 			{
+				auto collider = physics->mCollider->Collider();
 				objJson["Physics"]["Collider"] = {
-					{ "Name", physics->mCollider->GetColliderName() },
-					{ "Static", physics->mCollider->bStatic },
-					{ "Elastic", physics->mCollider->Elastic }
+					{ "Name", collider->GetColliderName() },
+					{ "Static", collider->bStatic },
+					{ "Elastic", collider->Elastic }
 				};
 			}
 		}

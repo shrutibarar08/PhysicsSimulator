@@ -15,6 +15,7 @@ protected:
     std::vector<DirectX::XMFLOAT3> BuildPosition() override;
     std::vector<DirectX::XMFLOAT3> BuildNormal() override;
     std::vector<DirectX::XMFLOAT2> BuildTexCoords() override;
+    void InitPrimitiveControlGUI() override;
 
 private:
     float mBaseSize = 1.0f;

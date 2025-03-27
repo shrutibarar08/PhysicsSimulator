@@ -27,6 +27,7 @@ public:
 
 public:
 	DirectX::XMFLOAT3 Position{ 0.0f, 0.0f, 0.0f };
+	DirectX::XMFLOAT4 Rotation{ 0.0f, 0.0f, 0.0f, 0.0f };
 	DirectX::XMFLOAT3 Velocity{ 0.0f, 0.0f, 0.0f };
 	DirectX::XMFLOAT3 Acceleration{ 0.0f, 0.0f, 0.0f };
 	DirectX::XMFLOAT3 AccumulatedForce{ 0.0f, 0.0f, 0.0f };

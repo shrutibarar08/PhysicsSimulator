@@ -14,11 +14,12 @@ protected:
     std::vector<DirectX::XMFLOAT3> BuildPosition() override;
     std::vector<DirectX::XMFLOAT3> BuildNormal() override;
     std::vector<DirectX::XMFLOAT2> BuildTexCoords() override;
+    void InitPrimitiveControlGUI() override;
 
 private:
-    int radialSegments = 40;
-    int heightSegments = 20;
-    float height = 2.0f;
-    float radiusBottom = 1.0f;
-    float radiusTop = 0.5f;
+    int mRadialSegments{ 40 };
+    int mHeightSegments{ 20 };
+    float mHeight{ 2.0f };
+    float mRadiusBottom{ 1.0f };
+    float mRadiusTop{ 0.5f };
 };

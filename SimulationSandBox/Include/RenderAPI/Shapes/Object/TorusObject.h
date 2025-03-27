@@ -13,10 +13,11 @@ protected:
     std::vector<DirectX::XMFLOAT3> BuildPosition() override;
     std::vector<DirectX::XMFLOAT3> BuildNormal() override;
     std::vector<DirectX::XMFLOAT2> BuildTexCoords() override;
+    void InitPrimitiveControlGUI() override;
 
 private:
-    int radialSegments = 40;
-    int tubularSegments = 20;
-    float radius = 1.0f;
-    float tubeRadius = 0.3f;
+    int mRadialSegments = 40;
+    int mTubularSegments = 20;
+    float mRadius = 1.0f;
+    float mTubeRadius = 0.3f;
 };

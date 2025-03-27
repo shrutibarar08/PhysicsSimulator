@@ -1,6 +1,8 @@
 #include "RenderAPI/Shapes/Object/CylinderObject.h"
 #include <cmath>
 
+#include "imgui/imgui.h"
+
 
 void CylinderObject::SetupObject()
 {
@@ -137,4 +139,18 @@ std::vector<DirectX::XMFLOAT2> CylinderObject::BuildTexCoords()
     }
 
     return texCoords;
+}
+
+void CylinderObject::InitPrimitiveControlGUI()
+{
+    ImGui::Text("Cylinder Properties");
+
+    ImGui::SliderInt("Segments", &mSegmentCount, 3, 100, "%d");
+    ImGui::DragFloat("Radius", &mRadius, 0.01f, 0.1f, 10.0f, "%.2f");
+    ImGui::DragFloat("Height", &mHeight, 0.01f, 0.1f, 10.0f, "%.2f");
+
+    if (ImGui::Button("Rebuild Cylinder"))
+    {
+        SetupObject();
+    }
 }

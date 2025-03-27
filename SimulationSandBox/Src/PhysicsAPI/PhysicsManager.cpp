@@ -24,9 +24,14 @@ void PhysicsManager::HandleCollisions()
         {
             if (object.first != otherObject.first)
             {
-                auto* colliderA = object.second->GetPhysicsObject()->mCollider.get();
-                auto* colliderB = otherObject.second->GetPhysicsObject()->mCollider.get();
+                auto* colliderAUI = object.second->GetPhysicsObject()->mCollider.get();
+                auto* colliderBUI = otherObject.second->GetPhysicsObject()->mCollider.get();
                
+                if (colliderAUI == nullptr || colliderBUI == nullptr) continue;
+
+                auto* colliderA = colliderAUI->Collider();
+                auto* colliderB = colliderBUI->Collider();
+
                 if (colliderA == nullptr || colliderB == nullptr) continue;
 
                 if (colliderA->CheckCollision(colliderB))

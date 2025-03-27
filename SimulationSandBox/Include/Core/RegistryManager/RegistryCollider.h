@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Collider/ICollider.h"
+#include "GuiAPI/PhysicsUI/ColliderGUI/IColliderUI.h"
 
 #include <unordered_map>
 #include <functional>
@@ -18,7 +18,7 @@ class RegistryCollider
 {
 public:
 
-    using CreateFunc = std::function<std::unique_ptr<ICollider>()>;
+    using CreateFunc = std::function<std::unique_ptr<IColliderUI>()>;
 
     static void Register(const std::string& name, CreateFunc createFunc)
     {
@@ -27,7 +27,7 @@ public:
         registry_[name] = std::move(createFunc);
         mNames.push_back(name);
     }
-    static std::unique_ptr<ICollider> Create(const std::string& name)
+    static std::unique_ptr<IColliderUI> Create(const std::string& name)
     {
         auto it = registry_.find(name);
         return it != registry_.end() ? it->second() : nullptr;

@@ -8,7 +8,7 @@ public:
     ParticleEffectInterface() = default;
     virtual ~ParticleEffectInterface() = default;
 
-	virtual void ApplyEffect(Particle& particle, float deltaTime) = 0;
+	virtual void ApplyEffect(Particle* particle, float deltaTime) = 0;
 };
 
 class GravityFreeFallEffect final : public ParticleEffectInterface
@@ -17,7 +17,7 @@ public:
     explicit GravityFreeFallEffect(const DirectX::XMFLOAT3& gravity = { 0.0f, -9.81f, 0.0f })
         : mGravity(gravity) {}
 
-    void ApplyEffect(Particle& particle, float deltaTime) override;
+    void ApplyEffect(Particle* particle, float deltaTime) override;
 
 private:
     float mTotalTime{ 0.0f };
@@ -31,7 +31,7 @@ public:
     explicit GravityEffect(const DirectX::XMFLOAT3& gravity = { 0.0f, -9.81f, 0.0f })
         : mGravity(gravity) {}
 
-    void ApplyEffect(Particle& particle, float deltaTime) override;
+    void ApplyEffect(Particle* particle, float deltaTime) override;
 
 private:
     DirectX::XMFLOAT3 mGravity{ 0, -9.81f, 0 };

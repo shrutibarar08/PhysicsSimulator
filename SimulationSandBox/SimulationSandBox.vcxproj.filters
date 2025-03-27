@@ -126,10 +126,19 @@
     <ClCompile Include="Src\Core\ILightInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\PhysicsObject.cpp">
+    <ClCompile Include="Src\PhysicsAPI\PhysicsObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\PhysicsAPI\PhysicsManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GuiAPI\PhysicsUI\ColliderGUI\SphereColliderUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GuiAPI\PhysicsUI\ColliderGUI\PlaneColliderUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PhysicsAPI\ParticleUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -284,7 +293,7 @@
     <ClInclude Include="Include\RenderAPI\Shapes\Object\HyperboloidObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Core\Components\PhysicsObject.h">
+    <ClInclude Include="Include\PhysicsAPI\PhysicsObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\Core\RegistryManager\RegistryEffect.h">
@@ -300,6 +309,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\PhysicsAPI\DefineCollider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GuiAPI\PhysicsUI\ColliderGUI\IColliderUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GuiAPI\PhysicsUI\ColliderGUI\SphereColliderUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GuiAPI\PhysicsUI\ColliderGUI\PlaneColliderUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GuiAPI\PhysicsUI\IPhysicsUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GuiAPI\PhysicsUI\ParticleUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Core/RegistryManager/RegistryCollider.h"
-#include "Collider/PlaneCollider.h"
-#include "Collider/SphereCollider.h"
+#include "GuiAPI/PhysicsUI/ColliderGUI/PlaneColliderUI.h"
+#include "GuiAPI/PhysicsUI/ColliderGUI/SphereColliderUI.h"
 
 
-REGISTER_COLLIDER(PlaneCollider)
-REGISTER_COLLIDER(SphereCollider)
+REGISTER_COLLIDER(SphereColliderUI)
+REGISTER_COLLIDER(PlaneColliderUI)

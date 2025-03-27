@@ -1,6 +1,8 @@
 #include <iostream>
 
-#include "Core/Components/PhysicsObject.h"
+#include "PhysicsAPI/PhysicsObject.h"
+
+#include "GuiAPI/IUIElement.h"
 #include "imgui/imgui.h"
 
 #include "PhysicsAPI/DefineEffects.h"
@@ -14,7 +16,7 @@ void PhysicsObject::InitParticleEffectPopUp()
     {
         ImGui::OpenPopup("Particle Effect Selector");
     }
-
+    ImGui::SameLine();
     if (ImGui::BeginPopupModal("Particle Effect Selector", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
     {
         ImGui::Text("Select an Effect Type:");
@@ -74,37 +76,15 @@ void PhysicsObject::InitParticleEffectPopUp()
 
 void PhysicsObject::InitGUI()
 {
-    ImGui::Text("Particle Controls");
-
-    // Mass
-    ImGui::DragFloat("Mass", &mParticle.mMass, 0.1f, 0.001f, 10000.0f);
-	mParticle.SetMass(mParticle.mMass);  // Ensure setter is called
-
-    // Velocity
-    ImGui::DragFloat3("Velocity", reinterpret_cast<float*>(&mParticle.Velocity), 0.1f);
-    mParticle.SetVelocity(mParticle.Velocity);
-
-    // Acceleration
-    ImGui::DragFloat3("Acceleration", reinterpret_cast<float*>(&mParticle.Acceleration), 0.1f);
-    mParticle.SetAcceleration(mParticle.Acceleration);
-
-    // Accumulated Force
-    ImGui::DragFloat3("Force", reinterpret_cast<float*>(&mParticle.AccumulatedForce), 0.1f);
-
-    // Damping Energy
-    ImGui::DragFloat("Damping", &mParticle.mDamping,
-        0.01f, 0.f,
-        1.f, "%0.02f");
-
-    InitParticleEffectPopUp();
     InitParticleUpdateGUI();
-
-    InitColliderPopUp();
+    InitParticleEffectsUpdateGUI();
     InitColliderUpdateGUI();
 }
 
 void PhysicsObject::InitColliderPopUp()
 {
+    if (mCollider != nullptr) return;
+
     ImGui::Separator();
     if (ImGui::Button("Add Collider"))
     {
@@ -154,8 +134,8 @@ void PhysicsObject::InitColliderPopUp()
 
             mCollider.reset();
             mCollider = std::move(effect);
-            mCollider->AttachParticle(&mParticle);
-            mCollider->SetColliderName(colliderNames[mColliderIndex]);
+            mCollider->Collider()->AttachParticle(mParticle.GetParticle());
+            mCollider->Collider()->SetColliderName(colliderNames[mColliderIndex]);
 
             ImGui::CloseCurrentPopup();
         }
@@ -172,64 +152,71 @@ void PhysicsObject::InitColliderPopUp()
 
 void PhysicsObject::InitColliderUpdateGUI()
 {
-    ImGui::Text("Attached Collider:");
-    if (mCollider == nullptr)
-    {
-        ImGui::Text("No Collider Attached");
-        return;
-    }
-    ImGui::Text("%s", mCollider->GetColliderName().c_str());
-    ImGui::SameLine();
-    if (ImGui::Button("Remove"))
-    {
-        std::cout << "Collider Removed!\n";
-        mCollider.reset();
-    }
+    SubOptionElement::DrawSubOption("Collider",
+        [&]()
+        {
+            InitColliderPopUp();
 
-    ImGui::Text("Properties:");
-    ImGui::DragFloat("Elastic", &mCollider->Elastic, 0.01f,
-        0.0f, 1.0f, "%0.002f");
+            if (mCollider == nullptr) return;
+            mCollider->OnUpdateGUI();
 
-    ImGui::Checkbox("Static", &mCollider->bStatic);
-
-    ImGui::Separator();
+            if (ImGui::Button("Remove Collider"))
+            {
+                mCollider.reset();
+            }
+        });
 }
 
-void PhysicsObject::InitParticleUpdateGUI()
+void PhysicsObject::InitParticleEffectsUpdateGUI()
 {
-    ImGui::Text("Active Particle Effects:");
-
-    if (mParticleEffects.empty())
-    {
-        ImGui::Text("No effects added.");
-        return;
-    }
-
-    for (size_t i = 0; i < mParticleEffects.size(); ++i)
-    {
-        ImGui::PushID(static_cast<int>(i));
-
-        ImGui::Text("%s", mParticleEffects[i].name.c_str());
-
-        // Remove button
-        ImGui::SameLine();
-        if (ImGui::Button("Remove"))
+    SubOptionElement::DrawSubOption(
+		"Active Effects",
+        [&]()
         {
-            std::cout << "Removing effect: " << mParticleEffects[i].name << "\n";
-            mParticleSystem.RemoveEffect(mParticleEffects[i].id);
-            mParticleEffects.erase(mParticleEffects.begin() + i);
-        }
+            InitParticleEffectPopUp();
+            ImGui::Separator();
 
-        ImGui::PopID();
-    }
+            if (mParticleEffects.empty())
+            {
+                ImGui::Text("No effects added.");
+                return;
+            }
+
+            for (size_t i = 0; i < mParticleEffects.size(); ++i)
+            {
+                ImGui::PushID(static_cast<int>(i));
+
+                ImGui::Text("%s", mParticleEffects[i].name.c_str());
+
+                // Remove button
+                ImGui::SameLine();
+                if (ImGui::Button("Remove"))
+                {
+                    std::cout << "Removing effect: " << mParticleEffects[i].name << "\n";
+                    mParticleSystem.RemoveEffect(mParticleEffects[i].id);
+                    mParticleEffects.erase(mParticleEffects.begin() + i);
+                }
+                ImGui::PopID();
+            }
+        }
+    );
 }
 
 void PhysicsObject::Update(float deltaTime)
 {
-    if (mbEffects) mParticleSystem.Update(mParticle, deltaTime);
+    if (mbEffects) mParticleSystem.Update(mParticle.GetParticle(), deltaTime);
 }
 
 void PhysicsObject::ToggleEffects()
 {
     mbEffects = !mbEffects;
+}
+
+void PhysicsObject::InitParticleUpdateGUI()
+{
+    SubOptionElement::DrawSubOption("Particle",
+        [&]()
+        {
+            mParticle.OnUpdateGUI();
+        });
 }

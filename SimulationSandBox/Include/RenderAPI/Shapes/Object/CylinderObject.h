@@ -15,6 +15,7 @@ protected:
     std::vector<DirectX::XMFLOAT3> BuildPosition() override;
     std::vector<DirectX::XMFLOAT3> BuildNormal() override;
     std::vector<DirectX::XMFLOAT2> BuildTexCoords() override;
+    void InitPrimitiveControlGUI() override;
 
 private:
     int mSegmentCount = 20;  // Number of segments for circular faces

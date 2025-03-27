@@ -68,3 +68,7 @@ std::vector<DirectX::XMFLOAT2> DodecahedronObject::BuildTexCoords()
 {
     return std::vector<DirectX::XMFLOAT2>(16, { 0.5f, 0.5f });
 }
+
+void DodecahedronObject::InitPrimitiveControlGUI()
+{
+}

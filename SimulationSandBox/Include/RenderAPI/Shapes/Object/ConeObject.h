@@ -13,4 +13,10 @@ protected:
     std::vector<DirectX::XMFLOAT3> BuildPosition() override;
     std::vector<DirectX::XMFLOAT3> BuildNormal() override;
     std::vector<DirectX::XMFLOAT2> BuildTexCoords() override;
+    void InitPrimitiveControlGUI() override;
+
+private:
+    int mSlices{ 20 };
+    float mRadius{ 1.0f };
+    float mHeight{ 2.0f };
 };

@@ -22,7 +22,7 @@ void ParticleSystem::SetIntegration(Phyx::EIntegration type)
 	}
 }
 
-void ParticleSystem::Update(Particle& particle, float deltaTime)
+void ParticleSystem::Update(Particle* particle, float deltaTime)
 {
 	for (auto& effect: mParticleEffects)
 	{
