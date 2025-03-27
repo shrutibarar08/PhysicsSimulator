@@ -17,7 +17,6 @@ public:
     bool CheckCollision(ICollider* other) override;
     void ResolveCollision(ICollider* other) override;
 
-
 private:
     //~ Handle Sphere Collision
     void HandleSphereCollision(SphereCollider* other);

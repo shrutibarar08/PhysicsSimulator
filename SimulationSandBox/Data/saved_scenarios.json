@@ -1,12 +1,12 @@
 {
-    "Assignment_2": {
+    "Test Scene": {
         "Lights": [
             {
                 "ambient": [
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0
+                    0.8754448294639587,
+                    0.8654775619506836,
+                    0.7788655161857605,
+                    1.0
                 ],
                 "attenuation": [
                     0.0,
@@ -14,15 +14,15 @@
                     0.0
                 ],
                 "diffuse": [
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0
+                    0.3807829022407532,
+                    0.06775499135255814,
+                    0.32174208760261536,
+                    1.0
                 ],
                 "direction": [
-                    0.0,
-                    0.0,
-                    0.0
+                    15.399999618530273,
+                    -0.8999999761581421,
+                    8.699999809265137
                 ],
                 "light_name": "",
                 "light_type": "DirectionalLight",
@@ -33,88 +33,49 @@
                 ],
                 "range": 0.0,
                 "specular": [
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0
+                    0.9665529727935791,
+                    0.5053380727767944,
+                    1.0,
+                    1.0
                 ],
                 "spot": 0.0
             },
             {
                 "ambient": [
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0
+                    0.11105711758136749,
+                    0.1423487663269043,
+                    0.062815822660923,
+                    1.0
                 ],
                 "attenuation": [
-                    0.0,
-                    0.0,
-                    0.0
+                    1.0,
+                    1.0,
+                    0.6100000143051147
                 ],
                 "diffuse": [
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0
+                    0.2099914699792862,
+                    0.19158822298049927,
+                    0.22064054012298584,
+                    1.0
                 ],
                 "direction": [
                     0.0,
                     0.0,
                     0.0
                 ],
-                "light_name": "lamp light",
-                "light_type": "SpotLight",
-                "position": [
-                    0.0,
-                    0.0,
-                    0.0
-                ],
-                "range": 0.0,
-                "specular": [
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0
-                ],
-                "spot": 0.0
-            },
-            {
-                "ambient": [
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0
-                ],
-                "attenuation": [
-                    0.0,
-                    0.0,
-                    0.0
-                ],
-                "diffuse": [
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0
-                ],
-                "direction": [
-                    0.0,
-                    0.0,
-                    0.0
-                ],
-                "light_name": "focus light",
+                "light_name": "",
                 "light_type": "PointLight",
                 "position": [
-                    0.0,
-                    0.0,
-                    0.0
+                    0.800000011920929,
+                    2.0999999046325684,
+                    5.800000190734863
                 ],
-                "range": 0.0,
+                "range": 11.100000381469727,
                 "specular": [
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0
+                    0.54448401927948,
+                    0.4088474214076996,
+                    0.4088474214076996,
+                    1.0
                 ],
                 "spot": 0.0
             },
@@ -123,438 +84,12 @@
                     0.0,
                     0.0,
                     0.0,
-                    0.0
+                    1.0
                 ],
                 "attenuation": [
-                    0.0,
-                    0.0,
-                    0.0
-                ],
-                "diffuse": [
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0
-                ],
-                "direction": [
-                    0.0,
-                    0.0,
-                    0.0
-                ],
-                "light_name": "radom one",
-                "light_type": "SpotLight",
-                "position": [
-                    0.0,
-                    0.0,
-                    0.0
-                ],
-                "range": 0.0,
-                "specular": [
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0
-                ],
-                "spot": 0.0
-            }
-        ],
-        "Objects": [
-            {
-                "Physics": {
-                    "Collider": null,
-                    "Particle": {
-                        "Acceleration": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "Damping": 0.8999999761581421,
-                        "Force": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "Mass": 1.0,
-                        "Velocity": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ]
-                    }
-                },
-                "object_name": "Sea Object",
-                "object_type": "CubeObject",
-                "texture_path": "Data/textures/sea.jpg",
-                "transform": {
-                    "Param": null,
-                    "rotation": [
-                        0.0,
-                        -3.799999952316284,
-                        0.0
-                    ],
-                    "scale": [
-                        15.0,
-                        0.10000000149011612,
-                        15.0
-                    ],
-                    "translation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                }
-            },
-            {
-                "Physics": {
-                    "Collider": null,
-                    "Particle": {
-                        "Acceleration": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "Damping": 0.8999999761581421,
-                        "Force": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "Mass": 1.0,
-                        "Velocity": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ]
-                    }
-                },
-                "object_name": "Wooden Plank",
-                "object_type": "CubeObject",
-                "texture_path": "Data/textures/texture_2.jpg",
-                "transform": {
-                    "Param": null,
-                    "rotation": [
-                        0.0,
-                        0.5,
-                        0.0
-                    ],
-                    "scale": [
-                        0.800000011920929,
-                        0.5,
-                        4.0
-                    ],
-                    "translation": [
-                        -5.099999904632568,
-                        0.6000000238418579,
-                        0.6000000238418579
-                    ]
-                }
-            },
-            {
-                "Physics": {
-                    "Collider": null,
-                    "Particle": {
-                        "Acceleration": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "Damping": 0.8999999761581421,
-                        "Force": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "Mass": 1.0,
-                        "Velocity": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ]
-                    }
-                },
-                "object_name": "Galaxy Ball",
-                "object_type": "SphereObject",
-                "texture_path": "Data/textures/ball texture.jpg",
-                "transform": {
-                    "Param": {
-                        "LatitudeBands": 20,
-                        "LongitudeBands": 20,
-                        "Radius": 1.0
-                    },
-                    "rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "scale": [
-                        1.7000000476837158,
-                        1.399999976158142,
-                        1.7000000476837158
-                    ],
-                    "translation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                }
-            },
-            {
-                "Physics": {
-                    "Collider": null,
-                    "Particle": {
-                        "Acceleration": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "Damping": 0.8999999761581421,
-                        "Force": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "Mass": 1.0,
-                        "Velocity": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ]
-                    }
-                },
-                "object_name": "Swim Ring",
-                "object_type": "TorusObject",
-                "texture_path": "Data/textures/swim ring.jpg",
-                "transform": {
-                    "Param": {
-                        "RadialSegments": 40,
-                        "Radius": 1.0,
-                        "TubeRadius": 0.30000001192092896,
-                        "TubularSegments": 20
-                    },
-                    "rotation": [
-                        3.200000047683716,
-                        -63.5,
-                        9.899999618530273
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "translation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                }
-            },
-            {
-                "Physics": {
-                    "Collider": null,
-                    "Particle": {
-                        "Acceleration": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "Damping": 0.8999999761581421,
-                        "Force": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "Mass": 1.0,
-                        "Velocity": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ]
-                    }
-                },
-                "object_name": "Destroyed Crate",
-                "object_type": "PrismObject",
-                "texture_path": "Data/textures/wooden.jpg",
-                "transform": {
-                    "Param": {
-                        "BaseWidth": 1.0,
-                        "Depth": 1.0,
-                        "Height": 1.0
-                    },
-                    "rotation": [
-                        -1.600000023841858,
-                        2.200000047683716,
-                        1.7000000476837158
-                    ],
-                    "scale": [
-                        3.0999999046325684,
-                        3.5999999046325684,
-                        1.0
-                    ],
-                    "translation": [
-                        -10.899999618530273,
-                        0.6000000238418579,
-                        -0.4000000059604645
-                    ]
-                }
-            },
-            {
-                "Physics": {
-                    "Collider": null,
-                    "Particle": {
-                        "Acceleration": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "Damping": 0.8999999761581421,
-                        "Force": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "Mass": 1.0,
-                        "Velocity": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ]
-                    }
-                },
-                "object_name": "Lost Treasure",
-                "object_type": "CylinderObject",
-                "texture_path": "Data/textures/for cylinder.jpg",
-                "transform": {
-                    "Param": {
-                        "Height": 2.0,
-                        "Radius": 1.0,
-                        "Segments": 20
-                    },
-                    "rotation": [
-                        2.0999999046325684,
-                        -0.4000000059604645,
-                        -0.6000000238418579
-                    ],
-                    "scale": [
-                        1.399999976158142,
-                        2.299999952316284,
-                        1.7000000476837158
-                    ],
-                    "translation": [
-                        -12.300000190734863,
-                        -0.4000000059604645,
-                        -6.800000190734863
-                    ]
-                }
-            },
-            {
-                "Physics": {
-                    "Collider": null,
-                    "Particle": {
-                        "Acceleration": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "Damping": 0.8999999761581421,
-                        "Force": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "Mass": 1.0,
-                        "Velocity": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ]
-                    }
-                },
-                "object_name": "Huge Diamond",
-                "object_type": "OctahedronObject",
-                "texture_path": "Data/textures/diamond.jpg",
-                "transform": {
-                    "Param": null,
-                    "rotation": [
-                        1.899999976158142,
-                        -4.300000190734863,
-                        2.700000047683716
-                    ],
-                    "scale": [
-                        0.20000000298023224,
-                        0.6000000238418579,
-                        0.20000000298023224
-                    ],
-                    "translation": [
-                        -1.100000023841858,
-                        3.5,
-                        -0.8999999761581421
-                    ]
-                }
-            },
-            {
-                "Physics": {
-                    "Collider": null,
-                    "Particle": {
-                        "Acceleration": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "Damping": 0.8999999761581421,
-                        "Force": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "Mass": 1.0,
-                        "Velocity": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ]
-                    }
-                },
-                "object_name": "Lost Hat",
-                "object_type": "ConeObject",
-                "texture_path": "Data/textures/hat.jpg",
-                "transform": {
-                    "Param": {
-                        "Height": 2.0,
-                        "Radius": 1.0,
-                        "Slices": 20
-                    },
-                    "rotation": [
-                        -0.4000000059604645,
-                        -0.800000011920929,
-                        0.0
-                    ],
-                    "scale": [
-                        1.7000000476837158,
-                        1.100000023841858,
-                        0.699999988079071
-                    ],
-                    "translation": [
-                        -12.699999809265137,
-                        3.700000047683716,
-                        -0.10000000149011612
-                    ]
-                }
-            }
-        ]
-    },
-    "Test Scene": {
-        "Lights": [
-            {
-                "ambient": [
                     1.0,
                     1.0,
-                    1.0,
-                    0.9960784316062927
-                ],
-                "attenuation": [
-                    0.0,
-                    0.0,
-                    0.0
+                    1.0
                 ],
                 "diffuse": [
                     1.0,
@@ -567,18 +102,18 @@
                     0.0,
                     0.0
                 ],
-                "light_name": "",
-                "light_type": "DirectionalLight",
+                "light_name": "Lamp",
+                "light_type": "SpotLight",
                 "position": [
-                    0.0,
-                    0.0,
-                    0.0
+                    -0.20000000298023224,
+                    1.7000000476837158,
+                    1.899999976158142
                 ],
                 "range": 0.0,
                 "specular": [
-                    1.0,
-                    1.0,
-                    1.0,
+                    0.9041174650192261,
+                    0.8945555090904236,
+                    0.9074733257293701,
                     1.0
                 ],
                 "spot": 0.0
@@ -596,7 +131,7 @@
                             0.0
                         ],
                         "OffSet": 0.0,
-                        "Static": false
+                        "Static": true
                     },
                     "Particle": {
                         "Acceleration": [
@@ -610,7 +145,7 @@
                             0.0,
                             0.0
                         ],
-                        "Mass": 100.0,
+                        "Mass": 1.0,
                         "Velocity": [
                             0.0,
                             0.0,
@@ -618,9 +153,9 @@
                         ]
                     }
                 },
-                "object_name": "Plane",
+                "object_name": "Platform",
                 "object_type": "CubeObject",
-                "texture_path": "../../../../OneDrive/Desktop/Workstation/SimulationSandBox/Data/textures/wooden.jpg",
+                "texture_path": "Data/textures/grid ground.jpg",
                 "transform": {
                     "Param": null,
                     "rotation": [
@@ -629,9 +164,9 @@
                         0.0
                     ],
                     "scale": [
-                        100.0,
+                        50.0,
                         0.10000000149011612,
-                        100.0
+                        50.0
                     ],
                     "translation": [
                         0.0,
@@ -662,15 +197,15 @@
                         ],
                         "Mass": 1.0,
                         "Velocity": [
-                            0.0,
-                            -5.605193857299268e-45,
-                            0.0
+                            7.108734174227083e-14,
+                            2.6959870747395856e-15,
+                            3.5755930551453763e-13
                         ]
                     }
                 },
-                "object_name": "white ball",
+                "object_name": "Ball Red",
                 "object_type": "SphereObject",
-                "texture_path": "../../../../OneDrive/Desktop/Workstation/SimulationSandBox/Data/textures/swim ring.jpg",
+                "texture_path": "Data/textures/hat.jpg",
                 "transform": {
                     "Param": {
                         "LatitudeBands": 20,
@@ -688,9 +223,279 @@
                         1.0
                     ],
                     "translation": [
-                        -15.458999633789063,
-                        11.699999809265137,
-                        -0.5581169128417969
+                        98.3874740600586,
+                        4.9328155517578125,
+                        497.4645690917969
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": {
+                        "Elastic": 1.0,
+                        "Name": "SphereColliderUI",
+                        "Radius": 1.0,
+                        "Static": false
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            -1.1251131320014207e-12,
+                            -3.2133075768357028e-15,
+                            8.056843495314603e-13
+                        ]
+                    }
+                },
+                "object_name": "Red Ball 2",
+                "object_type": "SphereObject",
+                "texture_path": "Data/textures/hat.jpg",
+                "transform": {
+                    "Param": {
+                        "LatitudeBands": 20,
+                        "LongitudeBands": 20,
+                        "Radius": 1.0
+                    },
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        -129.24728393554688,
+                        1.0,
+                        63.429386138916016
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": {
+                        "Elastic": 1.0,
+                        "Name": "SphereColliderUI",
+                        "Radius": 1.0,
+                        "Static": false
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            2.79519364875273e-14,
+                            -1.2688443700284072e-16,
+                            -1.684044647709635e-14
+                        ]
+                    }
+                },
+                "object_name": "Red Ball 3",
+                "object_type": "SphereObject",
+                "texture_path": "Data/textures/hat.jpg",
+                "transform": {
+                    "Param": {
+                        "LatitudeBands": 20,
+                        "LongitudeBands": 20,
+                        "Radius": 1.0
+                    },
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        40.69316864013672,
+                        1.0238187313079834,
+                        -20.081920623779297
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": {
+                        "Elastic": 1.0,
+                        "Name": "SphereColliderUI",
+                        "Radius": 1.0,
+                        "Static": false
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            -6.531639920766275e-13,
+                            -6.294474490242674e-13,
+                            -8.420662713122529e-13
+                        ]
+                    }
+                },
+                "object_name": "Lemon 1",
+                "object_type": "SphereObject",
+                "texture_path": "Data/textures/Meloen.jpg",
+                "transform": {
+                    "Param": {
+                        "LatitudeBands": 20,
+                        "LongitudeBands": 20,
+                        "Radius": 1.0
+                    },
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        -94.19075775146484,
+                        1.0,
+                        -54.53352355957031
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": {
+                        "Elastic": 1.0,
+                        "Name": "SphereColliderUI",
+                        "Radius": 1.0,
+                        "Static": false
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            -4.3147651250519115e-12,
+                            7.378444643463267e-13,
+                            4.276500960537048e-14
+                        ]
+                    }
+                },
+                "object_name": "Lemon 2",
+                "object_type": "SphereObject",
+                "texture_path": "Data/textures/Meloen.jpg",
+                "transform": {
+                    "Param": {
+                        "LatitudeBands": 20,
+                        "LongitudeBands": 20,
+                        "Radius": 1.0
+                    },
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        -404.5016174316406,
+                        71.28656005859375,
+                        10.235556602478027
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": {
+                        "Elastic": 1.0,
+                        "Name": "SphereColliderUI",
+                        "Radius": 1.0,
+                        "Static": false
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            -1.6183945120997432e-14,
+                            2.494878371413602e-16,
+                            4.197501179102614e-13
+                        ]
+                    }
+                },
+                "object_name": "Lemon 3",
+                "object_type": "SphereObject",
+                "texture_path": "Data/textures/Meloen.jpg",
+                "transform": {
+                    "Param": {
+                        "LatitudeBands": 20,
+                        "LongitudeBands": 20,
+                        "Radius": 1.0
+                    },
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        -22.482210159301758,
+                        1.546536922454834,
+                        589.2962036132813
                     ]
                 }
             },
@@ -722,9 +527,9 @@
                         ]
                     }
                 },
-                "object_name": "brown ball",
+                "object_name": "Lemon 4",
                 "object_type": "SphereObject",
-                "texture_path": "../../../../OneDrive/Desktop/Workstation/SimulationSandBox/Data/textures/for cylinder.jpg",
+                "texture_path": "Data/textures/Meloen.jpg",
                 "transform": {
                     "Param": {
                         "LatitudeBands": 20,
@@ -742,9 +547,9 @@
                         1.0
                     ],
                     "translation": [
-                        8.859999656677246,
-                        6.900000095367432,
-                        0.42528271675109863
+                        4.900000095367432,
+                        1.2000000476837158,
+                        8.699999809265137
                     ]
                 }
             },
@@ -776,9 +581,9 @@
                         ]
                     }
                 },
-                "object_name": "ball 3",
+                "object_name": "Lemon 5",
                 "object_type": "SphereObject",
-                "texture_path": "../../../../OneDrive/Desktop/Workstation/SimulationSandBox/Data/textures/diamond.jpg",
+                "texture_path": "Data/textures/Meloen.jpg",
                 "transform": {
                     "Param": {
                         "LatitudeBands": 20,
@@ -796,9 +601,9 @@
                         1.0
                     ],
                     "translation": [
-                        -5.065999984741211,
-                        10.932999610900879,
-                        -1.0425400733947754
+                        -2.851119041442871,
+                        1.0,
+                        8.674003601074219
                     ]
                 }
             },
@@ -822,17 +627,17 @@
                             0.0,
                             0.0
                         ],
-                        "Mass": 1.0,
+                        "Mass": 10.0,
                         "Velocity": [
-                            0.0,
-                            0.0,
-                            0.0
+                            -5.534143123961648e-15,
+                            2.2487318542560334e-17,
+                            1.7769847279833911e-13
                         ]
                     }
                 },
-                "object_name": "ball 4",
+                "object_name": "Main Ball",
                 "object_type": "SphereObject",
-                "texture_path": "../../../../OneDrive/Desktop/Workstation/SimulationSandBox/Data/textures/texture_2.jpg",
+                "texture_path": "Data/textures/black ball.jpg",
                 "transform": {
                     "Param": {
                         "LatitudeBands": 20,
@@ -850,16 +655,357 @@
                         1.0
                     ],
                     "translation": [
-                        0.7669245004653931,
-                        5.766659259796143,
-                        0.9097077250480652
+                        -7.598416328430176,
+                        1.2396914958953857,
+                        247.5268096923828
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": null,
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
+                },
+                "object_name": "Start Line",
+                "object_type": "TorusObject",
+                "texture_path": "Data/textures/diamond.jpg",
+                "transform": {
+                    "Param": {
+                        "RadialSegments": 40,
+                        "Radius": 10.0,
+                        "TubeRadius": 0.5600000023841858,
+                        "TubularSegments": 100
+                    },
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        3.5999999046325684
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": null,
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
+                },
+                "object_name": "Drum",
+                "object_type": "CylinderObject",
+                "texture_path": "Data/textures/ball texture.jpg",
+                "transform": {
+                    "Param": {
+                        "Height": 2.0,
+                        "Radius": 1.0,
+                        "Segments": 20
+                    },
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        -9.899999618530273,
+                        0.8999999761581421,
+                        -25.100000381469727
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": null,
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
+                },
+                "object_name": "drum 2",
+                "object_type": "CylinderObject",
+                "texture_path": "Data/textures/ball texture.jpg",
+                "transform": {
+                    "Param": {
+                        "Height": 2.0,
+                        "Radius": 1.0,
+                        "Segments": 20
+                    },
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        9.899999618530273,
+                        1.2000000476837158,
+                        -25.0
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": null,
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
+                },
+                "object_name": "Boundry straight",
+                "object_type": "SphereObject",
+                "texture_path": "Data/textures/ball texture.jpg",
+                "transform": {
+                    "Param": {
+                        "LatitudeBands": 20,
+                        "LongitudeBands": 20,
+                        "Radius": 100.0
+                    },
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        -2.5999999046325684,
+                        -0.800000011920929,
+                        -1.600000023841858
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": {
+                        "Elastic": 1.0,
+                        "Name": "SphereColliderUI",
+                        "Radius": 75.0,
+                        "Static": true
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
+                },
+                "object_name": "border front",
+                "object_type": "SphereObject",
+                "texture_path": "Data/textures/black ball.jpg",
+                "transform": {
+                    "Param": {
+                        "LatitudeBands": 68,
+                        "LongitudeBands": 91,
+                        "Radius": 75.0
+                    },
+                    "rotation": [
+                        0.699999988079071,
+                        3.4000000953674316,
+                        -0.20000000298023224
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        -18.5,
+                        81.19999694824219,
+                        152.1999969482422
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": null,
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
+                },
+                "object_name": "left ",
+                "object_type": "SphereObject",
+                "texture_path": "Data/textures/pexels-azim-islam-460924-1210276.jpg",
+                "transform": {
+                    "Param": {
+                        "LatitudeBands": 20,
+                        "LongitudeBands": 20,
+                        "Radius": 1.0
+                    },
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": null,
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
+                },
+                "object_name": "Wall front",
+                "object_type": "CubeObject",
+                "texture_path": "not set",
+                "transform": {
+                    "Param": null,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        4.699999809265137
+                    ],
+                    "scale": [
+                        1.0,
+                        46.79999923706055,
+                        1.0
+                    ],
+                    "translation": [
+                        0.5,
+                        1.100000023841858,
+                        48.599998474121094
                     ]
                 }
             }
         ]
-    },
-    "casda": {
-        "Lights": null,
-        "Objects": []
     }
 }

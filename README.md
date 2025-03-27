@@ -1,9 +1,12 @@
 # Physics Simulation Project
 
-![Project Preview](img/scene.png)
-
+Latest
+![Simulation Preview](img/scene_2.png)
 
 This repository contains a physics simulation framework split into three main components:
+
+![Project Preview](img/scene.png)
+
 
 1. **Google Testing Framework** - A unit testing framework to verify the correctness of the physics simulation.
 2. **Simulation Sandbox** - A real-time simulation environment for visualizing and testing physics interactions.

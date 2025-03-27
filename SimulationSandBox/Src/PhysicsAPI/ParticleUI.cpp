@@ -17,6 +17,8 @@ void ParticleUI::OnUpdateGUI()
     ImGui::DragFloat3("Acceleration", reinterpret_cast<float*>(&mParticle.Acceleration), 0.1f);
     mParticle.SetAcceleration(mParticle.Acceleration);
 
+    ImGui::DragFloat3("Rotation", reinterpret_cast<float*>(&mParticle.Rotation), 0.1f);
+
     // Accumulated Force
     ImGui::DragFloat3("Force", reinterpret_cast<float*>(&mParticle.AccumulatedForce), 0.1f);
 
