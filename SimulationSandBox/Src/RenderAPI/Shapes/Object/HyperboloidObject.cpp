@@ -114,3 +114,32 @@ void HyperboloidObject::InitPrimitiveControlGUI()
         SetupObject();
     }
 }
+
+void HyperboloidObject::LoadParamFromJson(const nlohmann::json& json)
+{
+    if (json.contains("RadialSegments") && json["RadialSegments"].is_number_integer())
+        mRadialSegments = json["RadialSegments"];
+
+    if (json.contains("HeightSegments") && json["HeightSegments"].is_number_integer())
+        mHeightSegments = json["HeightSegments"];
+
+    if (json.contains("Height") && json["Height"].is_number_float())
+        mHeight = json["Height"];
+
+    if (json.contains("BottomRadius") && json["BottomRadius"].is_number_float())
+        mRadiusBottom = json["BottomRadius"];
+
+    if (json.contains("TopRadius") && json["TopRadius"].is_number_float())
+        mRadiusTop = json["TopRadius"];
+}
+
+nlohmann::json HyperboloidObject::SaveParamToJson()
+{
+    return {
+        {"RadialSegments", mRadialSegments},
+        {"HeightSegments", mHeightSegments},
+        {"Height", mHeight},
+        {"BottomRadius", mRadiusBottom},
+        {"TopRadius", mRadiusTop}
+    };
+}

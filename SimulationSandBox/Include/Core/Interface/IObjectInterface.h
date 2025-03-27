@@ -45,6 +45,9 @@ public:
 	void SetTexture(const std::string& path);
 	std::string GetTexturePath() const;
 
+	void LoadFromJson(const nlohmann::json& json);
+	nlohmann::json SaveToJson();
+
 protected:
 	void ConstructPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY topology);
 
@@ -53,6 +56,9 @@ protected:
 	virtual std::vector<DirectX::XMFLOAT3> BuildNormal()	= 0;
 	virtual std::vector<DirectX::XMFLOAT2> BuildTexCoords() = 0;
 	virtual void InitPrimitiveControlGUI() = 0;
+
+	virtual void LoadParamFromJson(const nlohmann::json& json) = 0;
+	virtual nlohmann::json SaveParamToJson() = 0;
 
 private:
 	void ConstructVertices();

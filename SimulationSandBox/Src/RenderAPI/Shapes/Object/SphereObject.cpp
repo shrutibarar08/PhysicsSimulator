@@ -104,3 +104,24 @@ void SphereObject::InitPrimitiveControlGUI()
         SetupObject();
     }
 }
+
+void SphereObject::LoadParamFromJson(const nlohmann::json& json)
+{
+    if (json.contains("LatitudeBands") && json["LatitudeBands"].is_number_integer())
+        mLatitudeBands = json["LatitudeBands"];
+
+    if (json.contains("LongitudeBands") && json["LongitudeBands"].is_number_integer())
+        mLongitudeBands = json["LongitudeBands"];
+
+    if (json.contains("Radius") && json["Radius"].is_number_float())
+        mRadius = json["Radius"];
+}
+
+nlohmann::json SphereObject::SaveParamToJson()
+{
+    return {
+        {"LatitudeBands", mLatitudeBands},
+        {"LongitudeBands", mLongitudeBands},
+        {"Radius", mRadius}
+    };
+}

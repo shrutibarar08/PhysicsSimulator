@@ -72,3 +72,12 @@ std::vector<DirectX::XMFLOAT2> DodecahedronObject::BuildTexCoords()
 void DodecahedronObject::InitPrimitiveControlGUI()
 {
 }
+
+void DodecahedronObject::LoadParamFromJson(const nlohmann::json& json)
+{
+}
+
+nlohmann::json DodecahedronObject::SaveParamToJson()
+{
+    return {};
+}

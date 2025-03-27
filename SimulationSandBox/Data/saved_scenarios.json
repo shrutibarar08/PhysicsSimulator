@@ -160,6 +160,7 @@
         ],
         "Objects": [
             {
+                "Param": null,
                 "Physics": {
                     "Acceleration": [
                         0.0,
@@ -195,6 +196,7 @@
                 }
             },
             {
+                "Param": null,
                 "Physics": {
                     "Acceleration": [
                         0.0,
@@ -230,6 +232,11 @@
                 }
             },
             {
+                "Param": {
+                    "LatitudeBands": 20,
+                    "LongitudeBands": 20,
+                    "Radius": 1.0
+                },
                 "Physics": {
                     "Acceleration": [
                         0.0,
@@ -265,6 +272,12 @@
                 }
             },
             {
+                "Param": {
+                    "RadialSegments": 40,
+                    "Radius": 1.0,
+                    "TubeRadius": 0.30000001192092896,
+                    "TubularSegments": 20
+                },
                 "Physics": {
                     "Acceleration": [
                         0.0,
@@ -293,13 +306,18 @@
                         1.0
                     ],
                     "translation": [
-                        -12.600000381469727,
-                        2.5999999046325684,
+                        0.0,
+                        0.0,
                         0.0
                     ]
                 }
             },
             {
+                "Param": {
+                    "BaseWidth": 1.0,
+                    "Depth": 1.0,
+                    "Height": 1.0
+                },
                 "Physics": {
                     "Acceleration": [
                         0.0,
@@ -335,6 +353,11 @@
                 }
             },
             {
+                "Param": {
+                    "Height": 2.0,
+                    "Radius": 1.0,
+                    "Segments": 20
+                },
                 "Physics": {
                     "Acceleration": [
                         0.0,
@@ -370,6 +393,7 @@
                 }
             },
             {
+                "Param": null,
                 "Physics": {
                     "Acceleration": [
                         0.0,
@@ -405,6 +429,11 @@
                 }
             },
             {
+                "Param": {
+                    "Height": 2.0,
+                    "Radius": 1.0,
+                    "Slices": 20
+                },
                 "Physics": {
                     "Acceleration": [
                         0.0,
@@ -445,10 +474,10 @@
         "Lights": [
             {
                 "ambient": [
-                    0.9333333373069763,
-                    0.4588235318660736,
-                    0.4588235318660736,
-                    1.0
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
                 ],
                 "attenuation": [
                     0.0,
@@ -456,14 +485,14 @@
                     0.0
                 ],
                 "diffuse": [
-                    1.0,
-                    0.4627451002597809,
-                    0.4627451002597809,
-                    1.0
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
                 ],
                 "direction": [
-                    19.100000381469727,
-                    -4.800000190734863,
+                    0.0,
+                    0.0,
                     0.0
                 ],
                 "light_name": "",
@@ -475,16 +504,17 @@
                 ],
                 "range": 0.0,
                 "specular": [
-                    1.0,
-                    0.6039215922355652,
-                    0.6039215922355652,
-                    1.0
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
                 ],
                 "spot": 0.0
             }
         ],
         "Objects": [
             {
+                "Param": null,
                 "Physics": {
                     "Acceleration": [
                         0.0,
@@ -520,6 +550,11 @@
                 }
             },
             {
+                "Param": {
+                    "LatitudeBands": 20,
+                    "LongitudeBands": 20,
+                    "Radius": 1.0
+                },
                 "Physics": {
                     "Acceleration": [
                         0.0,
@@ -555,6 +590,11 @@
                 }
             },
             {
+                "Param": {
+                    "LatitudeBands": 20,
+                    "LongitudeBands": 20,
+                    "Radius": 1.0
+                },
                 "Physics": {
                     "Acceleration": [
                         0.0,
@@ -590,6 +630,11 @@
                 }
             },
             {
+                "Param": {
+                    "LatitudeBands": 20,
+                    "LongitudeBands": 20,
+                    "Radius": 1.0
+                },
                 "Physics": {
                     "Acceleration": [
                         0.0,
@@ -625,6 +670,11 @@
                 }
             },
             {
+                "Param": {
+                    "LatitudeBands": 20,
+                    "LongitudeBands": 20,
+                    "Radius": 1.0
+                },
                 "Physics": {
                     "Acceleration": [
                         0.0,

@@ -122,3 +122,28 @@ void TorusObject::InitPrimitiveControlGUI()
         SetupObject();
     }
 }
+
+void TorusObject::LoadParamFromJson(const nlohmann::json& json)
+{
+    if (json.contains("RadialSegments") && json["RadialSegments"].is_number_integer())
+        mRadialSegments = json["RadialSegments"];
+
+    if (json.contains("TubularSegments") && json["TubularSegments"].is_number_integer())
+        mTubularSegments = json["TubularSegments"];
+
+    if (json.contains("Radius") && json["Radius"].is_number_float())
+        mRadius = json["Radius"];
+
+    if (json.contains("TubeRadius") && json["TubeRadius"].is_number_float())
+        mTubeRadius = json["TubeRadius"];
+}
+
+nlohmann::json TorusObject::SaveParamToJson()
+{
+    return {
+        {"RadialSegments", mRadialSegments},
+        {"TubularSegments", mTubularSegments},
+        {"Radius", mRadius},
+        {"TubeRadius", mTubeRadius}
+    };
+}

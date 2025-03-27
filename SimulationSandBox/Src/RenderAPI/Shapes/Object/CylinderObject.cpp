@@ -154,3 +154,24 @@ void CylinderObject::InitPrimitiveControlGUI()
         SetupObject();
     }
 }
+
+void CylinderObject::LoadParamFromJson(const nlohmann::json& json)
+{
+    if (json.contains("Segments") && json["Segments"].is_number_integer())
+        mSegmentCount = json["Segments"];
+
+    if (json.contains("Radius") && json["Radius"].is_number_float())
+        mRadius = json["Radius"];
+
+    if (json.contains("Height") && json["Height"].is_number_float())
+        mHeight = json["Height"];
+}
+
+nlohmann::json CylinderObject::SaveParamToJson()
+{
+    return {
+        {"Segments", mSegmentCount},
+        {"Radius", mRadius},
+        {"Height", mHeight}
+    };
+}

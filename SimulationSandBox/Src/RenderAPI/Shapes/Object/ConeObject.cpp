@@ -103,3 +103,24 @@ void ConeObject::InitPrimitiveControlGUI()
         SetupObject();
     }
 }
+
+void ConeObject::LoadParamFromJson(const nlohmann::json& json)
+{
+    if (json.contains("Slices") && json["Slices"].is_number_integer())
+        mSlices = json["Slices"];
+
+    if (json.contains("Radius") && json["Radius"].is_number_float())
+        mRadius = json["Radius"];
+
+    if (json.contains("Height") && json["Height"].is_number_float())
+        mHeight = json["Height"];
+}
+
+nlohmann::json ConeObject::SaveParamToJson()
+{
+    return {
+        {"Slices", mSlices},
+        {"Radius", mRadius},
+        {"Height", mHeight}
+    };
+}

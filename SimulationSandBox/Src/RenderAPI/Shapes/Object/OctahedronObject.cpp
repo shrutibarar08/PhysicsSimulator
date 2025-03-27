@@ -60,3 +60,12 @@ std::vector<DirectX::XMFLOAT2> OctahedronObject::BuildTexCoords()
 void OctahedronObject::InitPrimitiveControlGUI()
 {
 }
+
+void OctahedronObject::LoadParamFromJson(const nlohmann::json& json)
+{
+}
+
+nlohmann::json OctahedronObject::SaveParamToJson()
+{
+    return nlohmann::json();
+}

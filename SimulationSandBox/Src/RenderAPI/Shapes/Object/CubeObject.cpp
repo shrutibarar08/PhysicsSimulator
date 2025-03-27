@@ -77,3 +77,12 @@ std::vector<DirectX::XMFLOAT2> CubeObject::BuildTexCoords()
 void CubeObject::InitPrimitiveControlGUI()
 {
 }
+
+void CubeObject::LoadParamFromJson(const nlohmann::json& json)
+{
+}
+
+nlohmann::json CubeObject::SaveParamToJson()
+{
+    return {};
+}

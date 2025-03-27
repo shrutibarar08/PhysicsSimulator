@@ -67,3 +67,20 @@ void PyramidObject::InitPrimitiveControlGUI()
         SetupObject();
     }
 }
+
+void PyramidObject::LoadParamFromJson(const nlohmann::json& json)
+{
+    if (json.contains("BaseSize") && json["BaseSize"].is_number_float())
+        mBaseSize = json["BaseSize"];
+
+    if (json.contains("Height") && json["Height"].is_number_float())
+        mHeight = json["Height"];
+}
+
+nlohmann::json PyramidObject::SaveParamToJson()
+{
+    return {
+        {"BaseSize", mBaseSize},
+        {"Height", mHeight}
+    };
+}

@@ -302,3 +302,48 @@ std::string IObjectInterface::GetTexturePath() const
 {
 	return mTexturePath;
 }
+
+void IObjectInterface::LoadFromJson(const nlohmann::json& json)
+{
+}
+
+nlohmann::json IObjectInterface::SaveToJson()
+{
+	nlohmann::json objJson;
+
+	objJson["object_type"] = GetObjectType();
+	objJson["object_name"] = GetObjectName();
+	objJson["texture_path"] = GetTexturePath();
+
+	const auto& transform = GetTransform();
+	objJson["transform"] = {
+		{ "translation", { transform.Translation.x, transform.Translation.y, transform.Translation.z } },
+		{ "rotation", { transform.Rotation.x, transform.Rotation.y, transform.Rotation.z } },
+		{ "scale", { transform.Scale.x, transform.Scale.y, transform.Scale.z } }
+	};
+	objJson["Param"] = SaveParamToJson();
+
+	if (auto physics = GetPhysicsObject(); physics)
+	{
+		auto particle = physics->mParticle.GetParticle();
+		objJson["Physics"] = {
+			{ "Velocity", { particle->Velocity.x,
+				particle->Velocity.y, particle->Velocity.z } },
+			{ "Acceleration", { particle->Acceleration.x,
+				particle->Acceleration.y, particle->Acceleration.z } },
+			{ "Mass", particle->GetMass() }
+		};
+
+		if (physics->mCollider)
+		{
+			auto collider = physics->mCollider->Collider();
+			objJson["Physics"]["Collider"] = {
+				{ "Name", collider->GetColliderName() },
+				{ "Static", collider->bStatic },
+				{ "Elastic", collider->Elastic }
+			};
+		}
+	}
+
+	return objJson;
+}

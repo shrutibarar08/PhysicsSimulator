@@ -93,41 +93,7 @@ nlohmann::json ObjectManager::SaveToJson() const
 
 	for (const auto& object : mObjects)
 	{
-		nlohmann::json objJson;
-		objJson["object_type"] = object->GetObjectType();
-		objJson["object_name"] = object->GetObjectName();
-		objJson["texture_path"] = object->GetTexturePath();
-
-		const auto& transform = object->GetTransform();
-		objJson["transform"] = {
-			{ "translation", { transform.Translation.x, transform.Translation.y, transform.Translation.z } },
-			{ "rotation", { transform.Rotation.x, transform.Rotation.y, transform.Rotation.z } },
-			{ "scale", { transform.Scale.x, transform.Scale.y, transform.Scale.z } }
-		};
-
-		if (auto physics = object->GetPhysicsObject(); physics)
-		{
-			auto particle = physics->mParticle.GetParticle();
-			objJson["Physics"] = {
-				{ "Velocity", { particle->Velocity.x,
-					particle->Velocity.y, particle->Velocity.z } },
-				{ "Acceleration", { particle->Acceleration.x,
-					particle->Acceleration.y, particle->Acceleration.z } },
-				{ "Mass", particle->GetMass() }
-			};
-
-			if (physics->mCollider)
-			{
-				auto collider = physics->mCollider->Collider();
-				objJson["Physics"]["Collider"] = {
-					{ "Name", collider->GetColliderName() },
-					{ "Static", collider->bStatic },
-					{ "Elastic", collider->Elastic }
-				};
-			}
-		}
-
-		scenarioJson.emplace_back(std::move(objJson));
+		scenarioJson.emplace_back(std::move(object->SaveToJson()));
 	}
 
 	return scenarioJson;

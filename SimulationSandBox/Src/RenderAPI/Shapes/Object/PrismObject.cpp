@@ -84,3 +84,24 @@ void PrismObject::InitPrimitiveControlGUI()
         SetupObject();
     }
 }
+
+void PrismObject::LoadParamFromJson(const nlohmann::json& json)
+{
+    if (json.contains("BaseWidth") && json["BaseWidth"].is_number_float())
+        mBaseWidth = json["BaseWidth"];
+
+    if (json.contains("Height") && json["Height"].is_number_float())
+        mHeight = json["Height"];
+
+    if (json.contains("Depth") && json["Depth"].is_number_float())
+        mDepth = json["Depth"];
+}
+
+nlohmann::json PrismObject::SaveParamToJson()
+{
+    return {
+        {"BaseWidth", mBaseWidth},
+        {"Height", mHeight},
+        {"Depth", mDepth}
+    };
+}

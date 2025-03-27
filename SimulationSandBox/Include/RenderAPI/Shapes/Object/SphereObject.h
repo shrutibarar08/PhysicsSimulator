@@ -15,6 +15,8 @@ protected:
 	std::vector<DirectX::XMFLOAT3> BuildNormal() override;
 	std::vector<DirectX::XMFLOAT2> BuildTexCoords() override;
 	void InitPrimitiveControlGUI() override;
+	void LoadParamFromJson(const nlohmann::json& json) override;
+	nlohmann::json SaveParamToJson() override;
 
 private:
 	int  mLatitudeBands{ 20 };
