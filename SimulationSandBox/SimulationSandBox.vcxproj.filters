@@ -141,6 +141,9 @@
     <ClCompile Include="Src\PhysicsAPI\ParticleUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\GuiAPI\PhysicsUI\ParticleSystemUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Core\Interface\ISubsystemInterface.h">
@@ -324,6 +327,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\GuiAPI\PhysicsUI\ParticleUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GuiAPI\PhysicsUI\ParticleSystemUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

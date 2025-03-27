@@ -1,14 +1,9 @@
 #pragma once
-#include "ParticleSystem.h"
+#include "GuiAPI/PhysicsUI/ParticleSystemUI.h"
 #include "GuiAPI/PhysicsUI/ParticleUI.h"
 #include "PhysicsAPI/DefineCollider.h"
 
-struct ParticleEffectData
-{
-	int id;
-	std::string name;
-	std::unique_ptr<ParticleEffectInterface> effect;
-};
+
 
 class PhysicsObject
 {
@@ -27,16 +22,14 @@ private:
 	void InitColliderPopUp();
 	void InitColliderUpdateGUI();
 
-	void InitParticleEffectPopUp();
 	void InitParticleEffectsUpdateGUI();
 
 public:
 	std::unique_ptr<IColliderUI> mCollider{ nullptr };
 	ParticleUI mParticle{};
-	ParticleSystem mParticleSystem{};
+	ParticleSystemUI mParticleSystem{};
 
 private:
-	std::vector<ParticleEffectData> mParticleEffects;
-	int mColliderIndex{ -1 };
 	bool mbEffects{ true };
+	int mColliderIndex{ -1 };
 };

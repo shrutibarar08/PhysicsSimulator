@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\GuiAPI\PhysicsUI\ParticleSystemUI.cpp" />
     <ClCompile Include="Src\PhysicsAPI\ParticleUI.cpp" />
     <ClCompile Include="Src\GuiAPI\PhysicsUI\ColliderGUI\PlaneColliderUI.cpp" />
     <ClCompile Include="Src\GuiAPI\PhysicsUI\ColliderGUI\SphereColliderUI.cpp" />
@@ -244,6 +245,7 @@
     <ClInclude Include="Include\PhysicsAPI\PhysicsManager.h" />
     <ClInclude Include="Include\GuiAPI\PhysicsUI\ColliderGUI\PlaneColliderUI.h" />
     <ClInclude Include="Include\GuiAPI\PhysicsUI\ParticleUI.h" />
+    <ClInclude Include="Include\GuiAPI\PhysicsUI\ParticleSystemUI.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Include\RenderAPI\Light\SpotLight.h" />
     <ClInclude Include="Include\RenderAPI\Shapes\Object\SphereObject.h" />
