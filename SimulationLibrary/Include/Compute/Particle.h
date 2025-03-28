@@ -8,8 +8,12 @@ class Particle
 public:
 	Particle();
 
+	void SetResting(bool value);
+	bool IsResting();
+
 	// Setters
 	void SetMass(float mass);
+	void ApplyForce(const DirectX::XMFLOAT3& force);
 	void AddForce(const DirectX::XMFLOAT3& force);
 	void ResetForce();
 	void ResetAccumulatedVelocity();
@@ -36,4 +40,11 @@ public:
 	float mMass{ 1.0f };
 	float mInverseMass{ 1.0f };
 	float mDamping{ 0.9f }; // For removing Energy gradually
+
+private:
+	bool mForcedUnRest{ false };
+	bool mResting{ false };
+
+private:
+	DirectX::XMFLOAT3 mRestPosition{ 0.0f, 0.0f, 0.0f };
 };

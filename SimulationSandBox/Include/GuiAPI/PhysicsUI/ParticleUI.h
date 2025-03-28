@@ -18,4 +18,5 @@ public:
 
 private:
 	Particle mParticle{};
+	DirectX::XMFLOAT3 mForceTobeApplied{ 0.0f, 0.0f, 0.0f };
 };

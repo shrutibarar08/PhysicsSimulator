@@ -7,6 +7,29 @@ AccumulatedForce({ 0.0f, 0.0f, 0.0f })
 {
 }
 
+void Particle::SetResting(bool value)
+{
+    mResting = value;
+    mRestPosition = Position;
+}
+
+bool Particle::IsResting()
+{
+    if (mForcedUnRest)
+    {
+        mForcedUnRest = false;
+        return false;
+    }
+    if (mResting) return true;
+    if (mRestPosition.x == Position.x &&
+        mRestPosition.y == Position.y &&
+        mRestPosition.z == Position.z)
+    {
+        return true;
+    }
+    return false;
+}
+
 // Set mass and update inverse mass
 void Particle::SetMass(float mass)
 {
@@ -20,6 +43,13 @@ void Particle::SetMass(float mass)
     	mMass = 0.0f;
         mInverseMass = 0.0f; // Infinite mass
     }
+}
+
+void Particle::ApplyForce(const DirectX::XMFLOAT3& force)
+{
+    SetResting(false);
+    mForcedUnRest = true;
+    AddForce(force);
 }
 
 // Add force to the accumulated forces

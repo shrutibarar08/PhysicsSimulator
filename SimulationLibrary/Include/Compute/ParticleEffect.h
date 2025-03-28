@@ -35,4 +35,8 @@ public:
 
 private:
     DirectX::XMFLOAT3 mGravity{ 0, -9.81f, 0 };
+    float mRestThreshold{ 3.f };
+    float mRestTime{ 1.f };
+    bool mObjectAtRest{ false };
+    float mAccumulatedRestTime{ 0.0f };
 };

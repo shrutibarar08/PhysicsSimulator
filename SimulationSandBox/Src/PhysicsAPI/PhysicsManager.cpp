@@ -1,7 +1,5 @@
 #include "PhysicsAPI/PhysicsManager.h"
 
-#include <iostream>
-
 void PhysicsManager::Initialize()
 {
 	mRenderQ = SubsystemManager::Get<RenderQueue>();
@@ -16,7 +14,7 @@ void PhysicsManager::RecordingExecute(float deltaTime)
 	}
 }
 
-void PhysicsManager::HandleCollisions()
+void PhysicsManager::HandleCollisions() const
 {
     for (auto& object : mRenderQ->mObjects)
     {
@@ -38,24 +36,8 @@ void PhysicsManager::HandleCollisions()
                 {
                     colliderA->ResolveCollision(colliderB);
                     colliderB->ResolveCollision(colliderA);
-
-                    LogCollision(object.second->GetObjectName(),
-                        otherObject.second->GetObjectName());
                 }
             }
         }
     }
-}
-
-void PhysicsManager::LogCollision(const std::string& left, const std::string& right)
-{
-    if ((left == _collider || left == _collided) &&
-        (right == _collider || right == _collided))
-    {
-        return;
-    }
-    _collided = left;
-    _collider = right;
-
-    std::cout << _collider << " Collided with: " << _collided << "!\n";
 }

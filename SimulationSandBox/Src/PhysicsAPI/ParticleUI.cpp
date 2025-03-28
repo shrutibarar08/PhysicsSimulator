@@ -18,14 +18,18 @@ void ParticleUI::OnUpdateGUI()
     mParticle.SetAcceleration(mParticle.Acceleration);
 
     ImGui::DragFloat3("Rotation", reinterpret_cast<float*>(&mParticle.Rotation), 0.1f);
-
-    // Accumulated Force
-    ImGui::DragFloat3("Force", reinterpret_cast<float*>(&mParticle.AccumulatedForce), 0.1f);
-
     // Damping Energy
     ImGui::DragFloat("Damping", &mParticle.mDamping,
         0.01f, 0.f,
         1.f, "%0.02f");
+
+    // Accumulated Force
+    ImGui::DragFloat3("Force", reinterpret_cast<float*>(&mForceTobeApplied), 0.1f);
+    if (ImGui::Button("Apply Force"))
+    {
+        mParticle.ApplyForce(mForceTobeApplied);
+        mForceTobeApplied = { 0.0f, 0.0f, 0.0f };
+    }
 }
 
 void ParticleUI::LoadFromJson(const nlohmann::json& jsonData)

@@ -143,9 +143,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\GuiAPI\PhysicsUI\ColliderGUI\CubeColliderUI.cpp" />
+    <ClCompile Include="Src\GuiAPI\PhysicsUI\ColliderGUI\IColliderUI.cpp" />
     <ClCompile Include="Src\GuiAPI\PhysicsUI\ParticleSystemUI.cpp" />
     <ClCompile Include="Src\PhysicsAPI\ParticleUI.cpp" />
-    <ClCompile Include="Src\GuiAPI\PhysicsUI\ColliderGUI\PlaneColliderUI.cpp" />
     <ClCompile Include="Src\GuiAPI\PhysicsUI\ColliderGUI\SphereColliderUI.cpp" />
     <ClCompile Include="Src\PhysicsAPI\PhysicsManager.cpp" />
     <ClCompile Include="Src\PhysicsAPI\PhysicsObject.cpp" />
@@ -190,6 +191,7 @@
   <ItemGroup>
     <ClInclude Include="Include\Core\RegistryManager\RegistryCollider.h" />
     <ClInclude Include="Include\Core\RegistryManager\RegistryEffect.h" />
+    <ClInclude Include="Include\GuiAPI\PhysicsUI\ColliderGUI\CubeColliderUI.h" />
     <ClInclude Include="Include\GuiAPI\PhysicsUI\ColliderGUI\IColliderUI.h" />
     <ClInclude Include="Include\GuiAPI\PhysicsUI\ColliderGUI\SphereColliderUI.h" />
     <ClInclude Include="Include\GuiAPI\PhysicsUI\IPhysicsUI.h" />
@@ -243,7 +245,6 @@
     <ClInclude Include="Include\RenderAPI\Shapes\Object\OctahedronObject.h" />
     <ClInclude Include="Include\PhysicsAPI\PhysicsObject.h" />
     <ClInclude Include="Include\PhysicsAPI\PhysicsManager.h" />
-    <ClInclude Include="Include\GuiAPI\PhysicsUI\ColliderGUI\PlaneColliderUI.h" />
     <ClInclude Include="Include\GuiAPI\PhysicsUI\ParticleUI.h" />
     <ClInclude Include="Include\GuiAPI\PhysicsUI\ParticleSystemUI.h" />
     <ClInclude Include="resource.h" />

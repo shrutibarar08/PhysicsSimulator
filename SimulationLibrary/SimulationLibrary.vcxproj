@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Collider\CubeCollider.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Include\Collider\ICollider.h" />
     <ClInclude Include="Include\Compute\Integration.h" />
@@ -162,11 +163,10 @@
     <ClInclude Include="Include\Compute\ParticleEffect.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Include\Collider\SphereCollider.h" />
-    <ClInclude Include="Include\Collider\PlaneCollider.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Collider\CubeCollider.cpp" />
     <ClCompile Include="Src\Collider\ICollider.cpp" />
-    <ClCompile Include="Src\Collider\PlaneCollider.cpp" />
     <ClCompile Include="Src\Collider\SphereCollider.cpp" />
     <ClCompile Include="Src\Compute\ParticleEffect.cpp" />
     <ClCompile Include="Src\ParticleSystem.cpp" />

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Collider/PlaneCollider.h"
 #include "Collider/ICollider.h"
 #include "Compute/Particle.h"
 
@@ -41,11 +40,11 @@ private:
         const DirectX::XMVECTOR& normal, DirectX::XMVECTOR& newVelocityA,
         DirectX::XMVECTOR& newVelocityB) const;
 
-    //~ Handle Plane Collision
-    void HandlePlaneCollision(PlaneCollider* other);
-    bool CheckPlaneCollision(PlaneCollider* planeCollider);
-    void ReflectVelocity(const DirectX::XMVECTOR& normal);
-    void CorrectSpherePosition(
-        const DirectX::XMVECTOR& normal,
-        const PlaneCollider* planeCollider) const;
+    //~ Handle Cube Collision
+    bool CheckCubeCollision(class CubeCollider* other) const;
+    void HandleCubeCollision(CubeCollider* cube);
+    void ResolveSpherePenetration(const DirectX::XMVECTOR& normal, float penetrationDepth) const;
+    void ResolveSphereVelocity(const DirectX::XMVECTOR& normal) const;
+    bool ComputeSphereCubeCollisionInfo(const CubeCollider* cube, DirectX::XMVECTOR& normal,
+                                        float& penetrationDepth) const;
 };

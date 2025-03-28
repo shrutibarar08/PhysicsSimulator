@@ -135,13 +135,16 @@
     <ClCompile Include="Src\GuiAPI\PhysicsUI\ColliderGUI\SphereColliderUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\GuiAPI\PhysicsUI\ColliderGUI\PlaneColliderUI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Src\PhysicsAPI\ParticleUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\GuiAPI\PhysicsUI\ParticleSystemUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GuiAPI\PhysicsUI\ColliderGUI\CubeColliderUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GuiAPI\PhysicsUI\ColliderGUI\IColliderUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -320,9 +323,6 @@
     <ClInclude Include="Include\GuiAPI\PhysicsUI\ColliderGUI\SphereColliderUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\GuiAPI\PhysicsUI\ColliderGUI\PlaneColliderUI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Include\GuiAPI\PhysicsUI\IPhysicsUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -330,6 +330,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\GuiAPI\PhysicsUI\ParticleSystemUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GuiAPI\PhysicsUI\ColliderGUI\CubeColliderUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

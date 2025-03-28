@@ -115,6 +115,7 @@ void PhysicsObject::InitColliderUpdateGUI()
 
 void PhysicsObject::Update(float deltaTime)
 {
+    if (mCollider != nullptr) mCollider->Update(deltaTime);
     if (mbEffects) mParticleSystem.GetParticleSystem()->Update(mParticle.GetParticle(), deltaTime);
 }
 

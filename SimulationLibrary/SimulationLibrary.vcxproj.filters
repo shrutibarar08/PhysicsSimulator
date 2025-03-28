@@ -39,7 +39,7 @@
     <ClInclude Include="Include\Collider\SphereCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Collider\PlaneCollider.h">
+    <ClInclude Include="Include\Collider\CubeCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -56,13 +56,13 @@
     <ClCompile Include="Src\Compute\ParticleEffect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Collider\PlaneCollider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Collider\SphereCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\Collider\ICollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Collider\CubeCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

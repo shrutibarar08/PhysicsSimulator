@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Compute/ParticleEffect.h"
 
+#include <iostream>
+
 
 void GravityFreeFallEffect::ApplyEffect(Particle* particle, float deltaTime)
 {
@@ -24,5 +26,12 @@ void GravityFreeFallEffect::ApplyEffect(Particle* particle, float deltaTime)
 
 void GravityEffect::ApplyEffect(Particle* particle, float deltaTime)
 {
-    particle->AddForce(mGravity);
+    if (particle->IsResting())
+    {
+        std::cout << "Gravity Effect is OFF!\n";
+    }else
+    {
+        std::cout << "Applying Gravity Effect!\n";
+        particle->AddForce(mGravity);
+    }
 }

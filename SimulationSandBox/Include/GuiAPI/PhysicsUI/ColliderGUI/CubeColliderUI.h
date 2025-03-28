@@ -1,18 +1,19 @@
 #pragma once
 
 #include "IColliderUI.h"
-#include "Collider/SphereCollider.h"
+#include "Collider/CubeCollider.h"
 
-class SphereColliderUI final: public IColliderUI
+class CubeColliderUI final : public IColliderUI
 {
 public:
-	SphereColliderUI() = default;
+	CubeColliderUI() = default;
 
+	void Update(float deltaTime) override;
 	void ChildUpdateGUI() override;
 	void LoadFromJson(const nlohmann::json& jsonData) override;
 	nlohmann::json SaveToJson() override;
 	ICollider* Collider() override;
 
 private:
-	SphereCollider mSphereCollider{};
+	CubeCollider mCubeCollider{};
 };

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Collider/SphereCollider.h"
+#include "Collider/CubeCollider.h"
 
 #include <iostream>
 
@@ -10,9 +11,9 @@ bool SphereCollider::CheckCollision(ICollider* other)
     {
         return CheckSphereCollision(sphereCollider);
     }
-    else if (auto* planeCollider = dynamic_cast<PlaneCollider*>(other))
+    if (auto* cubeCollider = dynamic_cast<CubeCollider*>(other))
     {
-        return CheckPlaneCollision(planeCollider);
+        return CheckCubeCollision(cubeCollider);
     }
     return false;
 }
@@ -22,10 +23,13 @@ void SphereCollider::ResolveCollision(ICollider* other)
     if (auto* sphereCollider = dynamic_cast<SphereCollider*>(other))
     {
         HandleSphereCollision(sphereCollider);
+        return;
     }
-    else if (auto* planeCollider = dynamic_cast<PlaneCollider*>(other))
+
+    if (auto* cubeCollider = dynamic_cast<CubeCollider*>(other))
     {
-        HandlePlaneCollision(planeCollider);
+        HandleCubeCollision(cubeCollider);
+        return;
     }
 }
 
@@ -43,6 +47,7 @@ void SphereCollider::HandleSphereCollision(SphereCollider* other)
 
     if (ComputeSphereCollisionInfo(centerA, centerB, normal, penetrationDepth, other))
     {
+        RegisterCollision(other, normal);
         ResolveSpherePenetration(centerA, centerB, normal, penetrationDepth, other);
         ResolveSphereVelocity(normal, other);
     }
@@ -132,25 +137,38 @@ void SphereCollider::ResolveSphereVelocity(const DirectX::XMVECTOR& normal, cons
 
     if (velAlongNormal > 0) return; // Objects are separating
 
-    // Compute impulse scalar correctly
+    // Compute impulse scalar
     float impulseScalar = -(1 + Elastic) * velAlongNormal;
     impulseScalar /= (1.0f / massA + 1.0f / massB);
 
     // Compute impulse vector
     DirectX::XMVECTOR impulse = DirectX::XMVectorScale(normal, impulseScalar);
 
-    // Apply impulse to non-static objects
+    // Apply impulse only if the particle is not resting
     if (!bStatic)
     {
         DirectX::XMVECTOR newVelocityA = DirectX::XMVectorAdd(velocityA, DirectX::XMVectorScale(impulse, 1.0f / massA));
         newVelocityA = DirectX::XMVectorScale(newVelocityA, mAttachedObject->mDamping); // Apply damping
-        XMStoreFloat3(&mAttachedObject->Velocity, newVelocityA);
+    	XMStoreFloat3(&mAttachedObject->Velocity, newVelocityA);
+
+        if (mAttachedObject->IsResting())  // Check if the object is resting
+        {
+            mAttachedObject->Velocity.y = 0.0f;
+        }
     }
+
     if (!other->bStatic)
     {
-        DirectX::XMVECTOR newVelocityB = DirectX::XMVectorSubtract(velocityB, DirectX::XMVectorScale(impulse, 1.0f / massB));
-        newVelocityB = DirectX::XMVectorScale(newVelocityB, other->mAttachedObject->mDamping); // Apply damping
-        XMStoreFloat3(&other->mAttachedObject->Velocity, newVelocityB);
+        if (other->mAttachedObject->IsResting()) 
+        {
+            other->mAttachedObject->Velocity = { 0.0f, 0.0f, 0.0f };  // Snap to zero
+        }
+        else
+        {
+            DirectX::XMVECTOR newVelocityB = DirectX::XMVectorSubtract(velocityB, DirectX::XMVectorScale(impulse, 1.0f / massB));
+            newVelocityB = DirectX::XMVectorScale(newVelocityB, other->mAttachedObject->mDamping); // Apply damping
+            XMStoreFloat3(&other->mAttachedObject->Velocity, newVelocityB);
+        }
     }
 }
 
@@ -168,61 +186,117 @@ void SphereCollider::ComputeSphereVelocityChange(
 
 #pragma endregion
 
-#pragma region PLANE_COLLISION
 
-void SphereCollider::HandlePlaneCollision(PlaneCollider* other)
+#pragma region CUBE_COLLISION
+
+bool SphereCollider::CheckCubeCollision(class CubeCollider* other) const
 {
-    DirectX::XMVECTOR velocity = XMLoadFloat3(&mAttachedObject->Velocity);
-    DirectX::XMVECTOR normal = DirectX::XMLoadFloat3(&other->Normal);
-
-    ReflectVelocity(normal);
-    CorrectSpherePosition(normal, other);
-}
-
-bool SphereCollider::CheckPlaneCollision(PlaneCollider* planeCollider)
-{
-    // Load sphere position
+    // Load sphere center and radius
     DirectX::XMVECTOR sphereCenter = XMLoadFloat3(&mAttachedObject->Position);
+    float sphereRadius = Radius;
 
-    // Load plane transform (position, normal, rotation)
-    DirectX::XMVECTOR planePosition = DirectX::XMLoadFloat3(&planeCollider->mAttachedObject->Position);
-    DirectX::XMVECTOR planeNormal = DirectX::XMLoadFloat3(&planeCollider->Normal);
-    DirectX::XMVECTOR planeRotation = DirectX::XMLoadFloat4(&planeCollider->mAttachedObject->Rotation);
+    // Load cube properties
+    DirectX::XMVECTOR cubeCenter = XMLoadFloat3(&other->mAttachedObject->Position);
+    DirectX::XMVECTOR cubeScale = XMLoadFloat3(&other->mScale); // Half-extents
 
-    // Apply rotation to plane normal
-    planeNormal = DirectX::XMVector3Rotate(planeNormal, planeRotation);
+    // Calculate closest point on the cube to the sphere
+    DirectX::XMVECTOR minBounds = DirectX::XMVectorSubtract(cubeCenter, cubeScale);
+    DirectX::XMVECTOR maxBounds = DirectX::XMVectorAdd(cubeCenter, cubeScale);
 
-    // Compute signed distance from sphere to plane
-    DirectX::XMVECTOR sphereToPlane = DirectX::XMVectorSubtract(sphereCenter, planePosition);
-    float signedDistance = DirectX::XMVectorGetX(DirectX::XMVector3Dot(sphereToPlane, planeNormal));
+    DirectX::XMVECTOR closestPoint = DirectX::XMVectorClamp(sphereCenter, minBounds, maxBounds);
 
-    // Check if the sphere is colliding with the plane
-    return signedDistance <= Radius && signedDistance >= -Radius;
+    // Compute squared distance from sphere center to closest point
+    DirectX::XMVECTOR diff = DirectX::XMVectorSubtract(sphereCenter, closestPoint);
+    float squaredDistance = DirectX::XMVectorGetX(DirectX::XMVector3LengthSq(diff));
+
+    // Collision occurs if the squared distance is less than the squared radius
+    return squaredDistance <= (sphereRadius * sphereRadius);
 }
 
-void SphereCollider::ReflectVelocity(const DirectX::XMVECTOR& normal)
+void SphereCollider::HandleCubeCollision(CubeCollider* cube)
 {
-    DirectX::XMVECTOR velocity = XMLoadFloat3(&mAttachedObject->Velocity);
-    DirectX::XMVECTOR reflectedVelocity = DirectX::XMVectorSubtract(
-        velocity,
-        DirectX::XMVectorScale(normal, 2 * DirectX::XMVectorGetX(DirectX::XMVector3Dot(velocity, normal)))
-    );
+    DirectX::XMVECTOR normal;
+    float penetrationDepth;
 
-    XMStoreFloat3(&mAttachedObject->Velocity, reflectedVelocity);
-}
-
-void SphereCollider::CorrectSpherePosition(const DirectX::XMVECTOR& normal,
-    const PlaneCollider* planeCollider) const
-{
-    DirectX::XMVECTOR sphereCenter = XMLoadFloat3(&mAttachedObject->Position);
-    float distance = DirectX::XMVectorGetX(DirectX::XMVector3Dot(normal, sphereCenter)) + planeCollider->D;
-
-    if (std::abs(distance) < Radius)
+    if (ComputeSphereCubeCollisionInfo(cube, normal, penetrationDepth))
     {
-        DirectX::XMVECTOR correction = DirectX::XMVectorScale(normal, Radius - distance);
-        DirectX::XMVECTOR newPosition = DirectX::XMVectorAdd(sphereCenter, correction);
-        XMStoreFloat3(&mAttachedObject->Position, newPosition);
+        RegisterCollision(cube, normal);
+        ResolveSpherePenetration(normal, penetrationDepth);
+        ResolveSphereVelocity(normal);
     }
 }
+
+void SphereCollider::ResolveSpherePenetration(
+    const DirectX::XMVECTOR& normal, float penetrationDepth) const
+{
+    if (bStatic) return;
+
+    // Move sphere out of the cube along the normal
+    DirectX::XMVECTOR correction = DirectX::XMVectorScale(normal, penetrationDepth);
+    DirectX::XMVECTOR newPos = DirectX::XMLoadFloat3(&mAttachedObject->Position);
+    newPos = DirectX::XMVectorAdd(newPos, correction);
+
+    XMStoreFloat3(&mAttachedObject->Position, newPos);
+}
+
+void SphereCollider::ResolveSphereVelocity(const DirectX::XMVECTOR& normal) const
+{
+    DirectX::XMVECTOR velocity = XMLoadFloat3(&mAttachedObject->Velocity);
+
+    // Compute velocity along the normal
+    float velAlongNormal = DirectX::XMVectorGetX(DirectX::XMVector3Dot(velocity, normal));
+
+    if (velAlongNormal > 0) return; // Moving away, no resolution needed
+
+    // Reflect velocity for bounce effect
+    DirectX::XMVECTOR newVelocity = DirectX::XMVectorSubtract(
+        velocity, DirectX::XMVectorScale(normal, 2.0f * velAlongNormal)
+    );
+	XMStoreFloat3(&mAttachedObject->Velocity, newVelocity);
+
+    if (mAttachedObject->IsResting())  // Check if the object is resting
+    {
+        mAttachedObject->Velocity.y = 0.0f;
+    }
+}
+
+bool SphereCollider::ComputeSphereCubeCollisionInfo(
+    const CubeCollider* cube,
+    DirectX::XMVECTOR& normal,
+    float& penetrationDepth) const
+{
+    DirectX::XMVECTOR spherePos = DirectX::XMLoadFloat3(&mAttachedObject->Position);
+    DirectX::XMVECTOR cubePos = DirectX::XMLoadFloat3(&cube->mAttachedObject->Position);
+    DirectX::XMVECTOR cubeHalfExtents = DirectX::XMLoadFloat3(&cube->mScale);
+
+    // Find the closest point on the cube to the sphere
+    DirectX::XMVECTOR closestPoint = DirectX::XMVectorClamp(
+        spherePos,
+        DirectX::XMVectorSubtract(cubePos, cubeHalfExtents), // Min corner
+        DirectX::XMVectorAdd(cubePos, cubeHalfExtents)       // Max corner
+    );
+
+    // Compute the vector from closest point to sphere center
+    normal = DirectX::XMVectorSubtract(spherePos, closestPoint);
+    float distanceSq = DirectX::XMVectorGetX(DirectX::XMVector3LengthSq(normal));
+
+    if (distanceSq == 0.0f)
+    {
+        // Sphere center is inside the cube
+        normal = DirectX::XMVectorSet(0, 1, 0, 0); // Default upward normal
+        penetrationDepth = Radius;
+        return true;
+    }
+
+    // Normalize normal
+    normal = DirectX::XMVector3Normalize(normal);
+
+    // Compute penetration depth
+    float distance = sqrtf(distanceSq);
+    penetrationDepth = Radius - distance;
+
+    return penetrationDepth > 0.0f;
+}
+
 
 #pragma endregion

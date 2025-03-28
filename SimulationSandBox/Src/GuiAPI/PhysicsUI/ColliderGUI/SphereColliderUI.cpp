@@ -2,7 +2,7 @@
 #include "imgui/imgui.h"
 
 
-void SphereColliderUI::OnUpdateGUI()
+void SphereColliderUI::ChildUpdateGUI()
 {
     ImGui::SeparatorText("Sphere Collider");
     ImGui::Text("Properties:");
