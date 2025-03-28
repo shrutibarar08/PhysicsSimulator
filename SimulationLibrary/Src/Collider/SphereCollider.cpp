@@ -93,7 +93,8 @@ void SphereCollider::ResolveSpherePenetration(
     {
         // Move only the dynamic object
         DirectX::XMVECTOR correction = DirectX::XMVectorScale(normal, penetrationDepth);
-        XMStoreFloat3(&other->mAttachedObject->Position, DirectX::XMVectorSubtract(centerB, correction));
+        XMStoreFloat3(&other->mAttachedObject->Position, DirectX::XMVectorSubtract(centerB, 
+            correction));
         return;
     }
 	if (other->bStatic)
@@ -147,7 +148,8 @@ void SphereCollider::ResolveSphereVelocity(const DirectX::XMVECTOR& normal, cons
     // Apply impulse only if the particle is not resting
     if (!bStatic)
     {
-        DirectX::XMVECTOR newVelocityA = DirectX::XMVectorAdd(velocityA, DirectX::XMVectorScale(impulse, 1.0f / massA));
+        DirectX::XMVECTOR newVelocityA = DirectX::XMVectorAdd(velocityA,
+            DirectX::XMVectorScale(impulse, 1.0f / massA));
         newVelocityA = DirectX::XMVectorScale(newVelocityA, mAttachedObject->mDamping); // Apply damping
     	XMStoreFloat3(&mAttachedObject->Velocity, newVelocityA);
 
@@ -165,23 +167,13 @@ void SphereCollider::ResolveSphereVelocity(const DirectX::XMVECTOR& normal, cons
         }
         else
         {
-            DirectX::XMVECTOR newVelocityB = DirectX::XMVectorSubtract(velocityB, DirectX::XMVectorScale(impulse, 1.0f / massB));
-            newVelocityB = DirectX::XMVectorScale(newVelocityB, other->mAttachedObject->mDamping); // Apply damping
+            DirectX::XMVECTOR newVelocityB = DirectX::XMVectorSubtract(velocityB,
+                DirectX::XMVectorScale(impulse, 1.0f / massB));
+            newVelocityB = DirectX::XMVectorScale(newVelocityB,
+                other->mAttachedObject->mDamping); // Apply damping
             XMStoreFloat3(&other->mAttachedObject->Velocity, newVelocityB);
         }
     }
-}
-
-//~ For immovable objects
-void SphereCollider::ComputeSphereVelocityChange(
-    const DirectX::XMVECTOR& velocityA, const DirectX::XMVECTOR& velocityB,
-    const DirectX::XMVECTOR& normal, DirectX::XMVECTOR& newVelocityA, DirectX::XMVECTOR& newVelocityB) const
-{
-    DirectX::XMVECTOR vA_proj = DirectX::XMVectorScale(normal, DirectX::XMVectorGetX(DirectX::XMVector3Dot(velocityA, normal)));
-    DirectX::XMVECTOR vB_proj = DirectX::XMVectorScale(normal, DirectX::XMVectorGetX(DirectX::XMVector3Dot(velocityB, normal)));
-
-    newVelocityA = DirectX::XMVectorSubtract(velocityA, DirectX::XMVectorScale(vA_proj, 2.0f));
-    newVelocityB = DirectX::XMVectorSubtract(velocityB, DirectX::XMVectorScale(vB_proj, 2.0f));
 }
 
 #pragma endregion
@@ -297,6 +289,5 @@ bool SphereCollider::ComputeSphereCubeCollisionInfo(
 
     return penetrationDepth > 0.0f;
 }
-
 
 #pragma endregion

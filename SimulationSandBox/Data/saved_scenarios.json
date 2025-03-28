@@ -1,2 +1,459 @@
 {
+    "SandBox": {
+        "Lights": [
+            {
+                "ambient": [
+                    0.44483983516693115,
+                    0.2912830114364624,
+                    0.2912830114364624,
+                    1.0
+                ],
+                "attenuation": [
+                    1.0,
+                    0.17000000178813934,
+                    0.10999999940395355
+                ],
+                "diffuse": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ],
+                "direction": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "light_name": "Main Lamp",
+                "light_type": "PointLight",
+                "position": [
+                    0.800000011920929,
+                    1.7000000476837158,
+                    0.699999988079071
+                ],
+                "range": 14.5,
+                "specular": [
+                    0.8434163331985474,
+                    0.5072504281997681,
+                    0.5072504281997681,
+                    1.0
+                ],
+                "spot": 0.0
+            },
+            {
+                "ambient": [
+                    0.3901546597480774,
+                    0.3915063738822937,
+                    0.580071210861206,
+                    1.0
+                ],
+                "attenuation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "diffuse": [
+                    0.03294030949473381,
+                    0.15770483016967773,
+                    0.18149465322494507,
+                    0.9803921580314636
+                ],
+                "direction": [
+                    7.599999904632568,
+                    -0.8999999761581421,
+                    12.899999618530273
+                ],
+                "light_name": "",
+                "light_type": "DirectionalLight",
+                "position": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "range": 0.0,
+                "specular": [
+                    0.4544934034347534,
+                    0.43620267510414124,
+                    0.9501779079437256,
+                    1.0
+                ],
+                "spot": 0.0
+            }
+        ],
+        "Objects": [
+            {
+                "Physics": {
+                    "Collider": {
+                        "Name": "CubeColliderUI",
+                        "Scale": [
+                            20.0,
+                            0.10000000149011612,
+                            20.0
+                        ],
+                        "Static": true
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
+                },
+                "object_name": "Plane",
+                "object_type": "CubeObject",
+                "texture_path": "Data/textures/wooden.jpg",
+                "transform": {
+                    "Param": null,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        20.0,
+                        0.10000000149011612,
+                        20.0
+                    ],
+                    "translation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": {
+                        "Elastic": 1.0,
+                        "Name": "SphereColliderUI",
+                        "Radius": 1.0,
+                        "Static": false
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.9900000095367432,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            -72.53791046142578,
+                            -64.52056121826172,
+                            -331.40625
+                        ]
+                    }
+                },
+                "object_name": "White ball",
+                "object_type": "SphereObject",
+                "texture_path": "Data/textures/diamond.jpg",
+                "transform": {
+                    "Param": {
+                        "LatitudeBands": 20,
+                        "LongitudeBands": 20,
+                        "Radius": 1.0
+                    },
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        -558.1959228515625,
+                        -219.84671020507813,
+                        -2592.257080078125
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": {
+                        "Name": "CubeColliderUI",
+                        "Scale": [
+                            0.10000000149011612,
+                            8.0,
+                            20.0
+                        ],
+                        "Static": true
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
+                },
+                "object_name": "Left Wall",
+                "object_type": "CubeObject",
+                "texture_path": "Data/textures/texture_2.jpg",
+                "transform": {
+                    "Param": null,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        0.10000000149011612,
+                        8.0,
+                        20.0
+                    ],
+                    "translation": [
+                        -20.0,
+                        8.0,
+                        0.0
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": {
+                        "Name": "CubeColliderUI",
+                        "Scale": [
+                            0.20000000298023224,
+                            8.0,
+                            20.0
+                        ],
+                        "Static": true
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
+                },
+                "object_name": "Right Wall",
+                "object_type": "CubeObject",
+                "texture_path": "Data/textures/texture_2.jpg",
+                "transform": {
+                    "Param": null,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        0.10000000149011612,
+                        8.0,
+                        20.0
+                    ],
+                    "translation": [
+                        20.0,
+                        8.0,
+                        0.0
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": {
+                        "Name": "CubeColliderUI",
+                        "Scale": [
+                            20.0,
+                            8.0,
+                            0.10000000149011612
+                        ],
+                        "Static": true
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
+                },
+                "object_name": "Front Wall",
+                "object_type": "CubeObject",
+                "texture_path": "Data/textures/texture_2.jpg",
+                "transform": {
+                    "Param": null,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        20.0,
+                        8.0,
+                        0.10000000149011612
+                    ],
+                    "translation": [
+                        0.0,
+                        8.0,
+                        20.0
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": {
+                        "Name": "CubeColliderUI",
+                        "Scale": [
+                            20.0,
+                            8.0,
+                            0.10000000149011612
+                        ],
+                        "Static": true
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.8999999761581421,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
+                },
+                "object_name": "Back Wall",
+                "object_type": "CubeObject",
+                "texture_path": "Data/textures/texture_2.jpg",
+                "transform": {
+                    "Param": null,
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        20.0,
+                        8.0,
+                        0.10000000149011612
+                    ],
+                    "translation": [
+                        0.0,
+                        8.0,
+                        -20.0
+                    ]
+                }
+            },
+            {
+                "Physics": {
+                    "Collider": {
+                        "Elastic": 1.0,
+                        "Name": "SphereColliderUI",
+                        "Radius": 1.0,
+                        "Static": false
+                    },
+                    "Particle": {
+                        "Acceleration": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Damping": 0.9800000190734863,
+                        "Force": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Mass": 1.0,
+                        "Velocity": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
+                },
+                "object_name": "red ball",
+                "object_type": "SphereObject",
+                "texture_path": "Data/textures/hat.jpg",
+                "transform": {
+                    "Param": {
+                        "LatitudeBands": 20,
+                        "LongitudeBands": 20,
+                        "Radius": 1.0
+                    },
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "translation": [
+                        -14.332317352294922,
+                        1.100000023841858,
+                        -4.556053638458252
+                    ]
+                }
+            }
+        ]
+    }
 }
